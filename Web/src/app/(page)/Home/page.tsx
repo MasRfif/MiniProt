@@ -103,21 +103,21 @@ export default function Home() {
 
       <footer className="footer bg-[#292929] text-base-content p-10">
         <nav>
-          <h6 className="footer-title text-[#302318]">Services</h6>
+          <h6 className="footer-title text-red-600">Services</h6>
           <a className="link link-hover text-white">Branding</a>
           <a className="link link-hover text-white">Design</a>
           <a className="link link-hover text-white">Marketing</a>
           <a className="link link-hover text-white">Advertisement</a>
         </nav>
         <nav>
-          <h6 className="footer-title text-[#302318]">Company</h6>
+          <h6 className="footer-title text-red-600">Company</h6>
           <a className="link link-hover text-white">About us</a>
           <a className="link link-hover text-white">Contact</a>
           <a className="link link-hover text-white">Jobs</a>
           <a className="link link-hover text-white">Press kit</a>
         </nav>
         <nav>
-          <h6 className="footer-title text-[#302318]">Social</h6>
+          <h6 className="footer-title text-red-600">Social</h6>
           <div className="grid grid-flow-col gap-4">
             <a>
               <svg
