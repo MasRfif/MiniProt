@@ -6,7 +6,7 @@ export default function Login() {
     <>
       <section
         id="hero"
-        className="flex w-full h-screen self-centeroverflow-hidden"
+        className="flex w-full h-screen self-center overflow-hidden"
       >
         {" "}
         <section className="w-[980px] flex justify-center items-center font-bold rounded-r-3xl bg-red-700">
