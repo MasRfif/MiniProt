@@ -3,31 +3,92 @@ import { NextFunction, Request, Response } from "express";
 
 const prisma = new PrismaClient();
 
-export async function getAllEvent(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+// get single event
+export async function getSingleEvent(req: Request, res: Response) {
   try {
-    const { page = 1, limit = 2 /*10*/ } = req.query;
-    const offset = (Number(page) - 1) * Number(limit);
-
-    const events = await prisma.events.findMany({
-      skip: offset,
-      take: Number(limit),
-    });
-
-    const totalEvents = await prisma.events.count();
-
-    return res.status(200).json({
-      data: events,
-      meta: {
-        totalEvents,
-        currentPage: Number(page),
-        totalPages: Math.ceil(totalEvents / Number(limit)),
+    const { id } = req.params;
+    const post = await prisma.events.findUnique({
+      where: {
+        id: +id,
       },
     });
+
+    if (!post) res.status(404).json({ message: "Post not found" });
+
+    res.status(201).json({ message: post });
   } catch (error) {
-    next(error);
+    res.status(500).json({ message: "cannot get the event" });
+  }
+}
+
+// show all the events
+export async function getAllEvent(req: Request, res: Response) {
+  try {
+    const acara = await prisma.events.findMany();
+    res.status(200).json({ data: acara });
+  } catch (error) {
+    res.status(500).json({ message: "An error occurred while fetching events" });
+  }
+}
+
+// create event
+export async function CreateEvent(req: Request, res: Response) {
+  try {
+    const { eventName, price, location, description, availableSeat, eventTypeId } = req.body;
+
+    await prisma.events.create({
+      data: {
+        eventName,
+        price,
+        description,
+        location,
+        availableSeat,
+        eventTypeId,
+      },
+    });
+    res.status(201).json({ message: "post created" });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// edit event
+export async function editEvent(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+    const { eventName, price, location, description, availableSeat, eventTypeId } = req.body;
+
+    const change = await prisma.events.update({
+      where: {
+        id: +id,
+      },
+      data: {
+        eventName,
+        price,
+        location,
+        description,
+        availableSeat,
+        eventTypeId,
+      },
+    });
+    res.status(201).json({ message: change });
+  } catch (error) {
+    res.status(500).json({ message: "server bad" });
+  }
+}
+
+// delete event
+export async function deleteEvents(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+    await prisma.events.delete({
+      where: {
+        id: +id,
+      },
+    });
+
+    res.status(201).json({ message: "user deleted" });
+  } catch (error) {
+    console.error(error);
   }
 }

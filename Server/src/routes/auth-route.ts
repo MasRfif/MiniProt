@@ -1,9 +1,8 @@
-import express from "express";
-import { mailtest, register } from "../controllers/auth-controller";
+// import express from "express";
+// import { register } from "../controllers/auth-controller";
 
-const router = express.Router();
+// const router = express.Router();
 
-router.route("/register").post(register);
-router.route("/test").get(mailtest);
+// router.route("/register").post(register);
 
-export default router;
+// export default router;
