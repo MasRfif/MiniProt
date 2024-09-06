@@ -30,8 +30,8 @@ export default function Navbar() {
   return (
     <>
       <section>
-        <nav className="fixed w-full h-24 shadow-xl bg-[#292929] rounded-b-3xl">
-          <div className="flex justify-between items-center h-full w-full px-4">
+        <nav className="fixed w-full h-24 z-10 shadow-xl bg-black/80  rounded-b-3xl backdrop-filter backdrop-blur-sm">
+          <div className="flex justify-between items-center h-full w-full px-4 z-10">
             <Image
               src="/LogoPrimary1.png"
               alt="Text-logo"

@@ -84,15 +84,20 @@ export default function Login() {
         </section>
         <section className="flex justify-center items-center w-full h-full ">
           <div className="bg-black w-[95%] h-[95%] rounded-xl overflow-hidden shadow-md">
-            <div className=" bg-orange-950/80" w-10 />
+            <div className=" bg-slate-500/60 absolute top-6  w-[62.2%] h-[95%] rounded-xl " />
+            <form className="absolute w-[63%] h-[95%] p-9 flex text-black text-5xl">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id
+              mollitia beatae dignissimos quos ab eligendi officia accusamus et!
+              Ut dolore minima pariatur illo voluptatibus, eaque iste harum
+              consequatur nesciunt ipsa.
+            </form>
             <Image
-              className="top-0 object-cover  bg-black w-[100%] h-[100%] rounded-xl overflow-hidden"
+              className="top-0 object-cover bg-black w-[100%] h-[100%] rounded-xl overflow-hidden"
               src="https://images.unsplash.com/photo-1641390968145-15e506e768a3?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="/"
               width={500}
               height={500}
             />
-            <form></form>
           </div>
         </section>
       </section>
