@@ -1,21 +1,19 @@
-"use client";
-import Image from "next/image";
-import Link from "next/link";
+import Background from "@/components/2.Body/Background";
 
 export default function SignUp() {
   return (
     <>
       <section
         id="hero"
-        className="flex w-full h-screen self-centeroverflow-hidden"
+        className="w-full h-screen self-center overflow-hidden bg-black"
       >
-        {" "}
-        <section className="w-[980px] flex justify-center items-center font-bold rounded-r-3xl bg-red-700">
-          <div className="bg-white rounded-3xl  flex-col top-0  items-center justify-center p-9 w-[450px] h-[700px]">
+        <Background />
+        <section className="w-full h-full flex justify-center items-center font-bold rounded-r-3xl bg-gradient-to-l from-black/0 to-red-700/90">
+          <div className="bg-white backdrop-filter backdrop-blur-sm rounded-3xl  flex-col top-0  items-center justify-center p-9 w-[450px] h-[700px]">
             <h1 className="py-5 text-5xl">
               Get Started{" "}
               <p className="text-lg font-medium pt-1">
-                let's Create your Account
+                lets Create your Account
               </p>
             </h1>
             <form>
@@ -137,19 +135,6 @@ export default function SignUp() {
 
               <div></div>
             </form>
-          </div>
-        </section>
-        <section className="flex justify-center items-center w-full h-full ">
-          <div className="bg-black w-[95%] h-[95%] rounded-xl overflow-hidden shadow-md">
-            <div className=" bg-orange-950/80" w-10 />
-            <Image
-              className="top-0 object-cover  bg-black w-[100%] h-[100%] rounded-xl overflow-hidden"
-              src="https://images.unsplash.com/photo-1641390968145-15e506e768a3?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="/"
-              width={500}
-              height={500}
-            />
-            <form></form>
           </div>
         </section>
       </section>

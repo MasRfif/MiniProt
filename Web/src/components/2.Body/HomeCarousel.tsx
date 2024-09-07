@@ -4,7 +4,8 @@ export default function HomeCrls() {
   return (
     <div className=" bg-base-200 min-h-screen">
       <div className="hero-content ">
-        <div className=" text-white p-10 w-full h-full">
+        <div className=" text-white w-full h-full">
+          <div className="w-[115rem] h-60 bg-white"></div>
           <div className="p-10">
             <h1 className="text-5xl font-bold">Discover our events</h1>
             <p className="text-lg">
@@ -51,7 +52,12 @@ export default function HomeCrls() {
                     EVENT NAME
                     <div className="badge badge-secondary">Status optional</div>
                   </h2>
-                  <p>Event Descripttion</p>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Obcaecati recusandae provident voluptatum nihil tempora,
+                    similique odit ad, harum sed, at reiciendis quae libero ea
+                    molestiae facilis earum perspiciatis tempore vel.
+                  </p>
                   <div className="card-actions justify-end">
                     <div className="badge badge-outline">event Tag</div>
                     <div className="badge badge-outline">event Tag</div>

@@ -30,7 +30,7 @@ export default function Navbar() {
   return (
     <>
       <section>
-        <nav className="fixed w-full h-24 z-10 shadow-xl bg-black/80  rounded-b-3xl backdrop-filter backdrop-blur-sm">
+        <nav className="fixed w-full h-24 z-10  shadow-xl bg-black/80  rounded-b-3xl backdrop-filter backdrop-blur-sm">
           <div className="flex justify-between items-center h-full w-full px-4 z-10">
             <Image
               src="/LogoPrimary1.png"
@@ -39,25 +39,31 @@ export default function Navbar() {
               height={100}
             />
             <div className="relative w-96 hidden md:block">
-              <input
-                type="text"
-                placeholder="Search"
-                className="w-full px-4 py-2 rounded-lg border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-800"
-              />
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              <form onSubmit={(e) => e.preventDefault()}>
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="w-full max-w-72 px-4 py-2 rounded-lg border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-800"
                 />
-              </svg>
+                <button
+                  type="button"
+                  className="absolute rounded-xl right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </button>
+              </form>
             </div>
             <Link href="/">
               <Image
