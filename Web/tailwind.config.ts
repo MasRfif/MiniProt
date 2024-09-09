@@ -29,6 +29,9 @@ const config: Config = {
         sm: "768px",
         // => @media (min-width: 768px) { ... }
 
+        s: "420px",
+        // => @media (min-width: 420px) { ... }
+
         xs: "360px",
         // => @media (min-width: 360px) { ... }
       },

@@ -43,7 +43,7 @@ export default function Navbar() {
                 <input
                   type="text"
                   placeholder="Search"
-                  className="w-full max-w-72 px-4 py-2 rounded-lg border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-800"
+                  className="w-full max-w-80  px-4 py-2 rounded-lg border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-800"
                 />
                 <button
                   type="button"
@@ -56,9 +56,9 @@ export default function Navbar() {
                     stroke="currentColor"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                     />
                   </svg>
@@ -90,7 +90,12 @@ export default function Navbar() {
 
             <div className="avatar hidden md:block">
               <div className="ring-red-800 ring-offset-base-100 w-14 rounded-full ring ring-offset-2">
-                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                <Image
+                  alt="IconImg"
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  width={40}
+                  height={40}
+                />
               </div>
             </div>
             <div className="flex items-center md:hidden">
@@ -106,9 +111,9 @@ export default function Navbar() {
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                   />
                 </svg>
@@ -122,9 +127,9 @@ export default function Navbar() {
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M4 6h16M4 12h16M4 18h16"
                   />
                 </svg>
@@ -153,9 +158,9 @@ export default function Navbar() {
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
@@ -168,7 +173,12 @@ export default function Navbar() {
                 <li className="w-full text-center mb-4">
                   <div className="avatar">
                     <div className="ring-red-800 ring-offset-base-100 w-14 rounded-full ring ring-offset-2">
-                      <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                      <Image
+                        alt="Icon"
+                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                        width={600}
+                        height={600}
+                      />
                     </div>
                   </div>
                 </li>

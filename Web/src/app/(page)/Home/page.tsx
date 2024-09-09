@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/components/1.Header/Navbar";
 import HomeCrls from "@/components/2.Body/HomeCarousel";
+import Testimonial from "@/components/2.Body/Testimonies";
 
 export default function Home() {
   return (
@@ -12,8 +13,7 @@ export default function Home() {
           <div
             className="hero min-h-screen  "
             style={{
-              backgroundImage:
-                "url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp)",
+              backgroundImage: "url(bg.jpg)",
             }}
           >
             <div className="hero-overlay bg-opacity-60 w-full h-full p-10 bg-gradient-to-l from-black/0 to-black/90"></div>
@@ -146,6 +146,7 @@ export default function Home() {
           </div>
         </section>
         <HomeCrls />
+        <Testimonial />
       </main>
     </>
   );

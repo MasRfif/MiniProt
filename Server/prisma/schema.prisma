@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id             Int      @id @default(autoincrement())
+  firstName      String
+  lastName       String
+  username       String   @unique
+  email          String   @unique
+  emailConfirmed Boolean  @default(false)
+  password       String
+  // posts     Post[] // [] square brackets tuk relasi yg sifatny "many", tidak akan keliatan d colum
+  role           Roles    @relation(fields: [roleId], references: [id])
+  roleId         Int      @default(1) // 1 = event organizer, 2 = normal user
+  token          Token?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("users") // untuk mengubah nama table yg tdk mengikuti default prisma
+}
+
+model Token {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  used      Boolean  @default(false)
+  expiresAt DateTime
+  user      Users    @relation(fields: [userId], references: [id])
+  userId    Int      @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("tokens")
+}
+
+model Events {
+  id            Int       @id @default(autoincrement())
+  eventName     String
+  price         Int       @default(0)
+  date          DateTime?
+  time          DateTime?
+  location      String?
+  description   String?
+  availableSeat Int       @default(0)
+  // ticketType    Int
+  eventTypeId   Int       @default(1) //nnt d bikin relasiny 1 free, 2 paid
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  //note kemungkinan besar nnt ada table baru tuk ticket
+  @@map("events")
+}
+
+model Tickets {
+  id         Int       @id @default(autoincrement())
+  tixName    String?
+  used       Boolean
+  expireDate DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@map("tickets")
+}
+
+model Roles {
+  id        Int      @id @default(autoincrement())
+  position  String
+  user      Users[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("roles")
+}
