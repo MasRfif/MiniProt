@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "antd": "^5.20.5",
     "flowbite": "^2.5.1",
     "next": "^14.2.7",
     "react": "^18",

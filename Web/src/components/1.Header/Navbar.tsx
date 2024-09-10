@@ -30,7 +30,7 @@ export default function Navbar() {
   return (
     <>
       <section>
-        <nav className="fixed w-full h-24 z-10  shadow-xl bg-black/80  rounded-b-3xl backdrop-filter backdrop-blur-sm">
+        <nav className="fixed w-full h-24 z-40  shadow-xl bg-black/80  rounded-b-3xl backdrop-filter backdrop-blur-sm">
           <div className="flex justify-between items-center h-full w-full px-4 z-10">
             <Image
               src="/LogoPrimary1.png"
@@ -39,29 +39,39 @@ export default function Navbar() {
               height={100}
             />
             <div className="relative w-96 hidden md:block">
-              <form onSubmit={(e) => e.preventDefault()}>
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="w-full max-w-80  px-4 py-2 rounded-lg border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-800"
-                />
+              <form className="flex items-center max-w-sm mx-auto">
+                <label htmlFor="simple-search" className="sr-only">
+                  Search
+                </label>
+                <div className=" w-full">
+                  <input
+                    type="text"
+                    id="simple-search"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full ps-5 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-ring-red-500"
+                    placeholder="Search branch name..."
+                    required
+                  />
+                </div>
                 <button
-                  type="button"
-                  className="absolute rounded-xl right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 "
+                  type="submit"
+                  className="p-2.5 ms-2 text-sm font-medium text-white bg-red-700 rounded-lg border  border-red-800 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-700 dark:bg-gray-700 dark:hover:bg-red-700 dark:focus:ring-red-800"
                 >
                   <svg
+                    className="w-4 h-4"
+                    aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                    viewBox="0 0 20 20"
                   >
                     <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                     />
                   </svg>
+                  <span className="sr-only">Search</span>
                 </button>
               </form>
             </div>
@@ -118,84 +128,86 @@ export default function Navbar() {
                   />
                 </svg>
               </button>
-              <button onClick={() => setIsOpen(!isOpen)}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div
-            className={`fixed top-0 left-0 w-full h-40 bg-black bg-opacity-50 transition-transform duration-300 ease-in-out ${
-              isSearchOpen ? "translate-y-0" : "-translate-y-full"
-            }`}
-          >
-            <div className="relative w-full px-4 py-2 bg-[#292929]">
-              <input
-                type="text"
-                placeholder="Search"
-                className="w-full px-4 py-2 rounded-lg border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-800"
-              />
-              <button
-                onClick={() => setIsSearchOpen(false)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-          {isOpen && (
-            <div className="md:hidden bg-[#292929] transition-all duration-300 ease-in-out p-4">
-              <ul className="flex flex-col items-center">
-                <li className="w-full text-center mb-4">
-                  <div className="avatar">
-                    <div className="ring-red-800 ring-offset-base-100 w-14 rounded-full ring ring-offset-2">
-                      <Image
-                        alt="Icon"
-                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                        width={600}
-                        height={600}
-                      />
-                    </div>
+              <div className="drawer">
+                <input
+                  id="my-drawer"
+                  type="checkbox"
+                  className="drawer-toggle"
+                />
+                <div className="drawer-content ">
+                  {/* Page content here */}
+                  <label
+                    htmlFor="my-drawer"
+                    className="btn btn-black outline outline-2 outline-red-700 drawer-button"
+                  ></label>
+                </div>
+                <div className="drawer-side ">
+                  <label
+                    htmlFor="my-drawer"
+                    aria-label="close sidebar"
+                    className="drawer-overlay "
+                  ></label>
+                  <div className="bg-black h-full w-80 rounded-xl p-4">
+                    <div className=" w-72 py-4 ">
+                      <form className="max-w-md mx-auto">
+                        <label
+                          htmlFor="default-search"
+                          className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+                        >
+                          Search
+                        </label>
+                        <div className="relative">
+                          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"></div>
+                          <input
+                            type="search"
+                            id="default-search"
+                            className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Search Mockups, Logos..."
+                            required
+                          />
+                          <button
+                            type="submit"
+                            className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          >
+                            <svg
+                              className="w-4 h-4 text-white dark:text-white"
+                              aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </form>
+                    </div>{" "}
+                    <ul className="flex flex-col justify-between w-96 space-y-2">
+                      {navLinks.map((menu, index) => (
+                        <li
+                          key={index}
+                          className="block w-72 p-5 bg-gray-800 hover:bg-gray-900 rounded-xl transition duration-300 ease-in-out"
+                        >
+                          <Link
+                            href={menu.href}
+                            className={`py-2 px-3 md:p-0 font-bold text-white md:bg-transparent md:text-white md:dark:text-white hover:text-yellow-950 transition duration-300 ease-in-out`}
+                          >
+                            {menu.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </li>
-                {navLinks.map((menu, index) => (
-                  <li key={index} className="w-full text-center">
-                    <Link
-                      href={menu.href}
-                      className="block py-2 px-4 text-white hover:bg-gray-700 transition duration-300 ease-in-out"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {menu.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+                </div>
+              </div>
             </div>
-          )}
+          </div>
         </nav>
       </section>
     </>

@@ -1,15 +1,23 @@
+"use client";
+
 import Image from "next/image";
+import { CloseCircleOutlined } from "@ant-design/icons";
+import { Tag } from "antd";
 
 export default function HomeCrls() {
+  const preventDefault = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    console.log("Clicked! But prevent default.");
+  };
   return (
     <div className=" bg-base-200 min-h-screen">
       <div className="hero-content ">
         <div className=" text-white w-full h-full">
-          <div className="flex w-[115rem] max-s:max-w-[24rem] max-s:h-96 h-60 bg-red-800 p-5 rounded-lg">
-            <div className="w-96 h-full ">
+          <div className=" flex flex-row  max-s:flex-col w-[115rem] max-s:w-[23rem] s:h-fit h-fit bg-red-800 p-5 rounded-lg">
+            <div className="w-96 max-s:w-full h-full ">
               <div className="justify-between items-center">
-                <label className="block pb-3 text-4xl font-bold  text-white">
-                  Event Name
+                <label className="block pb-3 text-3xl font-bold  text-white">
+                  Find Your Weekplan here
                 </label>
                 <input
                   className="mt-1 block w-full pl-3 text-sm h-10 text-gray-400 bg-black border border-red-700 rounded-md"
@@ -48,9 +56,134 @@ export default function HomeCrls() {
                 </div>
               </div>
             </div>
+            <div className=" pl-5 max-s:p-0 max-s:w-[20rem] w-[500px] h-full">
+              <div className="max-s:max-h-96 justify-between item-center ">
+                <label className="block pb-3 text-3xl font-bold  text-white">
+                  latest search :
+                </label>
+                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
+                  japane matsuri
+                </Tag>
+                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
+                  Waku waku fest
+                </Tag>
+                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
+                  piupibsdvbsjdvhbsODcbhsd
+                </Tag>
+                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
+                  ascijbsdocbodbcuhsd
+                </Tag>
+                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
+                  how to die in Redzone
+                </Tag>
+                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
+                  japane matsuri
+                </Tag>
+                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
+                  Waku waku fest
+                </Tag>
+                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
+                  piupibsdvbsjdvhbsODcbhsd
+                </Tag>
+                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
+                  ascijbsdocbodbcuhsd
+                </Tag>
+                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
+                  how to die in Redzone
+                </Tag>
+                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
+                  how to die in Redzone
+                </Tag>
+                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
+                  how to die in Redzone
+                </Tag>
+                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
+                  Lorem ipsum, dolor sit amet
+                </Tag>
+              </div>
+            </div>
+            <div className="w-[60rem] max-s:w-80 px-32  max-s:px-0 max-s:pt-5 ">
+              <div className="carousel  gap-5 max-w-[50rem] max-s:max-w-[20rem] max-s:mx-auto carousel-end rounded-box">
+                <div className="carousel-item   ">
+                  <div className="card bg-base-100 image-full w-96 h-fit max-s:h-52 max-s:w-80 shadow-xl">
+                    <figure>
+                      <Image
+                        src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                        alt="Shoes"
+                        width={600}
+                        height={400}
+                      />
+                    </figure>
+                    <div className="card-body">
+                      <h2 className="card-title">Shoes!</h2>
+                      <p>If a dog chews shoes whose shoes does he choose?</p>
+                      <div className="card-actions justify-end">
+                        <button className="btn btn-primary">Buy Now</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="carousel-item  ">
+                  <div className="card bg-base-100 image-full w-96 h-fit max-s:h-52 max-s:w-80 shadow-xl">
+                    <figure>
+                      <Image
+                        src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                        alt="Shoes"
+                        width={600}
+                        height={400}
+                      />
+                    </figure>
+                    <div className="card-body">
+                      <h2 className="card-title">Shoes!</h2>
+                      <p>If a dog chews shoes whose shoes does he choose?</p>
+                      <div className="card-actions justify-end">
+                        <button className="btn btn-primary">Buy Now</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="carousel-item  ">
+                  <div className="card bg-base-100 image-full w-96 h-fit max-s:h-52 max-s:w-80 shadow-xl">
+                    <figure>
+                      <Image
+                        src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                        alt="Shoes"
+                        width={600}
+                        height={400}
+                      />
+                    </figure>
+                    <div className="card-body">
+                      <h2 className="card-title">Shoes!</h2>
+                      <p>If a dog chews shoes whose shoes does he choose?</p>
+                      <div className="card-actions justify-end">
+                        <button className="btn btn-primary">Buy Now</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="carousel-item  ">
+                  <div className="card bg-base-100 image-full w-96 h-fit max-s:h-52 max-s:w-80 shadow-xl">
+                    <figure>
+                      <Image
+                        src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                        alt="Shoes"
+                        width={600}
+                        height={400}
+                      />
+                    </figure>
+                    <div className="card-body">
+                      <h2 className="card-title">Shoes!</h2>
+                      <p>If a dog chews shoes whose shoes does he choose?</p>
+                      <div className="card-actions justify-end">
+                        <button className="btn btn-primary">Buy Now</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div></div>
           <div className="p-10">
             <h1 className="text-5xl font-bold">Discover our events</h1>
             <p className="text-lg">
@@ -58,7 +191,7 @@ export default function HomeCrls() {
             </p>
           </div>
 
-          <div className="carousel  gap-20 max-w-[113rem] max-s:max-w-[24rem] max-s:mx-auto carousel-end rounded-box">
+          <div className="carousel  gap-20 max-w-[113rem] max-s:max-w-[23rem] max-s:mx-auto carousel-end rounded-box">
             <div className="carousel-item  ">
               <div className="card bg-base-100 w-96 h-96 shadow-xl">
                 <figure className="h-48">
@@ -225,7 +358,7 @@ export default function HomeCrls() {
             </p>
           </div>
 
-          <div className="carousel gap-20 max-w-[113rem] max-s:max-w-[24rem] carousel-end rounded-box">
+          <div className="carousel gap-20 max-w-[113rem] max-s:max-w-[23rem] carousel-end rounded-box">
             <div className="carousel-item  ">
               <div className="card bg-base-100 w-96 shadow-xl">
                 <figure>
