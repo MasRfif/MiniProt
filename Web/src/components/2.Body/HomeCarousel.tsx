@@ -1,14 +1,7 @@
-"use client";
-
 import Image from "next/image";
-import { CloseCircleOutlined } from "@ant-design/icons";
-import { Tag } from "antd";
+import Tag from "../Asset/Tags";
 
 export default function HomeCrls() {
-  const preventDefault = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    console.log("Clicked! But prevent default.");
-  };
   return (
     <div className=" bg-base-200 min-h-screen">
       <div className="hero-content ">
@@ -56,52 +49,7 @@ export default function HomeCrls() {
                 </div>
               </div>
             </div>
-            <div className=" pl-5 max-s:p-0 max-s:w-[20rem] w-[500px] h-full">
-              <div className="max-s:max-h-96 justify-between item-center ">
-                <label className="block pb-3 text-3xl font-bold  text-white">
-                  latest search :
-                </label>
-                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
-                  japane matsuri
-                </Tag>
-                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
-                  Waku waku fest
-                </Tag>
-                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
-                  piupibsdvbsjdvhbsODcbhsd
-                </Tag>
-                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
-                  ascijbsdocbodbcuhsd
-                </Tag>
-                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
-                  how to die in Redzone
-                </Tag>
-                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
-                  japane matsuri
-                </Tag>
-                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
-                  Waku waku fest
-                </Tag>
-                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
-                  piupibsdvbsjdvhbsODcbhsd
-                </Tag>
-                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
-                  ascijbsdocbodbcuhsd
-                </Tag>
-                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
-                  how to die in Redzone
-                </Tag>
-                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
-                  how to die in Redzone
-                </Tag>
-                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
-                  how to die in Redzone
-                </Tag>
-                <Tag closeIcon={<CloseCircleOutlined />} onClose={console.log}>
-                  Lorem ipsum, dolor sit amet
-                </Tag>
-              </div>
-            </div>
+            <Tag />
             <div className="w-[60rem] max-s:w-80 px-32  max-s:px-0 max-s:pt-5 ">
               <div className="carousel  gap-5 max-w-[50rem] max-s:max-w-[20rem] max-s:mx-auto carousel-end rounded-box">
                 <div className="carousel-item   ">

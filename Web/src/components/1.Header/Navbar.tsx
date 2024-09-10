@@ -9,8 +9,8 @@ export default function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Event", href: "/Product" },
+    { name: "Home", href: "/home" },
+    { name: "Event", href: "/event" },
     { name: "FeedBack", href: "/About" },
     { name: "About", href: "/Teams" },
   ];
@@ -27,16 +27,40 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
+  const [navBar, setNavbar] = useState<Boolean | undefined>();
+  const [showNavBar, setShowNavBar] = useState(false);
+
+  useEffect(() => {
+    const changeBackground = () => {
+      if (window.scrollY > 0) {
+        setNavbar(true);
+      } else {
+        setNavbar(false);
+      }
+    };
+
+    changeBackground();
+
+    window.addEventListener("scroll", changeBackground);
+    return () => window.removeEventListener("scroll", changeBackground);
+  }, []);
+
   return (
     <>
       <section>
-        <nav className="fixed w-full h-24 z-40  shadow-xl bg-black/80  rounded-b-3xl backdrop-filter backdrop-blur-sm">
-          <div className="flex justify-between items-center h-full w-full px-4 z-10">
+        <nav
+          className={`${
+            navBar || showNavBar
+              ? "bg-black/20 transition-colors backdrop-filter backdrop-blur-sm duration-75"
+              : "bg-black/50"
+          } fixed w-full h-fit z-40 shadow-xl`}
+        >
+          <div className="flex justify-between items-center h-fit w-full px-4 z-10">
             <Image
               src="/LogoPrimary1.png"
               alt="Text-logo"
-              width={100}
-              height={100}
+              width={80}
+              height={70}
             />
             <div className="relative w-96 hidden md:block">
               <form className="flex items-center max-w-sm mx-auto">
@@ -48,7 +72,7 @@ export default function Navbar() {
                     type="text"
                     id="simple-search"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full ps-5 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-ring-red-500"
-                    placeholder="Search branch name..."
+                    placeholder="Search Event Name"
                     required
                   />
                 </div>
@@ -65,9 +89,9 @@ export default function Navbar() {
                   >
                     <path
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                     />
                   </svg>
@@ -79,8 +103,8 @@ export default function Navbar() {
               <Image
                 src="/middle.png"
                 alt="Primary-logo"
-                width={100}
-                height={100}
+                width={80}
+                height={70}
               />
             </Link>
             <div role="none" className="hidden md:flex">
@@ -98,15 +122,35 @@ export default function Navbar() {
               </ul>
             </div>
 
-            <div className="avatar hidden md:block">
-              <div className="ring-red-800 ring-offset-base-100 w-14 rounded-full ring ring-offset-2">
-                <Image
-                  alt="IconImg"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                  width={40}
-                  height={40}
-                />
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost w-1 rounded-btn"
+              >
+                {" "}
+                <div className="avatar hidden md:block">
+                  <div className="ring-red-800 ring-offset-base-100 w-14 rounded-full ring ring-offset-2">
+                    <Image
+                      alt="IconImg"
+                      src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                      width={40}
+                      height={40}
+                    />
+                  </div>
+                </div>
               </div>
+              <ul
+                tabIndex={0}
+                className="menu dropdown-content bg-base-100 rounded-btn z-[1] mt-4 w-52 p-2 shadow"
+              >
+                <li>
+                  <a>Login</a>
+                </li>
+                <li>
+                  <a>SigUp</a>
+                </li>
+              </ul>
             </div>
             <div className="flex items-center md:hidden">
               <button
@@ -178,9 +222,9 @@ export default function Navbar() {
                             >
                               <path
                                 stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
                                 d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                               />
                             </svg>
