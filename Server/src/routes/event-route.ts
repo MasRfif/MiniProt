@@ -1,15 +1,19 @@
 import express, { Router } from "express";
 import {
-  CreateEvent,
+  createEvent,
   deleteEvents,
   editEvent,
   getAllEvent,
   getSingleEvent,
 } from "../controllers/event-controller";
 
+import { uploader } from "../middlewares/uploader-middleware";
+
 const router = express.Router();
 
-router.route("/").get(getAllEvent).post(CreateEvent);
+const upload = uploader();
+
+router.route("/").get(getAllEvent).post(upload.single("image"), createEvent);
 router.route("/:id").get(getSingleEvent).put(editEvent).delete(deleteEvents);
 
 export default router;

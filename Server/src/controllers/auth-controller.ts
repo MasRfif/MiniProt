@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { compare, genSalt, hash } from "bcrypt"; // salt adalah kunci encrypsi yg d pkai bcrypt
 import jwt from "jsonwebtoken";
@@ -9,7 +9,11 @@ const prisma = new PrismaClient();
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function register(req: Request, res: Response) {
+export async function register(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const referralCode = crypto.randomBytes(6).toString("hex");
 
@@ -75,11 +79,15 @@ export async function register(req: Request, res: Response) {
 
     res.status(201).json({ message: "Registered. Please confirm your email" });
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 }
 
-export async function confirmEmail(req: Request, res: Response) {
+export async function confirmEmail(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { token } = req.query;
 
@@ -109,11 +117,11 @@ export async function confirmEmail(req: Request, res: Response) {
 
     res.status(200).json({ message: "Email successfully confirmed!" });
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 }
 
-export async function login(req: Request, res: Response) {
+export async function login(req: Request, res: Response, next: NextFunction) {
   try {
     const { email, password } = req.body;
 
@@ -128,7 +136,8 @@ export async function login(req: Request, res: Response) {
       },
     });
 
-    if (!user) res.status(404).json({ message: "Email not confirmed or not found " });
+    if (!user || !user.emailConfirmed)
+      res.status(404).json({ message: "Email not confirmed or not found" });
 
     const isValidPassword = await compare(password, user?.password!);
 
@@ -150,6 +159,16 @@ export async function login(req: Request, res: Response) {
       .status(200)
       .json({ message: "Successfully logged in!" /*, token*/ });
   } catch (error) {
-    console.log(error);
+    next(error);
+  }
+}
+
+export async function logout(req: Request, res: Response, next: NextFunction) {
+  try {
+    res.clearCookie("token");
+
+    return res.status(200).json({ message: "Successfully logged out." });
+  } catch (error) {
+    next(error);
   }
 }
