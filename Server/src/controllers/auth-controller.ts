@@ -1,32 +1,32 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { compare, genSalt, hash } from "bcrypt"; // salt adalah kunci encrypsi yg d pkai bcrypt
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { Resend } from "resend";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function register(
+// export async function register(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  try {
+//   try {
     const referralCode = crypto.randomBytes(6).toString("hex");
 
-    const { firstName, lastName, username, email, password } = req.body;
+//     const { firstName, lastName, username, email, password } = req.body;
 
-    const existingUser = await prisma.users.findUnique({
-      where: { email },
-    });
+//     const existingUser = await prisma.users.findUnique({
+//       where: { email },
+//     });
 
     if (existingUser) res.status(409).json({ message: "User with this email already exist" });
 
-    const salt = await genSalt(10);
-    const hashedPassword = await hash(password, salt);
+//     const salt = await genSalt(10);
+//     const hashedPassword = await hash(password, salt);
 
     const userRole = await prisma.roles.findUnique({
       where: { id: 2, position: "User" },
@@ -46,9 +46,9 @@ export async function register(
       },
     });
 
-    // Generate confirmation token
-    const token = crypto.randomBytes(20).toString("hex");
-    const confirmationLink = `http://localhost:${process.env.PORT}/api/v1/auth/confirm-email?token=${token}`;
+//     // Generate confirmation token
+//     const token = crypto.randomBytes(20).toString("hex");
+//     const confirmationLink = `http://localhost:${process.env.PORT}/api/v1/auth/confirm-email?token=${token}`;
 
     await prisma.token.create({
       data: {
@@ -73,9 +73,9 @@ export async function register(
       html: `<strong>Hello, ${newUser.firstName + " " + newUser.lastName}!</strong><p> Please confirm your email by clicking on the following link: <a href="${confirmationLink}">Confirmation Link</a></p>`,
     });
 
-    if (error) {
-      return res.status(400).json({ error });
-    }
+//     if (error) {
+//       return res.status(400).json({ error });
+//     }
 
     res.status(201).json({ message: "Registered. Please confirm your email" });
   } catch (error) {

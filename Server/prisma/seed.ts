@@ -20,6 +20,23 @@ async function inputData() {
     },
   });
 
+  const eventInput: Prisma.EventsCreateInput[] = [
+    {
+      eventName: "super-name",
+      price: 20000000,
+      location: "jawakarta",
+      availableSeat: 200,
+      eventTypeId: 1,
+    },
+    {
+      eventName: "dhika-wibu-event",
+      price: 699000000,
+      location: "semarang",
+      availableSeat: 10000,
+      eventTypeId: 2,
+    },
+  ];
+
   //users
   const userData: Prisma.UsersCreateInput[] = [
     {
@@ -75,9 +92,7 @@ async function inputData() {
       data: element,
     });
 
-    console.log(
-      `Successfull created new user with id: ${user.id}, name: ${user.username}`
-    );
+    console.log(`Successfull created new user with id: ${user.id}, name: ${user.username}`);
   }
 
   console.log("Seeding data finished!");
