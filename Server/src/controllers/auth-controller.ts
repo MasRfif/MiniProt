@@ -132,8 +132,8 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       },
     });
 
-    if (!user)
-      res.status(404).json({ message: "Email not confirmed or not found " });
+    if (!user || !user.emailConfirmed)
+      res.status(404).json({ message: "Email not confirmed or not found" });
 
     const isValidPassword = await compare(password, user?.password!);
 

@@ -21,7 +21,7 @@ export default function Login() {
         credentials: "include",
       });
 
-      router.push("/Home");
+      router.push("/home");
       router.refresh();
     } catch (error) {
       console.error(error);
