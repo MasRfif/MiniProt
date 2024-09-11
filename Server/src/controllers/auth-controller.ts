@@ -44,6 +44,16 @@ export async function register(
       },
     });
 
+    //generate referral code
+    const referralCode = crypto.randomBytes(3).toString("hex");
+
+    await prisma.referralCode.create({
+      data: {
+        value: referralCode.toUpperCase(),
+        userId: newUser.id,
+      },
+    });
+
     // Generate confirmation token
     const token = crypto.randomBytes(20).toString("hex");
     const confirmationLink = `http://localhost:${process.env.PORT}/api/v1/auth/confirm-email?token=${token}`;
@@ -51,7 +61,7 @@ export async function register(
     await prisma.token.create({
       data: {
         token,
-        expiresAt: new Date(Date.now() + 60 * 60 * 1000),
+        expiresAt: new Date(Date.now() + 2 * 60 * 60 * 1000), //2 hours
         userId: newUser.id,
       },
     });
@@ -109,6 +119,14 @@ export async function confirmEmail(
     await prisma.users.update({
       where: { id: tokenRecord.userId },
       data: { emailConfirmed: true },
+    });
+
+    await prisma.referralCode.update({
+      where: { id: tokenRecord.id },
+      data: {
+        isActivated: true,
+        expireDate: new Date(Date.now() + 3 * 30 * 24 * 60 * 60 * 1000), //3 months
+      },
     });
 
     res.status(200).json({ message: "Email successfully confirmed!" });
