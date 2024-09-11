@@ -54,6 +54,7 @@ model Events {
   description   String?
   availableSeat Int       @default(0)
   // ticketType    Int
+  imageUrl      String?
   eventTypeId   Int       @default(1) //nnt d bikin relasiny 1 free, 2 paid
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
