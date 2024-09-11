@@ -1,19 +1,27 @@
 import { Prisma, PrismaClient } from "@prisma/client";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 const prisma = new PrismaClient();
 
-export async function getAllUser(req: Request, res: Response) {
+export async function getAllUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const users = await prisma.users.findMany();
     return res.status(200).json({ data: users });
   } catch (error) {
     //console.error(error);
-    return res.status(500).json({ message: "Sorry, something went wrong" });
+    next(error);
   }
 }
 
-export async function getSingleUser(req: Request, res: Response) {
+export async function getSingleUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { id } = req.params;
     const user = await prisma.users.findUnique({
@@ -25,12 +33,16 @@ export async function getSingleUser(req: Request, res: Response) {
 
     return res.status(200).json({ data: user });
   } catch (error) {
-    return res.status(500).json({ message: "Sorry, something went wrong" });
+    next(error);
   }
 }
 
 //edit user - Note edit profile
-export async function updateUser(req: Request, res: Response) {
+export async function updateUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   //Note blm bisa ubah password
   try {
     const { id } = req.params;
@@ -48,11 +60,15 @@ export async function updateUser(req: Request, res: Response) {
 
     res.status(200).json({ message: "User updated" });
   } catch (error) {
-    return res.status(500).json({ message: "Sorry, something went wrong" });
+    next(error);
   }
 }
 
-export async function deleteUser(req: Request, res: Response) {
+export async function deleteUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { id } = req.params;
 
@@ -64,6 +80,6 @@ export async function deleteUser(req: Request, res: Response) {
 
     res.status(200).json({ message: "User deleted" });
   } catch (error) {
-    return res.status(500).json({ message: "Sorry, something went wrong" });
+    next(error);
   }
 }
