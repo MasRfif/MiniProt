@@ -11,13 +11,15 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function register(req: Request, res: Response) {
   try {
+    const referralCode = crypto.randomBytes(6).toString("hex");
+
     const { firstName, lastName, username, email, password } = req.body;
+
     const existingUser = await prisma.users.findUnique({
       where: { email },
     });
 
-    if (existingUser)
-      res.status(409).json({ message: "User with this email already exist" });
+    if (existingUser) res.status(409).json({ message: "User with this email already exist" });
 
     const salt = await genSalt(10);
     const hashedPassword = await hash(password, salt);
@@ -52,13 +54,19 @@ export async function register(req: Request, res: Response) {
       },
     });
 
+    await prisma.referalCode.create({
+      data: {
+        value: referralCode,
+        expiresDate: new Date(Date.now() + 60 * 60 * 1000),
+        userId: newUser.id,
+      },
+    });
+
     const { data, error } = await resend.emails.send({
       from: "Project Occasion <project.occasion@resend.dev>",
       to: [newUser.email],
       subject: "Email Confirmation (Project Occasion)",
-      html: `<strong>Hello, ${
-        newUser.firstName + " " + newUser.lastName
-      }!</strong><p> Please confirm your email by clicking on the following link: <a href="${confirmationLink}">Confirmation Link</a></p>`,
+      html: `<strong>Hello, ${newUser.firstName + " " + newUser.lastName}!</strong><p> Please confirm your email by clicking on the following link: <a href="${confirmationLink}">Confirmation Link</a></p>`,
     });
 
     if (error) {
@@ -83,11 +91,7 @@ export async function confirmEmail(req: Request, res: Response) {
 
     // console.log(tokenRecord);
 
-    if (
-      !tokenRecord ||
-      tokenRecord.used ||
-      tokenRecord.expiresAt < new Date()
-    ) {
+    if (!tokenRecord || tokenRecord.used || tokenRecord.expiresAt < new Date()) {
       return res.status(400).json({ message: "Invalid or expired token" });
     }
 
@@ -124,8 +128,7 @@ export async function login(req: Request, res: Response) {
       },
     });
 
-    if (!user)
-      res.status(404).json({ message: "Email not confirmed or not found " });
+    if (!user) res.status(404).json({ message: "Email not confirmed or not found " });
 
     const isValidPassword = await compare(password, user?.password!);
 

@@ -4,11 +4,7 @@ import { NextFunction, Request, Response } from "express";
 const prisma = new PrismaClient();
 
 //get all events
-export async function getAllEvent(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function getAllEvent(req: Request, res: Response, next: NextFunction) {
   try {
     const { page = 1, limit = 2 /*10*/ } = req.query;
     const offset = (Number(page) - 1) * Number(limit);
@@ -37,11 +33,7 @@ export async function getAllEvent(
 }
 
 // get single event
-export async function getSingleEvent(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function getSingleEvent(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
     const post = await prisma.events.findUnique({
@@ -59,20 +51,9 @@ export async function getSingleEvent(
   }
 }
 
-export async function CreateEvent(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function CreateEvent(req: Request, res: Response, next: NextFunction) {
   try {
-    const {
-      eventName,
-      price,
-      location,
-      description,
-      availableSeat,
-      eventTypeId,
-    } = req.body;
+    const { eventName, price, location, description, availableSeat, eventTypeId } = req.body;
 
     await prisma.events.create({
       data: {
@@ -92,21 +73,10 @@ export async function CreateEvent(
 }
 
 // edit event
-export async function editEvent(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function editEvent(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
-    const {
-      eventName,
-      price,
-      location,
-      description,
-      availableSeat,
-      eventTypeId,
-    } = req.body;
+    const { eventName, price, location, description, availableSeat, eventTypeId } = req.body;
 
     const change = await prisma.events.update({
       where: {
@@ -129,11 +99,7 @@ export async function editEvent(
 }
 
 // delete event
-export async function deleteEvents(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function deleteEvents(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
     await prisma.events.delete({

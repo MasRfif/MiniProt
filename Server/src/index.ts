@@ -5,6 +5,7 @@ import userRouter from "./routes/user-route";
 import eventRouter from "./routes/event-route";
 import { error } from "./middlewares/error-middleware";
 import { notFound } from "./middlewares/not-found-middleware";
+import ticket from "./routes/ticket-route";
 
 const PORT = process.env.PORT || 8069;
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/events", eventRouter);
+app.use("/api/v1/ticket", ticket);
 
 app.use(notFound);
 app.use(error);
