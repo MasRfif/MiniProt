@@ -14,19 +14,22 @@ datasource db {
 }
 
 model Users {
-  id             Int      @id @default(autoincrement())
+  id             Int           @id @default(autoincrement())
   firstName      String
   lastName       String
-  username       String   @unique
-  email          String   @unique
-  emailConfirmed Boolean  @default(false)
+  username       String        @unique
+  email          String        @unique
+  emailConfirmed Boolean       @default(false)
   password       String
   // posts     Post[] // [] square brackets tuk relasi yg sifatny "many", tidak akan keliatan d colum
-  role           Roles    @relation(fields: [roleId], references: [id])
-  roleId         Int      @default(1) // 1 = event organizer, 2 = normal user
+  role           Roles         @relation(fields: [roleId], references: [id])
+  roleId         Int           @default(1) // 1 = event organizer, 2 = normal user
   token          Token?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  Wallet         Wallet[]
+  referalCode    referalCode[]
+  feedback       feedback[]
 
   @@map("users") // untuk mengubah nama table yg tdk mengikuti default prisma
 }
@@ -45,32 +48,34 @@ model Token {
 }
 
 model Events {
-  id            Int       @id @default(autoincrement())
+  id            Int        @id @default(autoincrement())
   eventName     String
-  price         Int       @default(0)
+  price         Int        @default(0)
   date          DateTime?
   time          DateTime?
   location      String?
   description   String?
-  availableSeat Int       @default(0)
+  availableSeat Int        @default(0)
   // ticketType    Int
   imageUrl      String?
-  eventTypeId   Int       @default(1) //nnt d bikin relasiny 1 free, 2 paid
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  eventTypeId   Int        @default(1) //nnt d bikin relasiny 1 free, 2 paid
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  feedback      feedback[]
 
   //note kemungkinan besar nnt ada table baru tuk ticket
   @@map("events")
 }
 
 model Tickets {
-  id         Int       @id @default(autoincrement())
-  tixName    String?
-  price      Int       @default(0)
-  used       Boolean
-  expireDate DateTime?
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id          Int           @id @default(autoincrement())
+  tixName     String?
+  price       Int           @default(0)
+  used        Boolean
+  expireDate  DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Transaction Transaction[]
 
   @@map("tickets")
 }
@@ -83,4 +88,58 @@ model Roles {
   updatedAt DateTime @updatedAt
 
   @@map("roles")
+}
+
+model Wallet {
+  id          Int           @id @default(autoincrement())
+  saldo       Int           @default(10000)
+  userId      Int
+  user        Users         @relation(fields: [userId], references: [id])
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Transaction Transaction[]
+  Voucher     Voucher[]
+}
+
+model Transaction {
+  id        Int      @id @default(autoincrement())
+  date      DateTime
+  quantity  Int
+  walletID  Int
+  Wallet    Wallet   @relation(fields: [walletID], references: [id])
+  ticketsID Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Tickets   Tickets? @relation(fields: [ticketsID], references: [id])
+}
+
+model referalCode {
+  id          Int      @id @default(autoincrement())
+  value       String   @unique
+  userId      Int
+  expiresDate DateTime
+  user        Users    @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Voucher {
+  id          Int      @id @default(autoincrement())
+  description String
+  discount    Int
+  expireDate  DateTime
+  isUsed      Boolean  @default(false)
+  walletId    Int
+  wallet      Wallet   @relation(fields: [walletId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model feedback {
+  id      Int    @id @default(autoincrement())
+  text    String
+  userId  Int
+  user    Users  @relation(fields: [userId], references: [id])
+  eventId Int
+  events  Events @relation(fields: [eventId], references: [id])
 }
