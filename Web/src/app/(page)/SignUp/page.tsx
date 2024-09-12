@@ -1,3 +1,5 @@
+"use client";
+
 import Background from "@/components/2.Body/Background";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
