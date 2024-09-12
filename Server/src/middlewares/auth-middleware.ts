@@ -23,6 +23,7 @@ export async function verifyToken(
       return res.status(401).json({ message: "Invalid token" });
 
     (req as any).user = verifiedUser;
+    console.log(verifiedUser);
 
     next();
   } catch (error) {

@@ -164,7 +164,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     if (!isValidPassword) res.status(401).json({ message: "Invalid password" });
 
-    const jwtPayload = { email, roleId: user?.roleId };
+    const jwtPayload = { userId: user?.id, email, roleId: user?.roleId };
     const token = jwt.sign(jwtPayload, process.env.JWT_SECRET_KEY as string, {
       expiresIn: "1h",
     });
