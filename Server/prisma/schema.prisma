@@ -30,6 +30,7 @@ model Users {
   Wallet         Wallet[]
   referalCode    referalCode[]
   feedback       feedback[]
+  rating         rating[]
 
   @@map("users") // untuk mengubah nama table yg tdk mengikuti default prisma
 }
@@ -62,6 +63,7 @@ model Events {
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
   feedback      feedback[]
+  rating        rating[]
 
   //note kemungkinan besar nnt ada table baru tuk ticket
   @@map("events")
@@ -138,6 +140,15 @@ model Voucher {
 model feedback {
   id      Int    @id @default(autoincrement())
   text    String
+  userId  Int
+  user    Users  @relation(fields: [userId], references: [id])
+  eventId Int
+  events  Events @relation(fields: [eventId], references: [id])
+}
+
+model rating {
+  id      Int    @id @default(autoincrement())
+  rate    Int
   userId  Int
   user    Users  @relation(fields: [userId], references: [id])
   eventId Int

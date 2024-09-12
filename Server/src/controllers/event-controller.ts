@@ -149,3 +149,22 @@ export async function feedback(req: Request, res: Response, next: NextFunction) 
     next(error);
   }
 }
+
+export async function ratings(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { rate } = req.body;
+    const { id } = req.params;
+    console.log((req as any).user);
+    await prisma.rating.create({
+      data: {
+        rate,
+        userId: (req as any).user.id,
+        eventId: +id,
+      },
+    });
+
+    res.status(202).json({ message: "Rating accepted" });
+  } catch (error) {
+    next(error);
+  }
+}
