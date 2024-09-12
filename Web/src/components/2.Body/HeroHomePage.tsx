@@ -17,10 +17,10 @@ export default function HeroHome() {
             }}
           >
             <div className="hero-overlay bg-opacity-60 w-full h-full p-10 bg-gradient-to-l from-black/0 to-black/90"></div>
-            <section className="flex  w-full h-full justify-between">
+            <section className="flex sm:p-8  w-full h-full justify-between">
               <div className=" flex flex-col  items-start justify-center text-white w-full h-full top-96  p-10 ">
                 <h1 className="text-4xl font-bold mb-4 font-fira-sans">
-                  Welcome to Our Website!
+                  Welcome to Our Website FIRST_NAME !
                 </h1>
                 <p className="text-lg xs:text-base  mb-8 ">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi,
@@ -37,7 +37,7 @@ export default function HeroHome() {
                 </button>
               </div>
               <div className="flex max-s:hidden justify-center items-center text-white w-full h-full">
-                <div className="carousel gap-5 max-w-[49rem] carousel-end rounded-box">
+                <div className="carousel gap-5 sm:w-[25rem] sm:h-[40rem]  max-w-[49rem]  carousel-end rounded-box">
                   <div className="carousel-item px-50 ">
                     <div className="card lg:card-side   bg-red-900 shadow-xl">
                       <figure>

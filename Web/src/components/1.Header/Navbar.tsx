@@ -10,7 +10,7 @@ export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "/home" },
+    { name: "Home", href: "/Home" },
     { name: "Event", href: "/event" },
     { name: "FeedBack", href: "/About" },
     { name: "About", href: "/Teams" },
@@ -54,7 +54,7 @@ export default function Navbar() {
             navBar || showNavBar
               ? "bg-black/20 transition-colors backdrop-filter backdrop-blur-sm duration-75"
               : "bg-black/50"
-          } fixed w-full h-fit z-40 shadow-xl`}
+          } fixed w-full h-fit z-30 shadow-xl`}
         >
           <div className="flex justify-between items-center h-fit w-full px-4 z-10">
             <Image
@@ -158,7 +158,7 @@ export default function Navbar() {
                   </ul>
                 </div>
               ) : (
-                <Link href="/signup">
+                <Link href="/SignUp">
                   <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
                     Sign Up
                   </button>

@@ -96,7 +96,7 @@ export default function Login() {
                 </label>
                 <a
                   className="inline-block align-baseline font-bold text-sm text-red-600 hover:text-yellow-950"
-                  href="/signup"
+                  href="/SignUp"
                 >
                   Sign Up
                 </a>

@@ -154,7 +154,7 @@ export default function SignUp() {
                   Sign Up
                 </button>
                 <a
-                  href="/login"
+                  href="/Login"
                   className="inline-block align-baseline font-bold text-sm text-[#725d36] hover:text-[#b5a85a]"
                 >
                   Sign In
