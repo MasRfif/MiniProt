@@ -6,7 +6,8 @@ import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const navLinks = [
     { name: "Home", href: "/home" },
@@ -122,35 +123,47 @@ export default function Navbar() {
               </ul>
             </div>
 
-            <div className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn btn-ghost w-1 rounded-btn"
-              >
-                {" "}
-                <div className="avatar hidden md:block">
-                  <div className="ring-red-800 ring-offset-base-100 w-14 rounded-full ring ring-offset-2">
-                    <Image
-                      alt="IconImg"
-                      src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                      width={40}
-                      height={40}
-                    />
+            <div className="flex items-center ">
+              {isLoggedIn ? (
+                <div className="dropdown dropdown-end">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost w-1 rounded-btn"
+                  >
+                    <div className="avatar hidden md:block">
+                      <div className="ring-red-800 ring-offset-base-100 w-14 rounded-full ring ring-offset-2">
+                        <Image
+                          alt="IconImg"
+                          src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                          width={40}
+                          height={40}
+                        />
+                      </div>
+                    </div>
                   </div>
+                  <ul
+                    tabIndex={0}
+                    className="menu dropdown-content bg-base-100 rounded-btn z-[1] mt-4 w-52 p-2 shadow"
+                  >
+                    <li>
+                      <Link href="/user">Profile</Link>
+                    </li>
+                    <li>
+                      <a>Settings</a>
+                    </li>
+                    <li>
+                      <a>Logout</a>
+                    </li>
+                  </ul>
                 </div>
-              </div>
-              <ul
-                tabIndex={0}
-                className="menu dropdown-content bg-base-100 rounded-btn z-[1] mt-4 w-52 p-2 shadow"
-              >
-                <li>
-                  <a>Login</a>
-                </li>
-                <li>
-                  <a>SigUp</a>
-                </li>
-              </ul>
+              ) : (
+                <Link href="/signup">
+                  <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
+                    Sign Up
+                  </button>
+                </Link>
+              )}
             </div>
             <div className="flex items-center md:hidden">
               <button
