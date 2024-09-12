@@ -25,8 +25,10 @@ model Users {
   role           Roles          @relation(fields: [roleId], references: [id])
   roleId         Int            @default(1) // 1 = event organizer, 2 = normal user
   token          Token?
+  isNewUser      Boolean        @default(true)
   //new
   wallet         Wallet[]
+  voucher        Voucher[]
   referalCode    ReferralCode[]
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
@@ -83,6 +85,7 @@ model Tickets {
 model Wallet {
   id          Int           @id @default(autoincrement())
   saldo       Int           @default(10000)
+  points      Int           @default(0)
   userId      Int
   user        Users         @relation(fields: [userId], references: [id])
   createdAt   DateTime      @default(now())
@@ -104,6 +107,20 @@ model Transaction {
   updatedAt DateTime @updatedAt
 
   @@map("transactions")
+}
+
+model Voucher {
+  id          Int      @id @default(autoincrement())
+  description String
+  discount    Int
+  expireDate  DateTime
+  isUsed      Boolean  @default(false)
+  userId      Int
+  User        Users    @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("vouchers")
 }
 
 model ReferralCode {

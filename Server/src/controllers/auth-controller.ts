@@ -129,6 +129,13 @@ export async function confirmEmail(
       },
     });
 
+    //create wallet
+    const wallet = await prisma.wallet.create({
+      data: {
+        userId: tokenRecord.userId,
+      },
+    });
+
     res.status(200).json({ message: "Email successfully confirmed!" });
   } catch (error) {
     next(error);
@@ -171,7 +178,9 @@ export async function login(req: Request, res: Response, next: NextFunction) {
         secure: true, //Note ganti true lg nnt pas push
       }) //beware CORS policy, set samesite carefully
       .status(200)
-      .json({ message: "Successfully logged in!" /*, token*/ });
+      .json({
+        message: "Successfully logged in!" /* user?.isNew ? "NEW" : "OLD" */,
+      });
   } catch (error) {
     next(error);
   }
