@@ -14,7 +14,7 @@ export default function SignUp() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const data = { firstName, email, password };
+    const data = { firstName, lastName, username, email, password };
 
     try {
       await fetch("http://localhost:8069/api/v1/auth/register", {
