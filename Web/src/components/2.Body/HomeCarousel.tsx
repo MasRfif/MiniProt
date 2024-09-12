@@ -49,10 +49,10 @@ export default function HomeCrls() {
               <Tag />
             </div>
 
-            <div className="w-fit max-s:w-80  max-s:px-0 max-s:pt-5 ">
-              <div className="carousel  gap-5  xl:w-[50rem] max-w-[50rem] max-s:max-w-[20rem] max-s:mx-auto carousel-end rounded-box">
-                <div className="carousel-item   ">
-                  <div className="card bg-base-100 image-full w-96 h-fit max-s:h-52 max-s:w-80 shadow-xl">
+            <div className="flex items-center w-fit max-sm:w-96 max-s:w-80  max-s:px-0 max-s:pt-5 ">
+              <div className="carousel  gap-9   xl:w-full max-w-[40rem] max-s:max-w-[20rem] max-s:mx-auto carousel-end rounded-box">
+                <div className="carousel-item ">
+                  <div className="card bg-base-100 image-full w-96 sm:w-72 sm:h-36 h-fit max-s:h-52 max-s:w-80 shadow-xl">
                     <figure>
                       <Image
                         src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -70,8 +70,8 @@ export default function HomeCrls() {
                     </div>
                   </div>
                 </div>
-                <div className="carousel-item  ">
-                  <div className="card bg-base-100 image-full w-96 h-fit max-s:h-52 max-s:w-80 shadow-xl">
+                <div className="carousel-item ">
+                  <div className="card bg-base-100 image-full w-96 sm:w-72 sm:h-36 h-fit max-s:h-52 max-s:w-80 shadow-xl">
                     <figure>
                       <Image
                         src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -89,8 +89,8 @@ export default function HomeCrls() {
                     </div>
                   </div>
                 </div>
-                <div className="carousel-item  ">
-                  <div className="card bg-base-100 image-full w-96 h-fit max-s:h-52 max-s:w-80 shadow-xl">
+                <div className="carousel-item ">
+                  <div className="card bg-base-100 image-full w-96 sm:w-72 sm:h-36 h-fit max-s:h-52 max-s:w-80 shadow-xl">
                     <figure>
                       <Image
                         src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -108,8 +108,8 @@ export default function HomeCrls() {
                     </div>
                   </div>
                 </div>
-                <div className="carousel-item  ">
-                  <div className="card bg-base-100 image-full w-96 h-fit max-s:h-52 max-s:w-80 shadow-xl">
+                <div className="carousel-item ">
+                  <div className="card bg-base-100 image-full w-96 sm:w-72  h-fit max-s:h-52 max-s:w-80 shadow-xl">
                     <figure>
                       <Image
                         src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -138,7 +138,7 @@ export default function HomeCrls() {
             </p>
           </div>
 
-          <div className="carousel sm:w-[45rem] sm:gap-10  gap-20 max-w-[113rem]   max-s:max-w-[23rem] max-s:mx-auto carousel-end rounded-box">
+          <div className="carousel max-[768px]:w-[45rem] max-[768px]:gap-10  gap-20 max-w-[113rem]   max-s:max-w-[23rem] max-s:mx-auto carousel-end rounded-box">
             <div className="carousel-item  ">
               <div className="p-2">
                 <Link href="/event">
@@ -301,7 +301,7 @@ export default function HomeCrls() {
             </p>
           </div>
 
-          <div className="carousel  gap-20 max-w-[113rem]   max-s:max-w-[23rem] max-s:mx-auto carousel-end rounded-box">
+          <div className="carousel max-[768px]:w-[45rem] max-[768px]:gap-10  gap-20 max-w-[113rem]   max-s:max-w-[23rem] max-s:mx-auto carousel-end rounded-box">
             <div className="carousel-item  ">
               <div className="p-2">
                 <Link href="/event">

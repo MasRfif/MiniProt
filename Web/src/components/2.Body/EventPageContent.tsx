@@ -1,19 +1,19 @@
 import Link from "next/link";
+
 export default function EventContent() {
   return (
     <>
-      <section className="flex pt-28 p-6 w-full  justify-center ">
-        {" "}
+      <section className="flex pt-28 p-6 w-full justify-center md:p-10 lg:p-12">
         <div
-          className="flex w-[70rem] h-96 justify-center bg-cover bg-center"
+          className="flex w-[70rem] h-96 justify-center bg-cover bg-center md:w-[50rem] lg:w-[40rem] xl:w-[30rem]"
           style={{ backgroundImage: "url(./test2.jpg)" }}
         >
           Add your image here
         </div>
       </section>
 
-      <section className="flex justify-center p-10">
-        <div className="p-4 w-[50rem]">
+      <section className="flex justify-center p-10 md:flex-col lg:flex-col xl:flex-col">
+        <div className="p-4 w-[50rem] md:w-full lg:w-full xl:w-full">
           <div>
             <h1 className="text-2xl font-bold">Event time</h1>
             <div className="flex p-4 items-center mt-2">
@@ -34,7 +34,7 @@ export default function EventContent() {
             </div>
           </div>
           <div>
-            <h1 className="text-2xl font-bold   ">Event Genre</h1>
+            <h1 className="text-2xl font-bold">Event Genre</h1>
             <div className="flex p-4 items-center mt-1">
               <svg
                 className="w-4 h-4 text-gray-500"
@@ -55,7 +55,7 @@ export default function EventContent() {
             </div>
           </div>
           <h2 className="text-2xl font-bold">Event Name</h2>
-          <p className="text-gray-600 p-5 w-[80] ">
+          <p className="text-gray-600 p-5 w-[80] md:w-full lg:w-full xl:w-full">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
             adipisci consequatur pariatur earum illo omnis tempore nostrum iusto
             deleniti incidunt quis doloribus facere, alias, et iste repudiandae
@@ -74,7 +74,7 @@ export default function EventContent() {
             corporis eaque ad itaque! Ullam placeat quidem laborum dolor
             voluptas! Quidem sit labore et enim ut amet velit numquam porro odit
             nisi. Ut suscipit qui provident maxime voluptas praesentium. Vel
-            fugit, sint aut illum, tempore, dolorem aspernatur quis deserunt
+            fugit sint aut illum, tempore, dolorem aspernatur quis deserunt
             sapiente recusandae perferendis ipsum assumenda magni et enim cumque
             voluptatibus tenetur libero eos! Veritatis, error fugiat officiis
             molestias animi placeat dolorem enim unde facere consequatur magnam
@@ -96,8 +96,8 @@ export default function EventContent() {
             dignissimos quia provident, illum sint quod molestias?
           </p>
         </div>
-        <div className="w-96">
-          <div className="w-96  bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col justify-center items-center">
+        <div className="w-96 md:w-full lg:w-full xl:w-full">
+          <div className="w-96 md:w-full lg:w-full xl:w-full bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col justify-center items-center">
             <div className="text-2xl font-bold text-gray-800">Ticket Price</div>
             <div className="mt-4 text-lg text-gray-600">$100 (USD)</div>
             <Link href="/home" className="p-5">

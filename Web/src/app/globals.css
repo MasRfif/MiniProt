@@ -6,6 +6,3 @@ body {
   font-family: "Montserrat", sans-serif;
   color: black;
 }
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
