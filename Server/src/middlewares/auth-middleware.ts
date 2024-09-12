@@ -8,10 +8,9 @@ export async function verifyToken(
   next: NextFunction
 ) {
   try {
-    console.log(1);
     // const token = req.header("Authorization")?.replace("Bearer ", "");
     const token = req.cookies.token; //from login function in auth contorller
-    console.log(req.cookies);
+    //console.log(req.cookies);
     if (!token) return res.status(401).json({ message: "No token provided" });
 
     const verifiedUser = jwt.verify(
@@ -23,7 +22,7 @@ export async function verifyToken(
       return res.status(401).json({ message: "Invalid token" });
 
     (req as any).user = verifiedUser;
-    console.log(verifiedUser);
+    //console.log(verifiedUser);
 
     next();
   } catch (error) {
