@@ -48,15 +48,15 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", changeBackground);
   }, []);
 
-  //sign in & user page toggle
-  // useEffect(() => {
-  //   console.log(token);
-  //   if (token) {
-  //     setIsLoggedIn(true);
-  //   } else {
-  //     setIsLoggedIn(false);
-  //   }
-  // }, [isLoggedIn]);
+  // sign in & user page toggle
+  useEffect(() => {
+    console.log(token);
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [isLoggedIn]);
 
   return (
     <>
