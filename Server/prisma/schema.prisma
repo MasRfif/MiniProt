@@ -32,8 +32,8 @@ model Users {
   referalCode    ReferralCode[]
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
-  feedback       feedback[]
-  rating         rating[]
+  feedback       Feedback[]
+  rating         Rating[]
 
   @@map("users") // untuk mengubah nama table yg tdk mengikuti default prisma
 }
@@ -65,8 +65,8 @@ model Events {
   eventTypeId   Int         @default(1) //nnt d bikin relasiny 1 free, 2 paid
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
-  feedback      feedback[]
-  rating        rating[]
+  feedback      Feedback[]
+  rating        Rating[]
   Statistic     Statistic[]
 
   //note kemungkinan besar nnt ada table baru tuk ticket
@@ -107,8 +107,8 @@ model Transaction {
   quantity  Int
   walletId  Int
   Wallet    Wallet   @relation(fields: [walletId], references: [id])
-  ticketsId Int
-  Tickets   Tickets? @relation(fields: [ticketsId], references: [id])
+  ticketId  Int
+  Tickets   Tickets? @relation(fields: [ticketId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -152,22 +152,26 @@ model Roles {
   @@map("roles")
 }
 
-model feedback {
+model Feedback {
   id      Int    @id @default(autoincrement())
   text    String
   userId  Int
   user    Users  @relation(fields: [userId], references: [id])
   eventId Int
   events  Events @relation(fields: [eventId], references: [id])
+
+  @@map("feedbacks")
 }
 
-model rating {
+model Rating {
   id      Int    @id @default(autoincrement())
   rate    Int
   userId  Int
   user    Users  @relation(fields: [userId], references: [id])
   eventId Int
   events  Events @relation(fields: [eventId], references: [id])
+
+  @@map("ratings")
 }
 
 model Statistic {
@@ -178,4 +182,6 @@ model Statistic {
   events    Events  @relation(fields: [eventId], references: [id])
   ticketId  Int
   ticket    Tickets @relation(fields: [ticketId], references: [id])
+
+  @@map("statistics")
 }

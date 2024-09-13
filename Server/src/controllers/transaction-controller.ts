@@ -4,9 +4,13 @@ import { Request, Response, NextFunction } from "express";
 const prisma = new PrismaClient();
 
 // Create a new transaction
-export async function createTransaction(req: Request, res: Response, next: NextFunction) {
+export async function createTransaction(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
-    const { walletId, ticketsId, quantity } = req.body;
+    const { walletId, ticketId, quantity } = req.body;
 
     // Fetch the wallet to check the saldo
     const wallet = await prisma.wallet.findUnique({
@@ -19,7 +23,7 @@ export async function createTransaction(req: Request, res: Response, next: NextF
 
     // Fetch the ticket to get the price
     const ticket = await prisma.tickets.findUnique({
-      where: { id: ticketsId },
+      where: { id: ticketId },
     });
 
     if (!ticket) {
@@ -43,7 +47,7 @@ export async function createTransaction(req: Request, res: Response, next: NextF
     const transaction = await prisma.transaction.create({
       data: {
         walletId,
-        ticketsId,
+        ticketId,
         quantity,
       },
     });
@@ -55,35 +59,36 @@ export async function createTransaction(req: Request, res: Response, next: NextF
 }
 
 // Get all transactions for a wallet
-export async function getTransactions(req: Request, res: Response, next: NextFunction) {
+export async function getTransactions(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
-    const { walletId } = req.params;
-
-    const transactions = await prisma.transaction.findMany({
-      where: { walletId: parseInt(walletId) },
-      include: {
-        Wallet: true,
-        Tickets: true,
-      },
-    });
+    // const { walletId } = req.params;
+    const transactions = await prisma.transaction.findMany();
 
     if (!transactions || transactions.length === 0) {
       return res.status(404).json({ message: "No transactions found" });
     }
 
-    res.status(200).json({ transactions });
+    res.status(200).json({ data: transactions });
   } catch (error) {
     next(error);
   }
 }
 
 // Get a single transaction by ID
-export async function getTransactionById(req: Request, res: Response, next: NextFunction) {
+export async function getTransactionById(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
-    const { transactionId } = req.params;
+    const { id } = req.params;
 
     const transaction = await prisma.transaction.findUnique({
-      where: { id: parseInt(transactionId) },
+      where: { id: parseInt(id) },
       include: {
         Wallet: true,
         Tickets: true,
@@ -101,12 +106,17 @@ export async function getTransactionById(req: Request, res: Response, next: Next
 }
 
 // Delete a transaction
-export async function deleteTransaction(req: Request, res: Response, next: NextFunction) {
+export async function deleteTransaction(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
-    const { transactionId } = req.params;
+    const { id } = req.params;
 
+    //blm handle error not found
     const transaction = await prisma.transaction.delete({
-      where: { id: parseInt(transactionId) },
+      where: { id: parseInt(id) },
     });
 
     res.status(200).json({ message: "Transaction deleted", transaction });
