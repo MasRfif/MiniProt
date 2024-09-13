@@ -3,7 +3,11 @@ import { NextFunction, Request, Response } from "express";
 
 const prisma = new PrismaClient();
 
-export async function getStatistic(req: Request, res: Response, next: NextFunction) {
+export async function getStatistic(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { ticketId, eventId } = req.body;
 
