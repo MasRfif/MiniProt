@@ -172,7 +172,7 @@ export default function Navbar() {
               ) : (
                 <Link href="/login">
                   <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
-                    Sign Up
+                    Log In
                   </button>
                 </Link>
               )}
@@ -213,7 +213,7 @@ export default function Navbar() {
                 </div>
               ) : (
                 <div className="hidden md:block">
-                  <Link href="/SignUp">
+                  <Link href="/signup">
                     <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
                       Sign Up
                     </button>
