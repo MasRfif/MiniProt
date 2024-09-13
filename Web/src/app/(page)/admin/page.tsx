@@ -1,7 +1,9 @@
 export default function adminPg() {
   return (
     <>
-      <h1>aaaa</h1>
+      <section className="w-full h-screen bg-black">
+        <div className=""></div>
+      </section>
     </>
   );
 }
