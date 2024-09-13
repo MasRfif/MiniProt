@@ -17,6 +17,8 @@ const config: Config = {
         "fira-sans": ['"Fira Sans"', "sans-serif"],
       },
       screens: {
+        xxl: "2650px",
+        // => @media (min-width: 2650px) { ... }
         xl: "1440px",
         // => @media (min-width: 1440px) { ... }
 
@@ -29,8 +31,8 @@ const config: Config = {
         sm: "768px",
         // => @media (min-width: 768px) { ... }
 
-        s: "420px",
-        // => @media (min-width: 420px) { ... }
+        s: "425px",
+        // => @media (min-width: 425px) { ... }
 
         xs: "360px",
         // => @media (min-width: 360px) { ... }

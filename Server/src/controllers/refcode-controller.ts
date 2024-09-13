@@ -40,7 +40,9 @@ export async function enterRefCode(
     await prisma.voucher.create({
       data: {
         description: "Welcome Voucher",
+
         discount: 10, //nnt d ubah 10%
+
         expireDate: new Date(Date.now() + 3 * 30 * 24 * 60 * 60 * 1000),
         userId: userId,
       },
