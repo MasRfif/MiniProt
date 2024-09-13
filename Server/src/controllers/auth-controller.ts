@@ -172,6 +172,14 @@ export async function login(req: Request, res: Response, next: NextFunction) {
     // console.log(rememberMe);
     // console.log(token);
     // res.cookie("cookies_name", "cookies_value", {httpOnly: true /*kapan dia expired jg bisa masukin sini*/ });
+
+    let isNewUser;
+    if (user?.isNewUser) {
+      isNewUser = true;
+    } else {
+      isNewUser = false;
+    }
+
     return res
       .cookie("token", token, {
         httpOnly: true,
@@ -180,7 +188,8 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       }) //beware CORS policy, set samesite carefully
       .status(200)
       .json({
-        message: "Successfully logged in!" /* user?.isNew ? "NEW" : "OLD" */,
+        message: "Successfully logged in!",
+        isNewUser, //user?.isNewUser ? "NEW" : "OLD",
       });
   } catch (error) {
     next(error);
