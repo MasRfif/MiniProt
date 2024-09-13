@@ -10,7 +10,7 @@ export async function createTransaction(
   next: NextFunction
 ) {
   try {
-    const { walletId, ticketsId, quantity } = req.body;
+    const { walletId, ticketId, quantity } = req.body;
 
     // Fetch the wallet to check the saldo
     const wallet = await prisma.wallet.findUnique({
@@ -23,7 +23,7 @@ export async function createTransaction(
 
     // Fetch the ticket to get the price
     const ticket = await prisma.tickets.findUnique({
-      where: { id: ticketsId },
+      where: { id: ticketId },
     });
 
     if (!ticket) {
@@ -65,21 +65,14 @@ export async function getTransactions(
   next: NextFunction
 ) {
   try {
-    const { walletId } = req.params;
-
-    const transactions = await prisma.transaction.findMany({
-      where: { walletId: parseInt(walletId) },
-      include: {
-        Wallet: true,
-        Tickets: true,
-      },
-    });
+    // const { walletId } = req.params;
+    const transactions = await prisma.transaction.findMany();
 
     if (!transactions || transactions.length === 0) {
       return res.status(404).json({ message: "No transactions found" });
     }
 
-    res.status(200).json({ transactions });
+    res.status(200).json({ data: transactions });
   } catch (error) {
     next(error);
   }
@@ -92,10 +85,10 @@ export async function getTransactionById(
   next: NextFunction
 ) {
   try {
-    const { transactionId } = req.params;
+    const { id } = req.params;
 
     const transaction = await prisma.transaction.findUnique({
-      where: { id: parseInt(transactionId) },
+      where: { id: parseInt(id) },
       include: {
         Wallet: true,
         Tickets: true,
@@ -119,10 +112,11 @@ export async function deleteTransaction(
   next: NextFunction
 ) {
   try {
-    const { transactionId } = req.params;
+    const { id } = req.params;
 
+    //blm handle error not found
     const transaction = await prisma.transaction.delete({
-      where: { id: parseInt(transactionId) },
+      where: { id: parseInt(id) },
     });
 
     res.status(200).json({ message: "Transaction deleted", transaction });
