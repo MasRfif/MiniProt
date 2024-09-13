@@ -9,19 +9,14 @@ const prisma = new PrismaClient();
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function register(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function register(req: Request, res: Response, next: NextFunction) {
   try {
-    const { firstName, lastName, username, email, password } = req.body;
+    const { firstName, lastName, username, email, password, saldo, userId } = req.body;
     const existingUser = await prisma.users.findUnique({
       where: { email },
     });
 
-    if (existingUser)
-      res.status(409).json({ message: "User with this email already exist" });
+    if (existingUser) res.status(409).json({ message: "User with this email already exist" });
 
     const salt = await genSalt(10);
     const hashedPassword = await hash(password, salt);
@@ -37,10 +32,6 @@ export async function register(
         username,
         email,
         password: hashedPassword,
-        // roleId: {
-        //   connect: { id: userRole!.id },
-        //   //connect: { id : 2 }
-        // },
       },
     });
 
@@ -70,9 +61,7 @@ export async function register(
       from: "Project Occasion <project.occasion@resend.dev>",
       to: [newUser.email],
       subject: "Email Confirmation (Project Occasion)",
-      html: `<strong>Hello, ${
-        newUser.firstName + " " + newUser.lastName
-      }!</strong><p> Please confirm your email by clicking on the following link: <a href="${confirmationLink}">Confirmation Link</a></p>`,
+      html: `<strong>Hello, ${newUser.firstName + " " + newUser.lastName}!</strong><p> Please confirm your email by clicking on the following link: <a href="${confirmationLink}">Confirmation Link</a></p>`,
     });
 
     if (error) {
@@ -85,11 +74,7 @@ export async function register(
   }
 }
 
-export async function confirmEmail(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function confirmEmail(req: Request, res: Response, next: NextFunction) {
   try {
     const { token } = req.query;
 
@@ -101,11 +86,7 @@ export async function confirmEmail(
 
     // console.log(tokenRecord);
 
-    if (
-      !tokenRecord ||
-      tokenRecord.used ||
-      tokenRecord.expiresAt < new Date()
-    ) {
+    if (!tokenRecord || tokenRecord.used || tokenRecord.expiresAt < new Date()) {
       return res.status(400).json({ message: "Invalid or expired token" });
     }
 
@@ -144,7 +125,7 @@ export async function confirmEmail(
 
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
-    const { email, password, rememberMe } = req.body;
+    const { email, password } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({ message: "Required field is missing" });
@@ -157,8 +138,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       },
     });
 
-    if (!user)
-      res.status(404).json({ message: "Email not confirmed or not found " });
+    if (!user) res.status(404).json({ message: "Email not confirmed or not found " });
 
     const isValidPassword = await compare(password, user?.password!);
 
@@ -166,11 +146,10 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     const jwtPayload = { userId: user?.id, email, roleId: user?.roleId };
     const token = jwt.sign(jwtPayload, process.env.JWT_SECRET_KEY as string, {
-      expiresIn: rememberMe ? "3y" : "1h",
+      expiresIn: "1h",
     });
 
-    // console.log(rememberMe);
-    // console.log(token);
+    //console.log(token);
     // res.cookie("cookies_name", "cookies_value", {httpOnly: true /*kapan dia expired jg bisa masukin sini*/ });
 
     let isNewUser;

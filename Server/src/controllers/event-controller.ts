@@ -6,11 +6,7 @@ import fs from "fs/promises";
 const prisma = new PrismaClient();
 
 //get all events
-export async function getAllEvent(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function getAllEvent(req: Request, res: Response, next: NextFunction) {
   try {
     const { page = 1, limit = 2 /*10*/ } = req.query;
     const offset = (Number(page) - 1) * Number(limit);
@@ -39,11 +35,7 @@ export async function getAllEvent(
 }
 
 // get single event
-export async function getSingleEvent(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function getSingleEvent(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
     const post = await prisma.events.findUnique({
@@ -61,22 +53,9 @@ export async function getSingleEvent(
   }
 }
 
-export async function createEvent(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function createEvent(req: Request, res: Response, next: NextFunction) {
   try {
-    const {
-      eventName,
-      price,
-      location,
-      description,
-      date,
-      time,
-      availableSeat,
-      eventTypeId,
-    } = req.body;
+    const { eventName, price, location, description, date, time, availableSeat, eventTypeId } = req.body;
 
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
@@ -105,26 +84,14 @@ export async function createEvent(
     res.status(201).json({ message: "Event created" });
   } catch (error) {
     next(error);
-    // console.error(error);
   }
 }
 
 // edit event
-export async function editEvent(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function editEvent(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
-    const {
-      eventName,
-      price,
-      location,
-      description,
-      availableSeat,
-      eventTypeId,
-    } = req.body;
+    const { eventName, price, location, description, availableSeat, eventTypeId } = req.body;
 
     const change = await prisma.events.update({
       where: {
@@ -147,11 +114,7 @@ export async function editEvent(
 }
 
 // delete event
-export async function deleteEvents(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function deleteEvents(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
     await prisma.events.delete({
@@ -163,6 +126,41 @@ export async function deleteEvents(
     res.status(201).json({ message: "Event Deleted" });
   } catch (error) {
     next(error);
-    // console.error(error);
+  }
+}
+
+export async function feedback(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { text } = req.body;
+    const { id } = req.params;
+    await prisma.feedback.create({
+      data: {
+        text,
+        userId: (req as any).user.id,
+        eventId: +id,
+      },
+    });
+
+    res.status(202).json({ message: "feedback accepted" });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function ratings(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { rate } = req.body;
+    const { id } = req.params;
+    await prisma.rating.create({
+      data: {
+        rate,
+        userId: (req as any).user.id,
+        eventId: +id,
+      },
+    });
+
+    res.status(202).json({ message: "Rating accepted" });
+  } catch (error) {
+    next(error);
   }
 }

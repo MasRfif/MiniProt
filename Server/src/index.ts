@@ -6,6 +6,8 @@ import authRouter from "./routes/auth-route";
 import userRouter from "./routes/user-route";
 import eventRouter from "./routes/event-route";
 import refcodeRouter from "./routes/refcode-route";
+import transaction from "./routes/transaction-route";
+
 import { error } from "./middlewares/error-middleware";
 import { notFound } from "./middlewares/not-found-middleware";
 import { verifyToken } from "./middlewares/auth-middleware";
@@ -31,6 +33,7 @@ app.use(verifyToken);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/events", eventRouter);
 app.use("/api/v1/refcode", refcodeRouter);
+app.use("/api/v1/transaction", transaction);
 
 app.use(notFound);
 app.use(error);
