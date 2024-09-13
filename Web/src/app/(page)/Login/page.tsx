@@ -7,14 +7,16 @@ import { useState } from "react";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const data = { email, password };
+    const data = { email, password, rememberMe };
 
     try {
+      const res = await fetch("http://localhost:8069/api/v1/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -27,7 +29,6 @@ export default function Login() {
       } else {
         alert("Invalid username or password.");
       }
-
     } catch (error) {
       console.error(error);
     }
@@ -44,9 +45,7 @@ export default function Login() {
           <Background />
           <div className="bg-white backdrop-filter backdrop-blur-sm rounded-3xl  flex-col top-0  items-center justify-center p-9 w-[450px] h-96">
             <form onSubmit={handleSubmit}>
-
               <h1 className="text-3xl font-bold mb-6 text-black ">Log In</h1>
-
 
               <div className="mb-4">
                 <div className="w-[380px]">
@@ -96,13 +95,17 @@ export default function Login() {
                 <label className="inline-flex items-center">
                   <input
                     type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setRememberMe(e.target.checked)
+                    }
                     className="form-checkbox h-4 w-4 rounded-2xl text-yellow-700 hover:text-yellow-950"
                   />
                   <span className="ml-2 text-black">Remember me</span>
                 </label>
                 <a
                   className="inline-block align-baseline font-bold text-sm text-red-600 hover:text-yellow-950"
-                  href="/SignUp"
+                  href="/signup"
                 >
                   Sign Up
                 </a>
@@ -118,24 +121,6 @@ export default function Login() {
             </form>
           </div>
         </section>
-        {/* <section className="flex justify-center items-center w-full h-full ">
-          <div className="bg-black w-[95%] h-[95%] rounded-xl overflow-hidden shadow-md"> */}
-        {/* <div className=" bg-red-900/60 absolute top-6  w-[62.2%] h-[95%] rounded-xl " /> */}
-        {/* <form className="absolute w-[63%] h-[95%] p-9 flex flex-col text-black text-5xl font-bold items-center justify-end">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id
-              mollitia beatae dignissimos quos ab eligendi officia accusamus et!
-              Ut dolore minima pariatur illo voluptatibus, eaque iste harum
-              consequatur nesciunt ipsa.
-            </form>
-            <Image
-              className="top-0 object-cover bg-black w-[100%] h-[100%] rounded-xl overflow-hidden"
-              src="/test1.jpeg"
-              alt="/"
-              width={500}
-              height={500} */}
-        {/* /> */}
-        {/* </div>
-        </section> */}
       </section>
     </>
   );

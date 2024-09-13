@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const navLinks = [
     { name: "Home", href: "/Home" },
