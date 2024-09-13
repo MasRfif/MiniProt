@@ -39,6 +39,16 @@ export async function register(req: Request, res: Response, next: NextFunction) 
       },
     });
 
+    //generate referral code
+    const referralCode = crypto.randomBytes(3).toString("hex");
+
+    await prisma.referralCode.create({
+      data: {
+        value: referralCode.toUpperCase(),
+        userId: newUser.id,
+      },
+    });
+
     // Generate confirmation token
     const token = crypto.randomBytes(20).toString("hex");
     const confirmationLink = `http://localhost:${process.env.PORT}/api/v1/auth/confirm-email?token=${token}`;
@@ -46,14 +56,7 @@ export async function register(req: Request, res: Response, next: NextFunction) 
     await prisma.token.create({
       data: {
         token,
-        expiresAt: new Date(Date.now() + 60 * 60 * 1000),
-        userId: newUser.id,
-      },
-    });
-
-    const wallet = await prisma.wallet.create({
-      data: {
-        saldo,
+        expiresAt: new Date(Date.now() + 2 * 60 * 60 * 1000), //2 hours
         userId: newUser.id,
       },
     });
@@ -103,6 +106,21 @@ export async function confirmEmail(req: Request, res: Response, next: NextFuncti
       data: { emailConfirmed: true },
     });
 
+    await prisma.referralCode.update({
+      where: { id: tokenRecord.id },
+      data: {
+        isActivated: true,
+        expireDate: new Date(Date.now() + 3 * 30 * 24 * 60 * 60 * 1000), //3 months
+      },
+    });
+
+    //create wallet
+    const wallet = await prisma.wallet.create({
+      data: {
+        userId: tokenRecord.userId,
+      },
+    });
+
     res.status(200).json({ message: "Email successfully confirmed!" });
   } catch (error) {
     next(error);
@@ -130,7 +148,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     if (!isValidPassword) res.status(401).json({ message: "Invalid password" });
 
-    const jwtPayload = { email, roleId: user?.roleId, id: user?.id };
+    const jwtPayload = { userId: user?.id, email, roleId: user?.roleId };
     const token = jwt.sign(jwtPayload, process.env.JWT_SECRET_KEY as string, {
       expiresIn: "1h",
     });
@@ -144,7 +162,9 @@ export async function login(req: Request, res: Response, next: NextFunction) {
         secure: true, //Note ganti true lg nnt pas push
       }) //beware CORS policy, set samesite carefully
       .status(200)
-      .json({ message: "Successfully logged in!" /*, token*/ });
+      .json({
+        message: "Successfully logged in!" /* user?.isNew ? "NEW" : "OLD" */,
+      });
   } catch (error) {
     next(error);
   }
