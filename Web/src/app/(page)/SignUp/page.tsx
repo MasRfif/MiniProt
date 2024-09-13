@@ -18,6 +18,7 @@ export default function SignUp() {
 
     try {
       await fetch("http://localhost:8069/api/v1/auth/register", {
+
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -166,7 +167,7 @@ export default function SignUp() {
                   Sign Up
                 </button>
                 <a
-                  href="/login"
+                  href="/Login"
                   className="inline-block align-baseline font-bold text-sm text-[#725d36] hover:text-[#b5a85a]"
                 >
                   Log In

@@ -15,7 +15,6 @@ export default function Login() {
     const data = { email, password };
 
     try {
-      const res = await fetch("http://localhost:8069/api/v1/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -28,6 +27,7 @@ export default function Login() {
       } else {
         alert("Invalid username or password.");
       }
+
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +44,9 @@ export default function Login() {
           <Background />
           <div className="bg-white backdrop-filter backdrop-blur-sm rounded-3xl  flex-col top-0  items-center justify-center p-9 w-[450px] h-96">
             <form onSubmit={handleSubmit}>
+
               <h1 className="text-3xl font-bold mb-6 text-black ">Log In</h1>
+
 
               <div className="mb-4">
                 <div className="w-[380px]">
@@ -100,7 +102,7 @@ export default function Login() {
                 </label>
                 <a
                   className="inline-block align-baseline font-bold text-sm text-red-600 hover:text-yellow-950"
-                  href="/signup"
+                  href="/SignUp"
                 >
                   Sign Up
                 </a>
