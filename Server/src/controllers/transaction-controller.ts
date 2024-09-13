@@ -4,7 +4,11 @@ import { Request, Response, NextFunction } from "express";
 const prisma = new PrismaClient();
 
 // Create a new transaction
-export async function createTransaction(req: Request, res: Response, next: NextFunction) {
+export async function createTransaction(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { walletId, ticketsId, quantity } = req.body;
 
@@ -43,7 +47,7 @@ export async function createTransaction(req: Request, res: Response, next: NextF
     const transaction = await prisma.transaction.create({
       data: {
         walletId,
-        ticketsId,
+        ticketId,
         quantity,
       },
     });
@@ -55,7 +59,11 @@ export async function createTransaction(req: Request, res: Response, next: NextF
 }
 
 // Get all transactions for a wallet
-export async function getTransactions(req: Request, res: Response, next: NextFunction) {
+export async function getTransactions(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { walletId } = req.params;
 
@@ -78,7 +86,11 @@ export async function getTransactions(req: Request, res: Response, next: NextFun
 }
 
 // Get a single transaction by ID
-export async function getTransactionById(req: Request, res: Response, next: NextFunction) {
+export async function getTransactionById(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { transactionId } = req.params;
 
@@ -101,7 +113,11 @@ export async function getTransactionById(req: Request, res: Response, next: Next
 }
 
 // Delete a transaction
-export async function deleteTransaction(req: Request, res: Response, next: NextFunction) {
+export async function deleteTransaction(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { transactionId } = req.params;
 

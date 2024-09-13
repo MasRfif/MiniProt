@@ -101,8 +101,8 @@ model Transaction {
   quantity  Int
   walletId  Int
   Wallet    Wallet   @relation(fields: [walletId], references: [id])
-  ticketsId Int
-  Tickets   Tickets? @relation(fields: [ticketsId], references: [id])
+  ticketId  Int
+  Tickets   Tickets? @relation(fields: [ticketId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
