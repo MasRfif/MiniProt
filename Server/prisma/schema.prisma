@@ -32,6 +32,8 @@ model Users {
   referalCode    ReferralCode[]
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
+  feedback       feedback[]
+  rating         rating[]
 
   @@map("users") // untuk mengubah nama table yg tdk mengikuti default prisma
 }
@@ -81,6 +83,7 @@ model Tickets {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   Transaction Transaction[]
+  Statistic   Statistic[]
 
   @@map("tickets")
 }
@@ -147,51 +150,6 @@ model Roles {
   updatedAt DateTime @updatedAt
 
   @@map("roles")
-}
-
-model Wallet {
-  id          Int           @id @default(autoincrement())
-  saldo       Int           @default(10000)
-  userId      Int
-  user        Users         @relation(fields: [userId], references: [id])
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  Transaction Transaction[]
-  Voucher     Voucher[]
-}
-
-model Transaction {
-  id        Int      @id @default(autoincrement())
-  date      DateTime
-  quantity  Int
-  walletID  Int
-  Wallet    Wallet   @relation(fields: [walletID], references: [id])
-  ticketsID Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Tickets   Tickets? @relation(fields: [ticketsID], references: [id])
-}
-
-model referalCode {
-  id          Int      @id @default(autoincrement())
-  value       String   @unique
-  userId      Int
-  expiresDate DateTime
-  user        Users    @relation(fields: [userId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model Voucher {
-  id          Int      @id @default(autoincrement())
-  description String
-  discount    Int
-  expireDate  DateTime
-  isUsed      Boolean  @default(false)
-  walletId    Int
-  wallet      Wallet   @relation(fields: [walletId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
 }
 
 model feedback {

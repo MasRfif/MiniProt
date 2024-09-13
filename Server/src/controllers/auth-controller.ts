@@ -32,10 +32,6 @@ export async function register(req: Request, res: Response, next: NextFunction) 
         username,
         email,
         password: hashedPassword,
-        // roleId: {
-        //   connect: { id: userRole!.id },
-        //   //connect: { id : 2 }
-        // },
       },
     });
 
@@ -129,7 +125,7 @@ export async function confirmEmail(req: Request, res: Response, next: NextFuncti
 
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
-    const { email, password, rememberMe } = req.body;
+    const { email, password } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({ message: "Required field is missing" });
@@ -150,11 +146,10 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     const jwtPayload = { userId: user?.id, email, roleId: user?.roleId };
     const token = jwt.sign(jwtPayload, process.env.JWT_SECRET_KEY as string, {
-      expiresIn: rememberMe ? "3y" : "1h",
+      expiresIn: "1h",
     });
 
-    // console.log(rememberMe);
-    // console.log(token);
+    //console.log(token);
     // res.cookie("cookies_name", "cookies_value", {httpOnly: true /*kapan dia expired jg bisa masukin sini*/ });
     return res
       .cookie("token", token, {
