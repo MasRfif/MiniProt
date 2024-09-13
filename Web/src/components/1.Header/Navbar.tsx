@@ -3,11 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navLinks = [
     { name: "Home", href: "/Home" },
@@ -30,6 +31,7 @@ export default function Navbar() {
 
   const [navBar, setNavbar] = useState<Boolean | undefined>();
   const [showNavBar, setShowNavBar] = useState(false);
+  const token = useCookies(["token"]);
 
   useEffect(() => {
     const changeBackground = () => {
@@ -45,6 +47,16 @@ export default function Navbar() {
     window.addEventListener("scroll", changeBackground);
     return () => window.removeEventListener("scroll", changeBackground);
   }, []);
+
+  //sign in & user page toggle
+  // useEffect(() => {
+  //   console.log(token);
+  //   if (token) {
+  //     setIsLoggedIn(true);
+  //   } else {
+  //     setIsLoggedIn(false);
+  //   }
+  // }, [isLoggedIn]);
 
   return (
     <>
@@ -158,7 +170,7 @@ export default function Navbar() {
                   </ul>
                 </div>
               ) : (
-                <Link href="/SignUp">
+                <Link href="/login">
                   <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
                     Sign Up
                   </button>

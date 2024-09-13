@@ -48,8 +48,30 @@ export async function enterRefCode(
       },
     });
 
+    await prisma.users.update({
+      where: { id: refCodeRecord.userId },
+      data: {
+        isNewUser: false,
+      },
+    });
+
     res.status(200).json({ message: "Successfully redeemed the code!" });
   } catch (error) {
     next(error);
   }
+}
+
+export async function skipRefCode(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const userId = (req as any).user.userId;
+  await prisma.users.update({
+    where: { id: userId },
+    data: {
+      isNewUser: false,
+    },
+  });
+  res.status(200).json({ message: "You chose to not enter referral code." });
 }
