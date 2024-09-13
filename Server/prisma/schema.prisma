@@ -35,7 +35,7 @@ model Users {
   feedback       feedback[]
   rating         rating[]
 
-  @@map("users") // untuk mengubah nama table yg tdk mengikuti default prisma
+  @@map("users") // untuk mengubah nama table yg tdk mengikuti default prismanpx prisma migrate status
 }
 
 model Token {
