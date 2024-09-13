@@ -143,7 +143,7 @@ export default function HomeCrls() {
               <div className="p-2">
                 <Link href="/event">
                   <div className="block ">
-                    <div className="card bg-base-100 w-96 h-96 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                    <div className="card bg-base-100 w-96 h-96 shadow-xl hover:shadow-2xl transition-shadow duration-700">
                       <figure className="h-48">
                         <Image
                           src="/BGUC.jpg"

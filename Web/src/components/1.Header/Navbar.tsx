@@ -13,7 +13,7 @@ export default function Navbar() {
     { name: "Home", href: "/Home" },
     { name: "Event", href: "/event" },
     { name: "FeedBack", href: "/About" },
-    { name: "About", href: "/Teams" },
+    { name: "Help", href: "/help" },
   ];
 
   useEffect(() => {
