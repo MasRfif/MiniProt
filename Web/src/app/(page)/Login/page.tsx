@@ -7,12 +7,13 @@ import { useState } from "react";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const data = { email, password };
+    const data = { email, password, rememberMe };
 
     try {
       const res = await fetch("http://localhost:8069/api/v1/auth/login", {
@@ -94,6 +95,10 @@ export default function Login() {
                 <label className="inline-flex items-center">
                   <input
                     type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setRememberMe(e.target.checked)
+                    }
                     className="form-checkbox h-4 w-4 rounded-2xl text-yellow-700 hover:text-yellow-950"
                   />
                   <span className="ml-2 text-black">Remember me</span>

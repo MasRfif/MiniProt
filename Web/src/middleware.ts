@@ -11,5 +11,5 @@ export function middleware(request: NextRequest) {
 
 // Decide which route the logic will be applied
 export const config = {
-  matcher: ["/home"],
+  matcher: ["/user"],
 };
