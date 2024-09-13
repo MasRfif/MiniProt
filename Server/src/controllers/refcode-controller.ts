@@ -21,12 +21,15 @@ export async function enterRefCode(
     ) {
       return res.status(400).json({ message: "Invalid or expired code" });
     }
+    //console.log(refCodeRecord);
 
-    const userId = (req as any).user.id; //pastikan middleware auth jalan
+    //dr middleware
+    const userId = (req as any).user.userId; //pastikan middleware auth jalan
+    //console.log(userId);
 
     //update saldo pemilik
-    await prisma.wallet.update({
-      where: { id: refCodeRecord.id },
+    await prisma.wallet.updateMany({
+      where: { userId: refCodeRecord.userId },
       data: {
         points: {
           increment: 10000,
@@ -37,7 +40,7 @@ export async function enterRefCode(
     await prisma.voucher.create({
       data: {
         description: "Welcome Voucher",
-        discount: 0.1, //10%
+        discount: 10, //nnt d ubah 10%
         expireDate: new Date(Date.now() + 3 * 30 * 24 * 60 * 60 * 1000),
         userId: userId,
       },
