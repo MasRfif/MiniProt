@@ -49,14 +49,20 @@ export default function Navbar() {
   }, []);
 
   //sign in & user page toggle
-  // useEffect(() => {
-  //   console.log(token);
-  //   if (token) {
-  //     setIsLoggedIn(true);
-  //   } else {
-  //     setIsLoggedIn(false);
-  //   }
-  // }, [isLoggedIn]);
+  useEffect(() => {
+    async function checkLogIn() {
+      const res = await fetch("http://localhost:8069/api/v1/check", {
+        method: "GET",
+        credentials: "include",
+      });
+      if (res.ok) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    }
+    checkLogIn();
+  }, [isLoggedIn]);
 
   return (
     <>
