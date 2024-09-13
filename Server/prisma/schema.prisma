@@ -49,21 +49,22 @@ model Token {
 }
 
 model Events {
-  id            Int        @id @default(autoincrement())
+  id            Int         @id @default(autoincrement())
   eventName     String
-  price         Int        @default(0)
+  price         Int         @default(0)
   date          DateTime?
   time          DateTime?
   location      String?
   description   String?
-  availableSeat Int        @default(0)
+  availableSeat Int         @default(0)
   // ticketType    Int
   imageUrl      String?
-  eventTypeId   Int        @default(1) //nnt d bikin relasiny 1 free, 2 paid
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
+  eventTypeId   Int         @default(1) //nnt d bikin relasiny 1 free, 2 paid
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
   feedback      feedback[]
   rating        rating[]
+  Statistic     Statistic[]
 
   //note kemungkinan besar nnt ada table baru tuk ticket
   @@map("events")
@@ -78,6 +79,7 @@ model Tickets {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   Transaction Transaction[]
+  Statistic   Statistic[]
 
   @@map("tickets")
 }
@@ -153,4 +155,14 @@ model rating {
   user    Users  @relation(fields: [userId], references: [id])
   eventId Int
   events  Events @relation(fields: [eventId], references: [id])
+}
+
+model Statistic {
+  id        Int     @id @default(autoincrement())
+  viewCount Int
+  likes     Int
+  eventId   Int
+  events    Events  @relation(fields: [eventId], references: [id])
+  ticketId  Int
+  ticket    Tickets @relation(fields: [ticketId], references: [id])
 }

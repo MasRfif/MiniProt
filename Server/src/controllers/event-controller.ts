@@ -84,7 +84,6 @@ export async function createEvent(req: Request, res: Response, next: NextFunctio
     res.status(201).json({ message: "Event created" });
   } catch (error) {
     next(error);
-    // console.error(error);
   }
 }
 
@@ -127,7 +126,6 @@ export async function deleteEvents(req: Request, res: Response, next: NextFuncti
     res.status(201).json({ message: "Event Deleted" });
   } catch (error) {
     next(error);
-    // console.error(error);
   }
 }
 
@@ -135,7 +133,6 @@ export async function feedback(req: Request, res: Response, next: NextFunction) 
   try {
     const { text } = req.body;
     const { id } = req.params;
-    console.log((req as any).user);
     await prisma.feedback.create({
       data: {
         text,
@@ -154,7 +151,6 @@ export async function ratings(req: Request, res: Response, next: NextFunction) {
   try {
     const { rate } = req.body;
     const { id } = req.params;
-    console.log((req as any).user);
     await prisma.rating.create({
       data: {
         rate,
