@@ -44,6 +44,16 @@ export async function register(
       },
     });
 
+    //generate referral code
+    const referralCode = crypto.randomBytes(3).toString("hex");
+
+    await prisma.referralCode.create({
+      data: {
+        value: referralCode.toUpperCase(),
+        userId: newUser.id,
+      },
+    });
+
     // Generate confirmation token
     const token = crypto.randomBytes(20).toString("hex");
     const confirmationLink = `http://localhost:${process.env.PORT}/api/v1/auth/confirm-email?token=${token}`;
@@ -51,7 +61,7 @@ export async function register(
     await prisma.token.create({
       data: {
         token,
-        expiresAt: new Date(Date.now() + 60 * 60 * 1000),
+        expiresAt: new Date(Date.now() + 2 * 60 * 60 * 1000), //2 hours
         userId: newUser.id,
       },
     });
@@ -111,6 +121,21 @@ export async function confirmEmail(
       data: { emailConfirmed: true },
     });
 
+    await prisma.referralCode.update({
+      where: { id: tokenRecord.id },
+      data: {
+        isActivated: true,
+        expireDate: new Date(Date.now() + 3 * 30 * 24 * 60 * 60 * 1000), //3 months
+      },
+    });
+
+    //create wallet
+    const wallet = await prisma.wallet.create({
+      data: {
+        userId: tokenRecord.userId,
+      },
+    });
+
     res.status(200).json({ message: "Email successfully confirmed!" });
   } catch (error) {
     next(error);
@@ -119,7 +144,7 @@ export async function confirmEmail(
 
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
-    const { email, password } = req.body;
+    const { email, password, rememberMe } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({ message: "Required field is missing" });
@@ -132,20 +157,29 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       },
     });
 
-    if (!user || !user.emailConfirmed)
-      res.status(404).json({ message: "Email not confirmed or not found" });
+    if (!user)
+      res.status(404).json({ message: "Email not confirmed or not found " });
 
     const isValidPassword = await compare(password, user?.password!);
 
     if (!isValidPassword) res.status(401).json({ message: "Invalid password" });
 
-    const jwtPayload = { email, roleId: user?.roleId };
+    const jwtPayload = { userId: user?.id, email, roleId: user?.roleId };
     const token = jwt.sign(jwtPayload, process.env.JWT_SECRET_KEY as string, {
-      expiresIn: "1h",
+      expiresIn: rememberMe ? "3y" : "1h",
     });
 
-    //console.log(token);
+    // console.log(rememberMe);
+    // console.log(token);
     // res.cookie("cookies_name", "cookies_value", {httpOnly: true /*kapan dia expired jg bisa masukin sini*/ });
+
+    let isNewUser;
+    if (user?.isNewUser) {
+      isNewUser = true;
+    } else {
+      isNewUser = false;
+    }
+
     return res
       .cookie("token", token, {
         httpOnly: true,
@@ -153,7 +187,10 @@ export async function login(req: Request, res: Response, next: NextFunction) {
         secure: true, //Note ganti true lg nnt pas push
       }) //beware CORS policy, set samesite carefully
       .status(200)
-      .json({ message: "Successfully logged in!" /*, token*/ });
+      .json({
+        message: "Successfully logged in!",
+        isNewUser, //user?.isNewUser ? "NEW" : "OLD",
+      });
   } catch (error) {
     next(error);
   }

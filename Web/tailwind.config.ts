@@ -13,8 +13,32 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      fontFamily: {
+        "fira-sans": ['"Fira Sans"', "sans-serif"],
+      },
+      screens: {
+        xxl: "2650px",
+        // => @media (min-width: 2650px) { ... }
+        xl: "1440px",
+        // => @media (min-width: 1440px) { ... }
+
+        lg: "1280px",
+        // => @media (min-width: 1280px) { ... }
+
+        md: "1024px",
+        // => @media (min-width: 1024px) { ... }
+
+        sm: "768px",
+        // => @media (min-width: 768px) { ... }
+
+        s: "425px",
+        // => @media (min-width: 425px) { ... }
+
+        xs: "360px",
+        // => @media (min-width: 360px) { ... }
+      },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require("flowbite/plugin")],
 };
 export default config;
