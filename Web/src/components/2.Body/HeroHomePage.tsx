@@ -7,7 +7,6 @@ import Testimonial from "@/components/2.Body/Testimonies";
 export default function HeroHome() {
   return (
     <>
-      <Navbar />
       <main>
         <section>
           <div

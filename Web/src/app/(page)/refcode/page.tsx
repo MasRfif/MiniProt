@@ -16,7 +16,7 @@ export default function refCode() {
     const data = { refCode };
 
     try {
-      const res = await fetch("http://localhost:8069/api/v1/refcode", {
+      const res = await fetch("http://localhost:8069/api/v1/refcode/enter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -70,6 +70,22 @@ export default function refCode() {
                 <Link
                   className="inline-block align-baseline font-bold text-sm text-red-600 hover:text-yellow-950"
                   href="/home"
+                  onClick={async function skipRefCode() {
+                    try {
+                      const res = await fetch(
+                        "http://localhost:8069/api/v1/refcode/skip",
+                        {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          credentials: "include",
+                        }
+                      );
+                      router.push("/user");
+                      router.refresh();
+                    } catch (error) {
+                      console.error(error);
+                    }
+                  }}
                 >
                   Skip
                 </Link>

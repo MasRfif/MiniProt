@@ -12,7 +12,7 @@ export async function getAllEvent(
   next: NextFunction
 ) {
   try {
-    const { page = 1, limit = 2 /*10*/ } = req.query;
+    const { page = 1, limit = 10 } = req.query;
     const offset = (Number(page) - 1) * Number(limit);
 
     const events = await prisma.events.findMany({
@@ -72,10 +72,9 @@ export async function createEvent(
       price,
       location,
       description,
-      date,
-      time,
+      datetime,
       availableSeat,
-      eventTypeId,
+      isPaid,
     } = req.body;
 
     if (!req.file) {
@@ -92,10 +91,9 @@ export async function createEvent(
         price: +price,
         description,
         location,
-        date,
-        time,
+        datetime: new Date(datetime),
         availableSeat: +availableSeat,
-        eventTypeId: +eventTypeId,
+        isPaid: isPaid === "paid" ? true : false,
         imageUrl: cloudinaryData.secure_url,
       },
     });
@@ -105,7 +103,6 @@ export async function createEvent(
     res.status(201).json({ message: "Event created" });
   } catch (error) {
     next(error);
-    // console.error(error);
   }
 }
 
@@ -123,7 +120,8 @@ export async function editEvent(
       location,
       description,
       availableSeat,
-      eventTypeId,
+      isPaid,
+      datetime,
     } = req.body;
 
     const change = await prisma.events.update({
@@ -136,7 +134,8 @@ export async function editEvent(
         location,
         description,
         availableSeat,
-        eventTypeId,
+        isPaid,
+        datetime,
       },
     });
     res.status(201).json({ message: change });
@@ -163,6 +162,45 @@ export async function deleteEvents(
     res.status(201).json({ message: "Event Deleted" });
   } catch (error) {
     next(error);
-    // console.error(error);
+  }
+}
+
+export async function feedback(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { text } = req.body;
+    const { id } = req.params;
+    await prisma.feedback.create({
+      data: {
+        text,
+        userId: (req as any).user.id,
+        eventId: +id,
+      },
+    });
+
+    res.status(202).json({ message: "feedback accepted" });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function ratings(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { rate } = req.body;
+    const { id } = req.params;
+    await prisma.rating.create({
+      data: {
+        rate,
+        userId: (req as any).user.id,
+        eventId: +id,
+      },
+    });
+
+    res.status(202).json({ message: "Rating accepted" });
+  } catch (error) {
+    next(error);
   }
 }

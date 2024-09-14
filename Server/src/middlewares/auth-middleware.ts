@@ -46,3 +46,18 @@ export async function adminGuard(
     console.error(error);
   }
 }
+
+export async function newUserOnly(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    if ((req as any).user.isNewUser == false) {
+      res.status(401).json({ message: "Unauthorized access" });
+    }
+    next();
+  } catch (error) {
+    console.error(error);
+  }
+}

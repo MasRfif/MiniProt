@@ -1,8 +1,10 @@
 import express from "express";
-import { enterRefCode } from "../controllers/refcode-controller";
-import { verifyToken } from "../middlewares/auth-middleware";
+import { enterRefCode, skipRefCode } from "../controllers/refcode-controller";
+import { newUserOnly } from "../middlewares/auth-middleware";
 
 const router = express.Router();
-router.route("/").post(enterRefCode);
+router.use(newUserOnly);
+router.route("/enter").post(enterRefCode);
+router.route("/skip").post(skipRefCode);
 
 export default router;
