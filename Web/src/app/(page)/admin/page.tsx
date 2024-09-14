@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+
 import { useRouter } from "next/navigation";
 
 export default function adminPage() {
@@ -84,6 +85,7 @@ export default function adminPage() {
                   className="border border-gray-300 p-2 rounded-md"
                 />
 
+
                 <input
                   type="datetime-local"
                   name="datetime"
@@ -98,6 +100,7 @@ export default function adminPage() {
                   placeholder="Location"
                   value={formData.location}
                   onChange={handleInputChange}
+
                   className="border border-gray-300 p-2 
                   rounded-md"
                 />
@@ -131,20 +134,18 @@ export default function adminPage() {
                   className="border 
                   border-gray-300 p-2 rounded-md"
                 />
-
                 <div className="label font-bold pb-4">
                   <span className="label-text text-2xl ">
                     Add Your Event-Photo
                   </span>
                 </div>
-
+                
                 <input
                   type="file"
                   name="eventPhoto"
                   className="file-input file-input-ghost w-full max-w-xs"
                   onChange={handleInputChange}
                 />
-
                 <button
                   type="submit"
                   className="bg-slate-700 outline outline-2 outline-red-700 text-white px-4 py-2 rounded-md"

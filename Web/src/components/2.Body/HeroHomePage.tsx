@@ -37,7 +37,7 @@ export default function HeroHome() {
                 </button>
               </div>
               <div className="flex max-s:hidden justify-center items-center text-white w-full h-full">
-                <div className="carousel gap-5 max-[768px]:hidden  max-w-[49rem]  carousel-end rounded-box">
+                <div className="carousel gap-5 max-[768px]:hidden   max-w-[49rem]  carousel-end rounded-box">
                   <div className="carousel-item px-50 ">
                     <div className="card lg:card-side  bg-red-900 shadow-xl">
                       <figure>
