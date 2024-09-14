@@ -2,28 +2,63 @@
 
 import React, { useState } from "react";
 
-export default function AdminPg() {
+import { useRouter } from "next/navigation";
+
+export default function adminPage() {
   const [formData, setFormData] = useState({
     eventName: "",
     description: "",
-    date: "",
-    time: "",
+    datetime: "",
     location: "",
     availableSeat: "",
     eventTypeId: "",
+    price: "",
+    eventPhoto: "",
   });
+  const router = useRouter();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    console.log(event.target);
+    const { name, value, files } = event.target;
+    if (files) {
+      setFormData({ ...formData, [name]: files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted:", formData);
-  };
 
+    const formDataToSend = new FormData();
+    formDataToSend.append("eventName", formData.eventName);
+    formDataToSend.append("description", formData.description);
+    formDataToSend.append("datetime", formData.datetime);
+    formDataToSend.append("location", formData.location);
+    formDataToSend.append("availableSeat", formData.availableSeat);
+    formDataToSend.append("eventTypeId", formData.eventTypeId);
+    formDataToSend.append("price", formData.price);
+
+    // Append the file if it's available
+    if (formData.eventPhoto) {
+      formDataToSend.append("image", formData.eventPhoto);
+    }
+
+    try {
+      const res = await fetch("http://localhost:8069/api/v1/events", {
+        method: "POST",
+        body: formDataToSend,
+        credentials: "include",
+      });
+
+      console.log(res);
+
+      // router.push("/");
+      // router.refresh();
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <>
       <section className="flex w-full h-screen justify-center items-center bg-gradient-to-t from-black to-red-700/90">
@@ -40,6 +75,7 @@ export default function AdminPg() {
                   onChange={handleInputChange}
                   className="border border-gray-300 p-2 rounded-md"
                 />
+
                 <input
                   type="text"
                   name="description"
@@ -48,52 +84,67 @@ export default function AdminPg() {
                   onChange={handleInputChange}
                   className="border border-gray-300 p-2 rounded-md"
                 />
+
+
                 <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
+                  type="datetime-local"
+                  name="datetime"
+                  value={formData.datetime}
                   onChange={handleInputChange}
                   className="border border-gray-300 p-2 rounded-md"
                 />
-                <input
-                  type="time"
-                  name="time"
-                  value={formData.time}
-                  onChange={handleInputChange}
-                  className="border border-gray-300 p-2 rounded-md"
-                />
+
                 <input
                   type="text"
                   name="location"
                   placeholder="Location"
                   value={formData.location}
                   onChange={handleInputChange}
-                  className="border border-gray-300 p-2 rounded-md"
+
+                  className="border border-gray-300 p-2 
+                  rounded-md"
                 />
+
                 <input
                   type="number"
                   name="availableSeat"
                   placeholder="Available Seats"
                   value={formData.availableSeat}
                   onChange={handleInputChange}
-                  className="border border-gray-300 p-2 rounded-md"
+                  className="border 
+                  border-gray-300 p-2 rounded-md"
                 />
+
                 <input
                   type="text"
                   name="eventTypeId"
                   placeholder="Event Type ID"
                   value={formData.eventTypeId}
                   onChange={handleInputChange}
-                  className="border border-gray-300 p-2 rounded-md"
+                  className="border 
+                  border-gray-300 p-2 rounded-md"
+                />
+
+                <input
+                  type="number"
+                  name="price"
+                  placeholder="Price"
+                  value={formData.price}
+                  onChange={handleInputChange}
+                  className="border 
+                  border-gray-300 p-2 rounded-md"
                 />
                 <div className="label font-bold pb-4">
                   <span className="label-text text-2xl ">
                     Add Your Event-Photo
                   </span>
                 </div>
+                
                 <input
                   type="file"
+                  name="eventPhoto"
                   className="file-input file-input-ghost w-full max-w-xs"
+                  onChange={handleInputChange}
                 />
                 <button
                   type="submit"

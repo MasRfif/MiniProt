@@ -72,8 +72,7 @@ export async function createEvent(
       price,
       location,
       description,
-      date,
-      time,
+      datetime,
       availableSeat,
       eventTypeId,
     } = req.body;
@@ -92,8 +91,7 @@ export async function createEvent(
         price: +price,
         description,
         location,
-        date,
-        time,
+        datetime: new Date(datetime),
         availableSeat: +availableSeat,
         eventTypeId: +eventTypeId,
         imageUrl: cloudinaryData.secure_url,
@@ -124,6 +122,7 @@ export async function editEvent(
       description,
       availableSeat,
       eventTypeId,
+      datetime,
     } = req.body;
 
     const change = await prisma.events.update({
@@ -137,6 +136,7 @@ export async function editEvent(
         description,
         availableSeat,
         eventTypeId,
+        datetime,
       },
     });
     res.status(201).json({ message: change });

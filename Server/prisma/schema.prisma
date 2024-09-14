@@ -32,6 +32,8 @@ model Users {
   referalCode    ReferralCode[]
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
+  feedback       Feedback[]
+  rating         Rating[]
 
   @@map("users") // untuk mengubah nama table yg tdk mengikuti default prisma
 }
@@ -50,19 +52,21 @@ model Token {
 }
 
 model Events {
-  id            Int       @id @default(autoincrement())
+  id            Int         @id @default(autoincrement())
   eventName     String
-  price         Int       @default(0)
-  date          DateTime?
-  time          DateTime?
+  price         Int         @default(0)
+  datetime      DateTime?
   location      String?
   description   String?
-  availableSeat Int       @default(0)
+  availableSeat Int         @default(0)
   // ticketType    Int
   imageUrl      String?
-  eventTypeId   Int       @default(1) //nnt d bikin relasiny 1 free, 2 paid
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  eventTypeId   Int         @default(1) //nnt d bikin relasiny 1 free, 2 paid
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  feedback      Feedback[]
+  rating        Rating[]
+  Statistic     Statistic[]
 
   //note kemungkinan besar nnt ada table baru tuk ticket
   @@map("events")
@@ -78,6 +82,7 @@ model Tickets {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   Transaction Transaction[]
+  Statistic   Statistic[]
 
   @@map("tickets")
 }
@@ -101,8 +106,8 @@ model Transaction {
   quantity  Int
   walletId  Int
   Wallet    Wallet   @relation(fields: [walletId], references: [id])
-  ticketsId Int
-  Tickets   Tickets? @relation(fields: [ticketsId], references: [id])
+  ticketId  Int
+  Tickets   Tickets? @relation(fields: [ticketId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -144,4 +149,38 @@ model Roles {
   updatedAt DateTime @updatedAt
 
   @@map("roles")
+}
+
+model Feedback {
+  id      Int    @id @default(autoincrement())
+  text    String
+  userId  Int
+  user    Users  @relation(fields: [userId], references: [id])
+  eventId Int
+  events  Events @relation(fields: [eventId], references: [id])
+
+  @@map("feedbacks")
+}
+
+model Rating {
+  id      Int    @id @default(autoincrement())
+  rate    Int
+  userId  Int
+  user    Users  @relation(fields: [userId], references: [id])
+  eventId Int
+  events  Events @relation(fields: [eventId], references: [id])
+
+  @@map("ratings")
+}
+
+model Statistic {
+  id        Int     @id @default(autoincrement())
+  viewCount Int
+  likes     Int
+  eventId   Int
+  events    Events  @relation(fields: [eventId], references: [id])
+  ticketId  Int
+  ticket    Tickets @relation(fields: [ticketId], references: [id])
+
+  @@map("statistics")
 }
