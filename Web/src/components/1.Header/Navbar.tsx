@@ -101,7 +101,7 @@ export default function Navbar() {
               height={70}
             />
             <div className="relative w-96 hidden md:block">
-              <form className="flex items-center max-w-sm mx-auto">
+              <section className="flex items-center max-w-sm mx-auto">
                 <label htmlFor="simple-search" className="sr-only">
                   Search
                 </label>
@@ -135,7 +135,7 @@ export default function Navbar() {
                   </svg>
                   <span className="sr-only">Search</span>
                 </button>
-              </form>
+              </section>
             </div>
             <Link href="/">
               <Image
@@ -302,7 +302,7 @@ export default function Navbar() {
                         )}
                       </div>
                       <div className="w-72 py-4 z-10">
-                        <form className="max-w-md mx-auto">
+                        <section className="max-w-md mx-auto">
                           <label
                             htmlFor="default-search"
                             className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -310,7 +310,7 @@ export default function Navbar() {
                             Search
                           </label>
                           <div className="relative w-72 md:block">
-                            <form className="flex items-center max-w-sm mx-auto">
+                            <section className="flex items-center max-w-sm mx-auto">
                               <label
                                 htmlFor="simple-search"
                                 className="sr-only"
@@ -347,9 +347,9 @@ export default function Navbar() {
                                 </svg>
                                 <span className="sr-only">Search</span>
                               </button>
-                            </form>
+                            </section>
                           </div>
-                        </form>
+                        </section>
                       </div>
 
                       <ul className="flex flex-col justify-between w-96 space-y-2">

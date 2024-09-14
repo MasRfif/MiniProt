@@ -18,7 +18,9 @@ export default function AdminPage() {
   const [isFreeEvent, setIsFreeEvent] = useState(true);
   const router = useRouter();
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = event.target;
 
     if ((event.target as HTMLInputElement).files) {
@@ -29,7 +31,9 @@ export default function AdminPage() {
     }
   };
 
-  const handleEventTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEventTypeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const isPaid = event.target.value;
     setFormData({ ...formData, isPaid });
     setIsFreeEvent(isPaid === "free"); // Update isFreeEvent based on the selected value
@@ -84,14 +88,25 @@ export default function AdminPage() {
 
                 <div className="mt-3 ">
                   <legend>Event Name</legend>
-                  <input type="text" name="eventName" value={formData.eventName} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md w-96 flex" />
+                  <input
+                    type="text"
+                    name="eventName"
+                    value={formData.eventName}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 rounded-md w-96 flex"
+                  />
                 </div>
 
                 {/* Break */}
 
                 <div>
                   <legend> Description Event</legend>
-                  <textarea name="description" value={formData.description} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md w-96 flex "></textarea>
+                  <textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 rounded-md w-96 flex "
+                  ></textarea>
                   {/* <input type="text" name="description" value={formData.description} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md flex w-96 " /> */}
                 </div>
 
@@ -115,7 +130,13 @@ export default function AdminPage() {
 
                 <div>
                   <legend>Date & Time Event</legend>
-                  <input type="datetime-local" name="datetime" value={formData.datetime} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md w-96 flex" />
+                  <input
+                    type="datetime-local"
+                    name="datetime"
+                    value={formData.datetime}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 rounded-md w-96 flex"
+                  />
                 </div>
 
                 {/* Break */}
@@ -169,19 +190,36 @@ export default function AdminPage() {
                 {!isFreeEvent && (
                   <div>
                     <legend>Event Price</legend>
-                    <input type="number" name="price" placeholder="Price" value={formData.price} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md w-96 flex" />
+                    <input
+                      type="number"
+                      name="price"
+                      placeholder="Price"
+                      value={formData.price}
+                      onChange={handleInputChange}
+                      className="border border-gray-300 p-2 rounded-md w-96 flex"
+                    />
                   </div>
                 )}
 
                 {/* Break */}
 
                 <div className="label font-bold pb-4">
-                  <span className="label-text text-2xl ">Add Your Event-Photo</span>
+                  <span className="label-text text-2xl ">
+                    Add Your Event-Photo
+                  </span>
                 </div>
 
-                <input type="file" name="eventPhoto" className="file-input file-input-ghost w-full max-w-xs" onChange={handleInputChange} />
+                <input
+                  type="file"
+                  name="eventPhoto"
+                  className="file-input file-input-ghost w-full max-w-xs"
+                  onChange={handleInputChange}
+                />
 
-                <button type="submit" className="bg-slate-700 outline outline-2 outline-red-700 text-white px-4 py-2 rounded-md">
+                <button
+                  type="submit"
+                  className="bg-slate-700 outline outline-2 outline-red-700 text-white px-4 py-2 rounded-md"
+                >
                   Submit
                 </button>
               </div>
