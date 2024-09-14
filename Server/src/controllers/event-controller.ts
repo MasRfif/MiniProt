@@ -93,7 +93,7 @@ export async function createEvent(
         location,
         datetime: new Date(datetime),
         availableSeat: +availableSeat,
-        isPaid,
+        isPaid: isPaid === "paid" ? true : false,
         imageUrl: cloudinaryData.secure_url,
       },
     });
