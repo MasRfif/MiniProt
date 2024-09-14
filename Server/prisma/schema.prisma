@@ -55,8 +55,7 @@ model Events {
   id            Int         @id @default(autoincrement())
   eventName     String
   price         Int         @default(0)
-  date          DateTime?
-  time          DateTime?
+  datetime      DateTime?
   location      String?
   description   String?
   availableSeat Int         @default(0)

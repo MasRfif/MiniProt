@@ -146,7 +146,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     const jwtPayload = { userId: user?.id, email, roleId: user?.roleId };
     const token = jwt.sign(jwtPayload, process.env.JWT_SECRET_KEY as string, {
-      expiresIn: "1h",
+      expiresIn: rememberMe ? "1y" : "1h",
     });
 
     //console.log(token);

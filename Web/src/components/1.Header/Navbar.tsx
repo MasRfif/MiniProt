@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 
@@ -31,7 +32,7 @@ export default function Navbar() {
 
   const [navBar, setNavbar] = useState<Boolean | undefined>();
   const [showNavBar, setShowNavBar] = useState(false);
-  const token = useCookies(["token"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
 
   useEffect(() => {
     const changeBackground = () => {
@@ -48,15 +49,39 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", changeBackground);
   }, []);
 
+  async function checkLogIn() {
+    const res = await fetch("http://localhost:8069/api/v1/check", {
+      method: "GET",
+      credentials: "include",
+    });
+    if (res.ok) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }
+
   //sign in & user page toggle
-  // useEffect(() => {
-  //   console.log(token);
-  //   if (token) {
-  //     setIsLoggedIn(true);
-  //   } else {
-  //     setIsLoggedIn(false);
-  //   }
-  // }, [isLoggedIn]);
+  useEffect(() => {
+    checkLogIn();
+  }, [isLoggedIn]);
+
+  const router = useRouter();
+  const logout = async () => {
+    try {
+      console.log("LoggedOut");
+      await fetch("http://localhost:8069/api/v1/auth/logout", {
+        method: "GET",
+        credentials: "include",
+      });
+      removeCookie("token");
+      checkLogIn();
+      router.push("/");
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -165,14 +190,14 @@ export default function Navbar() {
                       <a>Settings</a>
                     </li>
                     <li>
-                      <a>Logout</a>
+                      <a onClick={logout}>Logout</a>
                     </li>
                   </ul>
                 </div>
               ) : (
                 <Link href="/login">
                   <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
-                    Sign Up
+                    Log In
                   </button>
                 </Link>
               )}
@@ -207,13 +232,13 @@ export default function Navbar() {
                       <a>Settings</a>
                     </li>
                     <li>
-                      <a>Logout</a>
+                      <a onClick={logout}>Logout</a>
                     </li>
                   </ul>
                 </div>
               ) : (
                 <div className="hidden md:block">
-                  <Link href="/SignUp">
+                  <Link href="/signup">
                     <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
                       Sign Up
                     </button>

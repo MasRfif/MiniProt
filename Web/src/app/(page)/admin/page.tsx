@@ -3,22 +3,27 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function AdminPg() {
+export default function adminPage() {
   const [formData, setFormData] = useState({
     eventName: "",
     description: "",
-    date: "",
-    time: "",
+    datetime: "",
     location: "",
     availableSeat: "",
     eventTypeId: "",
+    price: "",
     eventPhoto: "",
   });
   const router = useRouter();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    console.log(event.target);
+    const { name, value, files } = event.target;
+    if (files) {
+      setFormData({ ...formData, [name]: files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -27,15 +32,15 @@ export default function AdminPg() {
     const formDataToSend = new FormData();
     formDataToSend.append("eventName", formData.eventName);
     formDataToSend.append("description", formData.description);
-    formDataToSend.append("date", formData.date);
-    formDataToSend.append("time", formData.time);
+    formDataToSend.append("datetime", formData.datetime);
     formDataToSend.append("location", formData.location);
     formDataToSend.append("availableSeat", formData.availableSeat);
     formDataToSend.append("eventTypeId", formData.eventTypeId);
+    formDataToSend.append("price", formData.price);
 
     // Append the file if it's available
     if (formData.eventPhoto) {
-      formDataToSend.append("eventPhoto", formData.eventPhoto);
+      formDataToSend.append("image", formData.eventPhoto);
     }
 
     try {
@@ -47,8 +52,8 @@ export default function AdminPg() {
 
       console.log(res);
 
-      router.push("/");
-      router.refresh();
+      // router.push("/");
+      // router.refresh();
     } catch (error) {
       console.error(error);
     }
@@ -65,9 +70,7 @@ export default function AdminPg() {
 
                 <input type="text" name="description" placeholder="Description" value={formData.description} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md" />
 
-                <input type="date" name="date" value={formData.date} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md" />
-
-                <input type="time" name="time" value={formData.time} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md" />
+                <input type="datetime-local" name="datetime" value={formData.datetime} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md" />
 
                 <input
                   type="text"
@@ -99,11 +102,21 @@ export default function AdminPg() {
                   border-gray-300 p-2 rounded-md"
                 />
 
+                <input
+                  type="number"
+                  name="price"
+                  placeholder="Price"
+                  value={formData.price}
+                  onChange={handleInputChange}
+                  className="border 
+                  border-gray-300 p-2 rounded-md"
+                />
+
                 <div className="label font-bold pb-4">
                   <span className="label-text text-2xl ">Add Your Event-Photo</span>
                 </div>
 
-                <input type="file" name="eventPhoto" className="file-input file-input-ghost w-full max-w-xs" />
+                <input type="file" name="eventPhoto" className="file-input file-input-ghost w-full max-w-xs" onChange={handleInputChange} />
 
                 <button type="submit" className="bg-slate-700 outline outline-2 outline-red-700 text-white px-4 py-2 rounded-md">
                   Submit

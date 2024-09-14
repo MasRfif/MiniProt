@@ -30,6 +30,11 @@ app.use(
 app.use("/api/v1/auth", authRouter);
 
 app.use(verifyToken);
+
+app.get("/api/v1/check", (req, res) => {
+  return res.status(200).json({ message: "You are logged in" });
+});
+
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/events", eventRouter);
 app.use("/api/v1/refcode", refcodeRouter);

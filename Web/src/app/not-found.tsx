@@ -11,7 +11,7 @@ export default function NotFound() {
         setRemainingTime(remainingTime - 1);
       } else {
         clearInterval(timerId);
-        router.push("/Home");
+        router.push("/home");
       }
     }, 1000);
     return () => clearInterval(timerId);
