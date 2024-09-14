@@ -75,9 +75,7 @@ async function inputData() {
       data: element,
     });
 
-    console.log(
-      `Successfull created new user with id: ${user.id}, name: ${user.username}`
-    );
+    console.log(`Successfull created new user with id: ${user.id}, name: ${user.username}`);
   }
 
   console.log("Seeding data finished!");
@@ -87,57 +85,47 @@ async function inputData() {
     {
       eventName: "Tokyo Anime Convention",
       price: 50,
-      date: "2024-10-15T09:00:00Z",
-      time: "2024-10-15T09:00:00Z",
+      datetime: "2024-10-15T09:00:00Z",
       location: "Tokyo Big Sight, Tokyo, Japan",
-      description:
-        "The Tokyo Anime Convention is the biggest anime event in Japan, featuring panels, cosplay, and merchandise from your favorite anime series.",
+      description: "The Tokyo Anime Convention is the biggest anime event in Japan, featuring panels, cosplay, and merchandise from your favorite anime series.",
       availableSeat: 2000,
-      eventTypeId: 2,
+      isPaid: true,
     },
     {
       eventName: "Cherry Blossom Festival",
       price: 20,
-      date: "2024-03-30T10:00:00Z",
-      time: "2024-03-30T10:00:00Z",
+      datetime: "2024-03-30T10:00:00Z",
       location: "Ueno Park, Tokyo, Japan",
-      description:
-        "Celebrate the beauty of cherry blossoms with traditional Japanese music, food stalls, and cultural performances.",
+      description: "Celebrate the beauty of cherry blossoms with traditional Japanese music, food stalls, and cultural performances.",
       availableSeat: 5000,
-      eventTypeId: 1,
+      isPaid: true,
     },
     {
       eventName: "Anime Karaoke Night",
       price: 15,
-      date: "2024-11-20T19:00:00Z",
-      time: "2024-11-20T19:00:00Z",
+      datetime: "2024-11-20T19:00:00Z",
       location: "Akihabara, Tokyo, Japan",
-      description:
-        "Join fellow anime fans for a night of singing your favorite anime opening and ending songs at a local karaoke bar.",
+      description: "Join fellow anime fans for a night of singing your favorite anime opening and ending songs at a local karaoke bar.",
       availableSeat: 100,
-      eventTypeId: 2,
+      isPaid: true,
     },
     {
       eventName: "Japanese Cuisine Cooking Class",
       price: 35,
-      date: "2024-12-05T14:00:00Z",
-      time: "2024-12-05T14:00:00Z",
+      datetime: "2024-12-05T14:00:00Z",
       location: "Kyoto Cooking School, Kyoto, Japan",
-      description:
-        "Learn to cook traditional Japanese dishes such as sushi, ramen, and tempura with expert chefs in Kyoto.",
+      description: "Learn to cook traditional Japanese dishes such as sushi, ramen, and tempura with expert chefs in Kyoto.",
       availableSeat: 25,
-      eventTypeId: 1,
+      isPaid: true,
     },
     {
       eventName: "Sakura Matsuri Cosplay Parade",
       price: 0,
-      date: "2024-04-10T12:00:00Z",
-      time: "2024-04-10T12:00:00Z",
+      datetime: "2024-04-10T12:00:00Z",
       location: "Shibuya Crossing, Tokyo, Japan",
-      description:
-        "Participate in or watch the vibrant cosplay parade during the Sakura Matsuri festival, featuring costumes from various anime and manga.",
+      description: "Participate in or watch the vibrant cosplay parade during the Sakura Matsuri festival, featuring costumes from various anime and manga.",
       availableSeat: 0, // No fixed seats, open to the public
-      eventTypeId: 1,
+      isPaid: false,
     },
   ];
 
@@ -146,9 +134,7 @@ async function inputData() {
       data: element,
     });
 
-    console.log(
-      `Successfull created new user with id: ${events.id}, name: ${events.eventName}`
-    );
+    console.log(`Successfull created new user with id: ${events.id}, name: ${events.eventName}`);
   }
 
   console.log("Seeding data finished!");

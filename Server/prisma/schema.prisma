@@ -35,7 +35,7 @@ model Users {
   feedback       Feedback[]
   rating         Rating[]
 
-  @@map("users") // untuk mengubah nama table yg tdk mengikuti default prisma
+  @@map("users") // untuk mengubah nama table yg tdk mengikuti default prismanpx prisma migrate status
 }
 
 model Token {
@@ -61,7 +61,7 @@ model Events {
   availableSeat Int         @default(0)
   // ticketType    Int
   imageUrl      String?
-  eventTypeId   Int         @default(1) //nnt d bikin relasiny 1 free, 2 paid
+  isPaid        Boolean     @default(false) //event type here
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   feedback      Feedback[]
@@ -143,7 +143,7 @@ model ReferralCode {
 
 model Roles {
   id        Int      @id @default(autoincrement())
-  position  String
+  position  String   @unique
   user      Users[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

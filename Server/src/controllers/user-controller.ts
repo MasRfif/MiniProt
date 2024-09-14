@@ -3,25 +3,16 @@ import { NextFunction, Request, Response } from "express";
 
 const prisma = new PrismaClient();
 
-export async function getAllUser(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function getAllUser(req: Request, res: Response, next: NextFunction) {
   try {
     const users = await prisma.users.findMany();
     return res.status(200).json({ data: users });
   } catch (error) {
-    //console.error(error);
     next(error);
   }
 }
 
-export async function getSingleUser(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function getSingleUser(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
     const user = await prisma.users.findUnique({
@@ -38,11 +29,7 @@ export async function getSingleUser(
 }
 
 //edit user - Note edit profile
-export async function updateUser(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function updateUser(req: Request, res: Response, next: NextFunction) {
   //Note blm bisa ubah password
   try {
     const { id } = req.params;
@@ -64,11 +51,7 @@ export async function updateUser(
   }
 }
 
-export async function deleteUser(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function deleteUser(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
 
