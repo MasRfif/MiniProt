@@ -12,9 +12,9 @@ export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "/Home" },
+    { name: "Home", href: "/home" },
     { name: "Event", href: "/event" },
-    { name: "FeedBack", href: "/About" },
+    { name: "About", href: "/about" },
     { name: "Help", href: "/help" },
   ];
 
