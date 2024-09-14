@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function adminPage() {
+export default function AdminPage() {
   const [formData, setFormData] = useState({
     eventName: "",
     description: "",
@@ -65,12 +65,22 @@ export default function adminPage() {
           <div className="p-10 w-full ">
             <h1 className="text-3xl font-semibold">Create Event</h1>
             <form onSubmit={handleSubmit}>
+              {/* Break */}
+
               <div className="flex flex-col gap-4">
+                {/* Break */}
+
                 <input type="text" name="eventName" placeholder="Event Name" value={formData.eventName} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md" />
 
                 <input type="text" name="description" placeholder="Description" value={formData.description} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md" />
 
                 <input type="datetime-local" name="datetime" value={formData.datetime} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md" />
+
+                {/* Break */}
+
+                <legend>
+                  <h1>Text</h1>
+                </legend>
 
                 <input
                   type="text"
@@ -81,6 +91,8 @@ export default function adminPage() {
                   className="border border-gray-300 p-2 
                   rounded-md"
                 />
+
+                {/* Break */}
 
                 <input
                   type="number"

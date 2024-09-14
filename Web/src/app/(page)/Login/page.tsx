@@ -1,52 +1,33 @@
 "use client";
+
 import Image from "next/image";
-<<<<<<< HEAD
-=======
-import Background from "@/components/2.Body/Background";
->>>>>>> ecfa4945a633c8e6c15ec5b0ba3c61a06ba02bb4
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-<<<<<<< HEAD
-=======
-  const [rememberMe, setRememberMe] = useState(false);
->>>>>>> ecfa4945a633c8e6c15ec5b0ba3c61a06ba02bb4
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-<<<<<<< HEAD
     const data = { email, password };
 
     try {
       await fetch("http://localhost:8069/api/v1/auth/login", {
-=======
-    const data = { email, password, rememberMe };
-
-    try {
-      const res = await fetch("http://localhost:8069/api/v1/auth/login", {
->>>>>>> ecfa4945a633c8e6c15ec5b0ba3c61a06ba02bb4
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
         credentials: "include",
       });
 
-<<<<<<< HEAD
-      router.push("/home");
-      router.refresh();
-=======
       if (res.ok) {
         router.push("/home");
         router.refresh();
       } else {
         alert("Invalid username or password.");
       }
->>>>>>> ecfa4945a633c8e6c15ec5b0ba3c61a06ba02bb4
     } catch (error) {
       console.error(error);
     }
@@ -54,25 +35,13 @@ export default function Login() {
 
   return (
     <>
-      <section
-        id="hero"
-        className="w-full h-screen self-center overflow-hidden bg-black"
-      >
+      <section id="hero" className="w-full h-screen self-center overflow-hidden bg-black">
         {" "}
-<<<<<<< HEAD
-        <section className="w-[980px] flex justify-center items-center font-bold rounded-r-3xl bg-red-700">
-          <div className="bg-white rounded-3xl  flex-col top-0  items-center justify-center p-9 w-[450px] h-96">
-            <form onSubmit={handleSubmit}>
-              <h1 className="text-3xl font-bold mb-6 text-[#54432f] ">
-                Log In
-              </h1>
-=======
         <section className="w-full h-full flex justify-center items-center font-bold rounded-r-3xl bg-gradient-to-l from-black/0 to-red-700/90">
           <Background />
           <div className="bg-white backdrop-filter backdrop-blur-sm rounded-3xl  flex-col top-0  items-center justify-center p-9 w-[450px] h-96">
             <form onSubmit={handleSubmit}>
               <h1 className="text-3xl font-bold mb-6 text-black ">Log In</h1>
->>>>>>> ecfa4945a633c8e6c15ec5b0ba3c61a06ba02bb4
 
               <div className="mb-4">
                 <div className="w-[380px]">
@@ -120,30 +89,16 @@ export default function Login() {
               </div>
               <div className="flex items-center justify-between">
                 <label className="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={rememberMe}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setRememberMe(e.target.checked)
-                    }
-                    className="form-checkbox h-4 w-4 rounded-2xl text-yellow-700 hover:text-yellow-950"
-                  />
+                  <input type="checkbox" checked={rememberMe} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRememberMe(e.target.checked)} className="form-checkbox h-4 w-4 rounded-2xl text-yellow-700 hover:text-yellow-950" />
                   <span className="ml-2 text-black">Remember me</span>
                 </label>
-                <a
-                  className="inline-block align-baseline font-bold text-sm text-red-600 hover:text-yellow-950"
-                  href="/signup"
-                >
+                <a className="inline-block align-baseline font-bold text-sm text-red-600 hover:text-yellow-950" href="/signup">
                   Sign Up
                 </a>
               </div>
               <div className="mt-4">
                 <button
-<<<<<<< HEAD
-                  className="bg-yellow-700 hover:text-yellow-950 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-=======
                   className="bg-red-900 hover:text-red-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
->>>>>>> ecfa4945a633c8e6c15ec5b0ba3c61a06ba02bb4
                   type="submit" //"button"
                 >
                   Log In

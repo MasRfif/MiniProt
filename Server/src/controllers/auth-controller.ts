@@ -125,7 +125,7 @@ export async function confirmEmail(req: Request, res: Response, next: NextFuncti
 
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
-    const { email, password } = req.body;
+    const { email, password, rememberMe } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({ message: "Required field is missing" });
@@ -146,7 +146,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     const jwtPayload = { userId: user?.id, email, roleId: user?.roleId };
     const token = jwt.sign(jwtPayload, process.env.JWT_SECRET_KEY as string, {
-      expiresIn: rememberMe ? "1y" : "1h",
+      expiresIn: rememberMe ? "3y" : "1h",
     });
 
     //console.log(token);
