@@ -4,14 +4,14 @@ import React, { ChangeEvent, TextareaHTMLAttributes, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AdminPage() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<any>({
     eventName: "",
     description: "",
     datetime: "",
     location: "",
     availableSeat: "",
-    eventTypeId: "",
-    price: "",
+    isPaid: "",
+    price: 0,
     eventPhoto: "",
   });
 
@@ -30,9 +30,12 @@ export default function AdminPage() {
   };
 
   const handleEventTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const eventTypeId = event.target.value;
-    setFormData({ ...formData, eventTypeId });
-    setIsFreeEvent(eventTypeId === "free"); // Update isFreeEvent based on the selected value
+    const isPaid = event.target.value;
+    setFormData({ ...formData, isPaid });
+    setIsFreeEvent(isPaid === "free"); // Update isFreeEvent based on the selected value
+    if (isPaid === "free") {
+      setFormData({ ...formData, price: 0, isPaid });
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -44,13 +47,8 @@ export default function AdminPage() {
     formDataToSend.append("datetime", formData.datetime);
     formDataToSend.append("location", formData.location);
     formDataToSend.append("availableSeat", formData.availableSeat);
-    formDataToSend.append("eventTypeId", formData.eventTypeId);
+    formDataToSend.append("isPaid", formData.isPaid);
     formDataToSend.append("price", formData.price);
-
-    // menghandle harga apabila eventnya not free
-    if (!isFreeEvent) {
-      formDataToSend.append("price", formData.price);
-    }
 
     // Append the file if it's available
     if (formData.eventPhoto) {
@@ -141,8 +139,7 @@ export default function AdminPage() {
                   <span className="flex">
                     <input
                       type="radio"
-                      name="eventTypeId"
-                      placeholder="Event Type ID"
+                      name="isPaid"
                       value="free"
                       onChange={handleEventTypeChange}
                       className="border 
@@ -156,8 +153,7 @@ export default function AdminPage() {
                   <span className="flex">
                     <input
                       type="radio"
-                      name="eventTypeId"
-                      placeholder="Event Type ID"
+                      name="isPaid"
                       value="paid"
                       onChange={handleEventTypeChange}
                       className="border 

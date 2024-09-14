@@ -55,7 +55,7 @@ export async function getSingleEvent(req: Request, res: Response, next: NextFunc
 
 export async function createEvent(req: Request, res: Response, next: NextFunction) {
   try {
-    const { eventName, price, location, description, datetime, availableSeat, eventTypeId } = req.body;
+    const { eventName, price, location, description, datetime, availableSeat, isPaid } = req.body;
 
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
@@ -73,7 +73,7 @@ export async function createEvent(req: Request, res: Response, next: NextFunctio
         location,
         datetime: new Date(datetime),
         availableSeat: +availableSeat,
-        eventTypeId: +eventTypeId,
+        isPaid: isPaid === "paid" ? true : false,
         imageUrl: cloudinaryData.secure_url,
       },
     });
@@ -90,7 +90,7 @@ export async function createEvent(req: Request, res: Response, next: NextFunctio
 export async function editEvent(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
-    const { eventName, price, location, description, availableSeat, eventTypeId, datetime } = req.body;
+    const { eventName, price, location, description, availableSeat, isPaid, datetime } = req.body;
 
     const change = await prisma.events.update({
       where: {
@@ -102,7 +102,7 @@ export async function editEvent(req: Request, res: Response, next: NextFunction)
         location,
         description,
         availableSeat,
-        eventTypeId,
+        isPaid,
         datetime,
       },
     });
