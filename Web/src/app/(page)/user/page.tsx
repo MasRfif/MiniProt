@@ -2,7 +2,7 @@ export default function UserPage() {
   return (
     <>
       <section className=" w-full h-screen flex  justify-center items-center font-bold  bg-gradient-to-b from-black to-red-700/90">
-        <div className="flex w-7/12 h-1/2 rounded-3xl bg-white">
+        <div className="flex w-7/12 h-fit rounded-3xl bg-white">
           <div className="w-[250rem] p-10">
             <h1 className="font-extrabold">
               Username: <span className="font-light">Raditya</span>

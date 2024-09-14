@@ -7,7 +7,7 @@ export default function HomeCrls() {
     <div className=" bg-base-200 min-h-screen">
       <div className="hero-content ">
         <div className=" text-white w-full h-full">
-          <div className=" flex md:flex-row sm:flex-col md:item-center gap-14 xl:w-[114rem] max-s:flex-col sm:w-fit max-[425px]:w-[24rem] s:h-fit h-fit bg-red-800 p-5 rounded-lg">
+          <div className=" flex md:flex-row sm:flex-col md:w-full md:item-center gap-14 xl:w-[114rem] max-s:flex-col sm:w-fit max-[425px]:w-[24rem] s:h-fit h-fit bg-red-800 p-5 rounded-lg">
             <div className="flex  max-[425px]:flex-col">
               {" "}
               <div className=" w-96 max-s:w-full h-full ">
@@ -49,7 +49,7 @@ export default function HomeCrls() {
               <Tag />
             </div>
 
-            <div className="flex items-center w-fit max-sm:w-96 max-s:w-80  max-s:px-0 max-s:pt-5 ">
+            <div className="flex  items-center w-fit max-sm:w-96 max-s:w-80  max-s:px-0 max-s:pt-5 ">
               <div className="carousel  gap-9   xl:w-full max-w-[40rem] max-s:max-w-[20rem] max-s:mx-auto carousel-end rounded-box">
                 <div className="carousel-item ">
                   <div className="card bg-base-100 image-full w-96 sm:w-72 sm:h-36 h-fit max-s:h-52 max-s:w-80 shadow-xl">
