@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { ChangeEvent, TextareaHTMLAttributes, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AdminPage() {
@@ -14,16 +14,25 @@ export default function AdminPage() {
     price: "",
     eventPhoto: "",
   });
+
+  const [isFreeEvent, setIsFreeEvent] = useState(true);
   const router = useRouter();
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target);
-    const { name, value, files } = event.target;
-    if (files) {
-      setFormData({ ...formData, [name]: files[0] });
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+
+    if ((event.target as HTMLInputElement).files) {
+      const files = (event.target as HTMLInputElement).files;
+      setFormData({ ...formData, [name]: files ? files[0] : null });
     } else {
       setFormData({ ...formData, [name]: value });
     }
+  };
+
+  const handleEventTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const eventTypeId = event.target.value;
+    setFormData({ ...formData, eventTypeId });
+    setIsFreeEvent(eventTypeId === "free"); // Update isFreeEvent based on the selected value
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -37,6 +46,11 @@ export default function AdminPage() {
     formDataToSend.append("availableSeat", formData.availableSeat);
     formDataToSend.append("eventTypeId", formData.eventTypeId);
     formDataToSend.append("price", formData.price);
+
+    // menghandle harga apabila eventnya not free
+    if (!isFreeEvent) {
+      formDataToSend.append("price", formData.price);
+    }
 
     // Append the file if it's available
     if (formData.eventPhoto) {
@@ -70,59 +84,100 @@ export default function AdminPage() {
               <div className="flex flex-col gap-4">
                 {/* Break */}
 
-                <input type="text" name="eventName" placeholder="Event Name" value={formData.eventName} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md" />
-
-                <input type="text" name="description" placeholder="Description" value={formData.description} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md" />
-
-                <input type="datetime-local" name="datetime" value={formData.datetime} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md" />
-
-                {/* Break */}
-
-                <legend>
-                  <h1>Text</h1>
-                </legend>
-
-                <input
-                  type="text"
-                  name="location"
-                  placeholder="Location"
-                  value={formData.location}
-                  onChange={handleInputChange}
-                  className="border border-gray-300 p-2 
-                  rounded-md"
-                />
+                <div className="mt-3 ">
+                  <legend>Event Name</legend>
+                  <input type="text" name="eventName" value={formData.eventName} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md w-96 flex" />
+                </div>
 
                 {/* Break */}
 
-                <input
-                  type="number"
-                  name="availableSeat"
-                  placeholder="Available Seats"
-                  value={formData.availableSeat}
-                  onChange={handleInputChange}
-                  className="border 
-                  border-gray-300 p-2 rounded-md"
-                />
+                <div>
+                  <legend> Description Event</legend>
+                  <textarea name="description" value={formData.description} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md w-96 flex "></textarea>
+                  {/* <input type="text" name="description" value={formData.description} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md flex w-96 " /> */}
+                </div>
 
-                <input
-                  type="text"
-                  name="eventTypeId"
-                  placeholder="Event Type ID"
-                  value={formData.eventTypeId}
-                  onChange={handleInputChange}
-                  className="border 
-                  border-gray-300 p-2 rounded-md"
-                />
+                {/* Break */}
 
-                <input
-                  type="number"
-                  name="price"
-                  placeholder="Price"
-                  value={formData.price}
-                  onChange={handleInputChange}
-                  className="border 
+                <div>
+                  <legend>
+                    <h1>Place & Location</h1>
+                  </legend>
+                  <input
+                    type="text"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 
+                  rounded-md w-96 flex"
+                  />
+                </div>
+
+                {/* Break */}
+
+                <div>
+                  <legend>Date & Time Event</legend>
+                  <input type="datetime-local" name="datetime" value={formData.datetime} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md w-96 flex" />
+                </div>
+
+                {/* Break */}
+
+                <div>
+                  <legend>Available Seat</legend>
+                  <input
+                    type="number"
+                    name="availableSeat"
+                    value={formData.availableSeat}
+                    onChange={handleInputChange}
+                    className="border 
+                  border-gray-300 p-2 rounded-md w-96 flex"
+                  />
+                </div>
+
+                {/* Break */}
+
+                <div>
+                  <legend>Type event</legend>
+                  <span className="flex">
+                    <input
+                      type="radio"
+                      name="eventTypeId"
+                      placeholder="Event Type ID"
+                      value="free"
+                      onChange={handleEventTypeChange}
+                      className="border 
+                  border-gray-300 p-2 rounded-md "
+                    />{" "}
+                    <h4 className="mx-3">Free</h4>
+                  </span>
+
+                  {/* Break */}
+
+                  <span className="flex">
+                    <input
+                      type="radio"
+                      name="eventTypeId"
+                      placeholder="Event Type ID"
+                      value="paid"
+                      onChange={handleEventTypeChange}
+                      className="border 
                   border-gray-300 p-2 rounded-md"
-                />
+                    />{" "}
+                    <h4 className="mx-3">Not Free</h4>
+                  </span>
+                </div>
+
+                {/* Break */}
+
+                {/* Conditionally render the price field */}
+                {!isFreeEvent && (
+                  <div>
+                    <legend>Event Price</legend>
+                    <input type="number" name="price" placeholder="Price" value={formData.price} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md w-96 flex" />
+                  </div>
+                )}
+
+                {/* Break */}
 
                 <div className="label font-bold pb-4">
                   <span className="label-text text-2xl ">Add Your Event-Photo</span>

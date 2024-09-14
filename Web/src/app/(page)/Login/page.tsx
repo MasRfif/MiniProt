@@ -1,21 +1,23 @@
 "use client";
 
 import Image from "next/image";
+import Background from "@/components/2.Body/Background";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const data = { email, password };
+    const data = { email, password, rememberMe };
 
     try {
-      await fetch("http://localhost:8069/api/v1/auth/login", {
+      const res = await fetch("http://localhost:8069/api/v1/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
