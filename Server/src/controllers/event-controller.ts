@@ -12,7 +12,7 @@ export async function getAllEvent(
   next: NextFunction
 ) {
   try {
-    const { page = 1, limit = 2 /*10*/ } = req.query;
+    const { page = 1, limit = 10 } = req.query;
     const offset = (Number(page) - 1) * Number(limit);
 
     const events = await prisma.events.findMany({
