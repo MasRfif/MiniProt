@@ -3,6 +3,7 @@ import Image from "next/image";
 import Navbar from "@/components/1.Header/Navbar";
 import HomeCrls from "@/components/2.Body/HomeCarousel";
 import Testimonial from "@/components/2.Body/Testimonies";
+import HeroCar from "../Asset/autoplayHomeHero";
 
 export default function HeroHome() {
   return (
@@ -37,118 +38,7 @@ export default function HeroHome() {
                     Get Started
                   </button>
                 </div>
-                <div className="flex max-s:hidden justify-center items-center text-white w-full h-full">
-                  <div className="carousel gap-5 max-[768px]:hidden  max-w-[50rem]  carousel-end rounded-box">
-                    <div className="carousel-item px-50 ">
-                      <div className="card lg:card-side  bg-red-900 shadow-xl">
-                        <figure>
-                          <Image
-                            src="/TestHero1.jpg"
-                            alt="Shoes"
-                            width={600}
-                            height={600}
-                            className="object-cover w-[400px] h-[500px]"
-                          />
-                        </figure>
-                        <div className="card-body w-96">
-                          <h2 className="card-title">
-                            Event name
-                            <div className="badge badge-secondary font-fira-sans">
-                              NEW
-                            </div>
-                          </h2>
-
-                          <p>
-                            Event description Lorem ipsum, dolor sit amet
-                            consectetur adipisicing elit. Molestiae cum numquam
-                            quaerat corrupti, exercitationem incidunt alias,
-                            tenetur ea quod beatae minus labore obcaecati odit.
-                            Corrupti, non ut! Eveniet, aliquid autem!
-                          </p>
-                          <div className="card-actions justify-end">
-                            <Link href="/event">
-                              <button className="btn badge bg-slate-700 outline outline-2 outline-red-700 text-white">
-                                Event Button
-                              </button>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="carousel-item px-50 ">
-                      <div className="card lg:card-side  bg-red-900 shadow-xl">
-                        <figure>
-                          <Image
-                            src="/TestHero2.jpeg"
-                            alt="Shoes"
-                            width={600}
-                            height={600}
-                            className="object-cover w-[400px] h-[500px]"
-                          />
-                        </figure>
-                        <div className="card-body w-96">
-                          <h2 className="card-title">
-                            Event name
-                            <div className="badge badge-secondary font-fira-sans">
-                              NEW
-                            </div>
-                          </h2>
-
-                          <p>
-                            Event description Lorem ipsum, dolor sit amet
-                            consectetur adipisicing elit. Molestiae cum numquam
-                            quaerat corrupti, exercitationem incidunt alias,
-                            tenetur ea quod beatae minus labore obcaecati odit.
-                            Corrupti, non ut! Eveniet, aliquid autem!
-                          </p>
-                          <div className="card-actions justify-end">
-                            <Link href="/event">
-                              <button className="btn badge bg-slate-700 outline outline-2 outline-red-700 text-white">
-                                Event Button
-                              </button>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="carousel-item px-50 ">
-                      <div className="card lg:card-side  bg-red-900 shadow-xl">
-                        <figure>
-                          <Image
-                            src="/TestHero1.jpg"
-                            alt="Shoes"
-                            width={600}
-                            height={600}
-                            className="object-cover w-[400px] h-[500px]"
-                          />
-                        </figure>
-                        <div className="card-body w-96">
-                          <h2 className="card-title">
-                            Event name
-                            <div className="badge badge-secondary font-fira-sans">
-                              NEW
-                            </div>
-                          </h2>
-
-                          <p>
-                            Event description Lorem ipsum, dolor sit amet
-                            consectetur adipisicing elit. Molestiae cum numquam
-                            quaerat corrupti, exercitationem incidunt alias,
-                            tenetur ea quod beatae minus labore obcaecati odit.
-                            Corrupti, non ut! Eveniet, aliquid autem!
-                          </p>
-                          <div className="card-actions justify-end">
-                            <Link href="/event">
-                              <button className="btn badge bg-slate-700 outline outline-2 outline-red-700 text-white">
-                                Event Button
-                              </button>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <HeroCar />
               </section>
             </div>
           </div>
