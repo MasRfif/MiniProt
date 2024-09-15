@@ -17,14 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-zinc-900 text-white">
-        <div className="flex flex-col gap-10">
-          <div className="w-full">
-            {" "}
-            {children}
-            <Footer />
-          </div>
-        </div>
+      <body className="{inter.className}  bg-white">
+        {children}
+        <Footer />
       </body>
     </html>
   );

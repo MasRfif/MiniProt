@@ -41,7 +41,7 @@ export default function Home() {
                     vibrant Japanese community in Indonesia. Join us today and
                     never miss out on your favorite Japanese events!
                   </p>
-                  <Link className="btn bg-gray-700 my-10" href={"/Home"}>
+                  <Link className="btn bg-gray-700 my-10" href={"/home"}>
                     Get Started
                   </Link>
                 </div>
