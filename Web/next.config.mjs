@@ -22,6 +22,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "wallpapersden.com",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
     ],
   },
 };

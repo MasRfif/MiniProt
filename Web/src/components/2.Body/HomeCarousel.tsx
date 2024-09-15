@@ -1,13 +1,35 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import Tag from "../Asset/Tags";
+import { useEffect, useState } from "react";
 
 export default function HomeCrls() {
+  const [eventData, setEventData] = useState({ data: [] });
+  const eventGetter = async () => {
+    try {
+      const res = await fetch("http://localhost:8069/api/v1/events", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+
+      const resData = await res.json();
+      console.log(resData);
+      setEventData(resData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    eventGetter();
+  }, []);
+
   return (
     <div className=" bg-base-200 min-h-screen">
       <div className="hero-content ">
         <div className=" text-white w-full h-full">
-          <div className=" flex md:flex-row sm:flex-col md:item-center gap-14 xl:w-[114rem] max-s:flex-col sm:w-fit max-[425px]:w-[24rem] s:h-fit h-fit bg-red-800 p-5 rounded-lg">
+          <div className=" flex md:flex-row sm:flex-col md:w-full md:item-center gap-14 xl:w-[114rem] max-s:flex-col sm:w-fit max-[425px]:w-[24rem] s:h-fit h-fit bg-red-800 p-5 rounded-lg">
             <div className="flex  max-[425px]:flex-col">
               {" "}
               <div className=" w-96 max-s:w-full h-full ">
@@ -49,7 +71,7 @@ export default function HomeCrls() {
               <Tag />
             </div>
 
-            <div className="flex items-center w-fit max-sm:w-96 max-s:w-80  max-s:px-0 max-s:pt-5 ">
+            <div className="flex  items-center w-fit max-sm:w-96 max-s:w-80  max-s:px-0 max-s:pt-5 ">
               <div className="carousel  gap-9   xl:w-full max-w-[40rem] max-s:max-w-[20rem] max-s:mx-auto carousel-end rounded-box">
                 <div className="carousel-item ">
                   <div className="card bg-base-100 image-full w-96 sm:w-72 sm:h-36 h-fit max-s:h-52 max-s:w-80 shadow-xl">
@@ -178,121 +200,35 @@ export default function HomeCrls() {
                 </Link>
               </div>
             </div>
-            <div className="carousel-item  ">
-              <div className="card bg-base-100 w-96 h-96 shadow-xl">
-                <figure className="h-48">
-                  <Image src="/BGUC.jpg" alt="Shoes" width={600} height={600} />
-                </figure>
-                <div className="card-body">
-                  <h2 className="card-title">
-                    EVENT NAME
-                    <div className="badge badge-secondary">Status optional</div>
-                  </h2>
-                  <p className="text-sm">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Provident dignissimos est modi aspernatur optio quas sunt
-                    doloribus veniam quae eum corporis blanditiis vel tenetur
-                    in, laudantium totam? Quaerat, eum nam.
-                  </p>
-                  <div className="card-actions justify-end">
-                    <div className="badge badge-outline">event Tag</div>
-                    <div className="badge badge-outline">event Tag</div>
+            {/* break */}
+            {(eventData as any)?.data?.map((e: any) => (
+              <div className="carousel-item " key={e.id}>
+                <div className="card bg-base-100 w-96 h-96 shadow-xl">
+                  <figure className="h-48">
+                    <Image
+                      src={e.imageUrl || ""}
+                      alt="Shoes"
+                      width={600}
+                      height={600}
+                    />
+                  </figure>
+                  <div className="card-body">
+                    <h2 className="card-title">
+                      {e.eventName}
+                      <div className="badge badge-secondary">
+                        {e.isPaid ? "BUY" : "FREE"}
+                      </div>
+                    </h2>
+                    <p className="text-sm">{e.description}</p>
+                    <div className="card-actions justify-end">
+                      <div className="badge badge-outline">event Tag</div>
+                      <div className="badge badge-outline">event Tag</div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="carousel-item  ">
-              <div className="card bg-base-100 w-96 h-96 shadow-xl">
-                <figure className="h-48">
-                  <Image src="/BGUC.jpg" alt="Shoes" width={600} height={600} />
-                </figure>
-                <div className="card-body">
-                  <h2 className="card-title">
-                    EVENT NAME
-                    <div className="badge badge-secondary">Status optional</div>
-                  </h2>
-                  <p className="text-sm">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Provident dignissimos est modi aspernatur optio quas sunt
-                    doloribus veniam quae eum corporis blanditiis vel tenetur
-                    in, laudantium totam? Quaerat, eum nam.
-                  </p>
-                  <div className="card-actions justify-end">
-                    <div className="badge badge-outline">event Tag</div>
-                    <div className="badge badge-outline">event Tag</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="carousel-item  ">
-              <div className="card bg-base-100 w-96 h-96 shadow-xl">
-                <figure className="h-48">
-                  <Image src="/BGUC.jpg" alt="Shoes" width={600} height={600} />
-                </figure>
-                <div className="card-body">
-                  <h2 className="card-title">
-                    EVENT NAME
-                    <div className="badge badge-secondary">Status optional</div>
-                  </h2>
-                  <p className="text-sm">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Provident dignissimos est modi aspernatur optio quas sunt
-                    doloribus veniam quae eum corporis blanditiis vel tenetur
-                    in, laudantium totam? Quaerat, eum nam.
-                  </p>
-                  <div className="card-actions justify-end">
-                    <div className="badge badge-outline">event Tag</div>
-                    <div className="badge badge-outline">event Tag</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="carousel-item  ">
-              <div className="card bg-base-100 w-96 h-96 shadow-xl">
-                <figure className="h-48">
-                  <Image src="/BGUC.jpg" alt="Shoes" width={600} height={600} />
-                </figure>
-                <div className="card-body">
-                  <h2 className="card-title">
-                    EVENT NAME
-                    <div className="badge badge-secondary">Status optional</div>
-                  </h2>
-                  <p className="text-sm">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Provident dignissimos est modi aspernatur optio quas sunt
-                    doloribus veniam quae eum corporis blanditiis vel tenetur
-                    in, laudantium totam? Quaerat, eum nam.
-                  </p>
-                  <div className="card-actions justify-end">
-                    <div className="badge badge-outline">event Tag</div>
-                    <div className="badge badge-outline">event Tag</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="carousel-item  ">
-              <div className="card bg-base-100 w-96 h-96 shadow-xl">
-                <figure className="h-48">
-                  <Image src="/BGUC.jpg" alt="Shoes" width={600} height={600} />
-                </figure>
-                <div className="card-body">
-                  <h2 className="card-title">
-                    EVENT NAME
-                    <div className="badge badge-secondary">Status optional</div>
-                  </h2>
-                  <p className="text-sm">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Provident dignissimos est modi aspernatur optio quas sunt
-                    doloribus veniam quae eum corporis blanditiis vel tenetur
-                    in, laudantium totam? Quaerat, eum nam.
-                  </p>
-                  <div className="card-actions justify-end">
-                    <div className="badge badge-outline">event Tag</div>
-                    <div className="badge badge-outline">event Tag</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
+            {/* break */}
           </div>
           <div className="p-10">
             <h1 className="text-5xl font-bold">Discover our events</h1>

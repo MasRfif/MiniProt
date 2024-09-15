@@ -29,6 +29,7 @@ app.use(
 
 app.use("/api/v1/auth", authRouter);
 
+app.use("/api/v1/events", eventRouter);
 app.use(verifyToken);
 
 app.get("/api/v1/check", (req, res) => {
@@ -36,7 +37,6 @@ app.get("/api/v1/check", (req, res) => {
 });
 
 app.use("/api/v1/users", userRouter);
-app.use("/api/v1/events", eventRouter);
 app.use("/api/v1/refcode", refcodeRouter);
 app.use("/api/v1/transaction", transactionRouter);
 
