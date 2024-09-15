@@ -8,8 +8,7 @@ import { useCookies } from "react-cookie";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const navLinks = [
     { name: "Home", href: "/home" },
@@ -204,7 +203,7 @@ export default function Navbar() {
             </div>
             <div className="flex items-center xl:hidden">
               {isLoggedIn ? (
-                <div className="hidden md:block">
+                <div className="hidden md:hidden">
                   <div
                     tabIndex={0}
                     role="button"
@@ -253,7 +252,6 @@ export default function Navbar() {
                     className="drawer-toggle"
                   />
                   <div className="drawer-content">
-                    {/* Page content here */}
                     <label
                       htmlFor="my-drawer"
                       className="btn btn-black outline outline-2 outline-red-700 drawer-button"
@@ -367,7 +365,6 @@ export default function Navbar() {
                           </li>
                         ))}
                       </ul>
-                      {/* Add the SignUp button and avatar inside the drawer */}
                     </div>
                   </div>
                 </div>
