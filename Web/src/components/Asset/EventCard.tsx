@@ -46,10 +46,21 @@ export default function EventCard() {
                     {e.isPaid ? `Rp.${e.price},00` : "FREE"}
                   </div>
                 </h2>
-                <p className="text-sm">{e.description}</p>
+                <p className="text-sm">{e.location}</p>
                 <div className="card-actions justify-end">
-                  <div className="badge badge-outline">event tag</div>
-                  <div className="badge badge-outline">event tag</div>
+                  <div className="badge badge-outline">
+                    <p className="text-sm">
+                      {e.datetime
+                        ? new Date(e.datetime).toLocaleDateString("en-US", {
+                            weekday: "long",
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })
+                        : ""}{" "}
+                    </p>
+                  </div>
+                  {/* <div className="badge badge-outline">{e.availableSeat}</div> */}
                 </div>
               </div>
             </div>
