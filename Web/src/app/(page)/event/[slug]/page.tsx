@@ -66,10 +66,43 @@ export default function EventDetails() {
                   />
                 </svg>
                 <span className="ml-2 text-sm text-white">
-                  {eventData?.message?.datetime}
+                  {eventData?.message?.datetime
+                    ? new Date(eventData?.message?.datetime).toLocaleDateString(
+                        "en-US",
+                        {
+                          weekday: "long",
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        }
+                      )
+                    : ""}{" "}
                 </span>
               </div>
             </div>
+
+            <div>
+              <h1 className="text-2xl font-bold text-white">Event Location</h1>
+              <div className="flex p-4 items-center mt-2">
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span className="ml-2 text-sm text-white">
+                  {eventData?.message?.location}
+                </span>
+              </div>
+            </div>
+
             <div>
               <h1 className="text-2xl font-bold text-white">Event Type</h1>
               <div className="flex p-4 items-center mt-1">
@@ -105,7 +138,9 @@ export default function EventDetails() {
               <div className="text-2xl font-bold text-gray-800">
                 Ticket Price
               </div>
-              <div className="mt-4 text-lg text-gray-600">$100 (USD)</div>
+              <div className="mt-4 text-lg text-gray-600">
+                Rp.{eventData?.message?.price},00
+              </div>
               <Link href="/home" className="p-5">
                 <button className="mt-8 px-4 py-2 text-white bg-slate-700 outline outline-2 outline-red-700 rounded-btn">
                   Buy Ticket
