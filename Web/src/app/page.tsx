@@ -23,8 +23,8 @@ export default function Home() {
                     Japanese-themed experiences happening near you. Explore our curated list of events, including cultural festivals, concerts, food fairs, workshops, and more. Whether you are seeking to immerse yourself in authentic
                     Japanese traditions or indulge in the latest trends, our platform helps you connect with the vibrant Japanese community in Indonesia. Join us today and never miss out on your favorite Japanese events!
                   </p>
-                  <Link className="btn bg-gray-700" href={"/Home"}>
-                    Start
+                  <Link className="btn bg-gray-700 my-10" href={"/Home"}>
+                    Get Started
                   </Link>
                 </div>
               </div>
