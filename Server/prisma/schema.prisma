@@ -115,15 +115,15 @@ model Transaction {
 }
 
 model Voucher {
-  id          Int      @id @default(autoincrement())
-  description String
-  discount    Int
-  expireDate  DateTime
-  isUsed      Boolean  @default(false)
-  userId      Int
-  User        Users    @relation(fields: [userId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  title      String
+  discount   Int
+  expireDate DateTime
+  isUsed     Boolean  @default(false)
+  userId     Int
+  User       Users    @relation(fields: [userId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@map("vouchers")
 }

@@ -6,7 +6,11 @@ import authRouter from "./routes/auth-route";
 import userRouter from "./routes/user-route";
 import eventRouter from "./routes/event-route";
 import refcodeRouter from "./routes/refcode-route";
+import voucher from "./routes/voucher-route";
+import wallet from "./routes/wallet-route";
 import transactionRouter from "./routes/transaction-route";
+import rate from "./routes/rating-route";
+import feedback from "./routes/feedback-routes";
 
 import { error } from "./middlewares/error-middleware";
 import { notFound } from "./middlewares/not-found-middleware";
@@ -39,6 +43,10 @@ app.get("/api/v1/check", (req, res) => {
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/refcode", refcodeRouter);
 app.use("/api/v1/transaction", transactionRouter);
+app.use("/api/v1/voucher", voucher);
+app.use("/api/v1/wallet", wallet);
+app.use("/api/v1/rate", rate);
+app.use("/api/v1/feedback", feedback);
 
 app.use(notFound);
 app.use(error);

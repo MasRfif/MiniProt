@@ -18,7 +18,6 @@ export default function SignUp() {
 
     try {
       await fetch("http://localhost:8069/api/v1/auth/register", {
-
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -34,23 +33,15 @@ export default function SignUp() {
 
   return (
     <>
-      <section
-        id="hero"
-        className="w-full h-screen self-center overflow-hidden bg-black"
-      >
+      <section id="hero" className="w-full h-screen self-center overflow-hidden bg-black">
         <Background />
         <section className="w-full h-full flex justify-center items-center font-bold rounded-r-3xl bg-gradient-to-l from-black/0 to-red-700/90">
           <div className="bg-white backdrop-filter backdrop-blur-sm rounded-3xl  flex-col top-0  items-center justify-center p-9 w-[450px] h-[700px]">
             <h1 className="py-5 text-5xl">
-              Get Started{" "}
-              <p className="text-lg font-medium pt-1">
-                Lets Create your Account
-              </p>
+              Get Started <p className="text-lg font-medium pt-1">Lets Create your Account</p>
             </h1>
             <form onSubmit={handleSubmit}>
-              <h1 className="text-3xl font-bold mb-6 text-[#54432f] ">
-                Sign Up
-              </h1>
+              <h1 className="text-3xl font-bold mb-6 text-[#54432f] ">Sign Up</h1>
               <div className="flex flex-wrap mb-4">
                 <div className="w-1/2 pr-2">
                   <div className="mb-4">
@@ -159,17 +150,26 @@ export default function SignUp() {
                   </div>
                 </div>
               </div>
+              {/* Radio Button */}
+
+              <div className="my-3">
+                <div>
+                  <input type="radio" name="event organize" id="eo" value="satu" />
+                  <label className="mx-3">Event Organizer</label>
+                </div>
+
+                <div>
+                  <input type="radio" name="consumer" id="event" value="satu" />
+                  <label className="mx-3">consumer</label>
+                </div>
+              </div>
+
+              {/* Sign up & Log In */}
               <div className="flex items-center justify-between">
-                <button
-                  type="submit"
-                  className="bg-[#54432f] hover:bg-[#978144] text-white font-bold py-2 px-4 rounded focus:outline-none focus-shadow-outline"
-                >
+                <button type="submit" className="bg-[#54432f] hover:bg-[#978144] text-white font-bold py-2 px-4 rounded focus:outline-none focus-shadow-outline">
                   Sign Up
                 </button>
-                <a
-                  href="/Login"
-                  className="inline-block align-baseline font-bold text-sm text-[#725d36] hover:text-[#b5a85a]"
-                >
+                <a href="/Login" className="inline-block align-baseline font-bold text-sm text-[#725d36] hover:text-[#b5a85a]">
                   Log In
                 </a>
               </div>
