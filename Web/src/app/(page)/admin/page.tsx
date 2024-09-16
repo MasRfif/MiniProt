@@ -3,39 +3,22 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function AdminPage() {
-  const [formData, setFormData] = useState<any>({
+export default function AdminPg() {
+  const [formData, setFormData] = useState({
     eventName: "",
     description: "",
-    datetime: "",
+    date: "",
+    time: "",
     location: "",
     availableSeat: "",
-    isPaid: "",
-    price: 0,
+    eventTypeId: "",
     eventPhoto: "",
   });
-
-  const [isFreeEvent, setIsFreeEvent] = useState(true);
   const router = useRouter();
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-
-    if ((event.target as HTMLInputElement).files) {
-      const files = (event.target as HTMLInputElement).files;
-      setFormData({ ...formData, [name]: files ? files[0] : null });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
-  };
-
-  const handleEventTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const isPaid = event.target.value;
-    setFormData({ ...formData, isPaid });
-    setIsFreeEvent(isPaid === "free");
-    if (isPaid === "free") {
-      setFormData({ ...formData, price: 0, isPaid });
-    }
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -44,14 +27,15 @@ export default function AdminPage() {
     const formDataToSend = new FormData();
     formDataToSend.append("eventName", formData.eventName);
     formDataToSend.append("description", formData.description);
-    formDataToSend.append("datetime", formData.datetime);
+    formDataToSend.append("date", formData.date);
+    formDataToSend.append("time", formData.time);
     formDataToSend.append("location", formData.location);
     formDataToSend.append("availableSeat", formData.availableSeat);
-    formDataToSend.append("isPaid", formData.isPaid);
-    formDataToSend.append("price", formData.price);
+    formDataToSend.append("eventTypeId", formData.eventTypeId);
 
+    // Append the file if it's available
     if (formData.eventPhoto) {
-      formDataToSend.append("image", formData.eventPhoto);
+      formDataToSend.append("eventPhoto", formData.eventPhoto);
     }
 
     try {
@@ -62,81 +46,66 @@ export default function AdminPage() {
       });
 
       console.log(res);
+
+      router.push("/");
+      router.refresh();
     } catch (error) {
       console.error(error);
     }
   };
-
   return (
     <>
       <section className="flex w-full h-screen justify-center items-center bg-gradient-to-t from-black to-red-700/90">
-        <div className="card bg-white shadow-xl max-w-[calc(100%-40px)]">
-          <div className="card-body p-6">
-            <h2 className="card-title text-lg font-semibold mb-4">Create Event</h2>
+        <div className="justify-center w-[80rem] h-fit rounded-xl bg-white">
+          <div className="p-10 w-full ">
+            <h1 className="text-3xl font-semibold">Create Event</h1>
+            <form onSubmit={handleSubmit}>
+              <div className="flex flex-col gap-4">
+                <input type="text" name="eventName" placeholder="Event Name" value={formData.eventName} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md" />
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              {/* Event Name */}
-              <div>
-                <legend className="text-sm">Event Name</legend>
-                <input type="text" name="eventName" value={formData.eventName} onChange={handleInputChange} className="input input-bordered w-full text-white" />
-              </div>
+                <input type="text" name="description" placeholder="Description" value={formData.description} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md" />
 
-              {/* Description */}
-              <div>
-                <legend className="text-sm">Description Event</legend>
-                <textarea name="description" value={formData.description} onChange={handleInputChange} className="textarea textarea-bordered w-full text-white"></textarea>
-              </div>
+                <input type="date" name="date" value={formData.date} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md" />
 
-              {/* Location */}
-              <div>
-                <legend className="text-sm">Place & Location</legend>
-                <input type="text" name="location" value={formData.location} onChange={handleInputChange} className="input input-bordered w-full text-white" />
-              </div>
+                <input type="time" name="time" value={formData.time} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md" />
 
-              {/* Date & Time */}
-              <div>
-                <legend className="text-sm">Date & Time Event</legend>
-                <input type="datetime-local" name="datetime" value={formData.datetime} onChange={handleInputChange} className="input input-bordered w-full text-white" />
-              </div>
+                <input
+                  type="text"
+                  name="location"
+                  placeholder="Location"
+                  value={formData.location}
+                  onChange={handleInputChange}
+                  className="border border-gray-300 p-2 
+                  rounded-md"
+                />
 
-              {/* Available Seats */}
-              <div>
-                <legend className="text-sm">Available Seat</legend>
-                <input type="number" name="availableSeat" value={formData.availableSeat} onChange={handleInputChange} className="input input-bordered w-full text-white" />
-              </div>
+                <input
+                  type="number"
+                  name="availableSeat"
+                  placeholder="Available Seats"
+                  value={formData.availableSeat}
+                  onChange={handleInputChange}
+                  className="border 
+                  border-gray-300 p-2 rounded-md"
+                />
 
-              {/* Event Type */}
-              <div>
-                <legend className="text-sm">Type Event</legend>
-                <div className="flex items-center space-x-4">
-                  <label className="flex items-center">
-                    <input type="radio" name="isPaid" value="free" onChange={handleEventTypeChange} className="radio" />
-                    <span className="ml-2">Free</span>
-                  </label>
-                  <label className="flex items-center">
-                    <input type="radio" name="isPaid" value="paid" onChange={handleEventTypeChange} className="radio " />
-                    <span className="ml-2">Paid</span>
-                  </label>
+                <input
+                  type="text"
+                  name="eventTypeId"
+                  placeholder="Event Type ID"
+                  value={formData.eventTypeId}
+                  onChange={handleInputChange}
+                  className="border 
+                  border-gray-300 p-2 rounded-md"
+                />
+
+                <div className="label font-bold pb-4">
+                  <span className="label-text text-2xl ">Add Your Event-Photo</span>
                 </div>
-              </div>
 
-              {/* Price Field (Conditionally Rendered) */}
-              {!isFreeEvent && (
-                <div>
-                  <legend className="text-sm">Event Price</legend>
-                  <input type="number" name="price" value={formData.price} onChange={handleInputChange} className="input input-bordered w-full text-white" />
-                </div>
-              )}
+                <input type="file" name="eventPhoto" className="file-input file-input-ghost w-full max-w-xs" />
 
-              {/* Event Photo */}
-              <div className="mt-4">
-                <legend className="text-sm">Add Your Event Photo</legend>
-                <input type="file" name="eventPhoto" onChange={handleInputChange} className="file-input file-input-bordered w-full text-white" />
-              </div>
-
-              {/* Submit Button */}
-              <div className="card-actions justify-end mt-4">
-                <button type="submit" className="btn btn-primary w-full">
+                <button type="submit" className="bg-slate-700 outline outline-2 outline-red-700 text-white px-4 py-2 rounded-md">
                   Submit
                 </button>
               </div>
