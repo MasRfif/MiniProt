@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { RequestWithUserId, VerifiedUser } from "../types";
 
 // Authentication
 export async function verifyToken(
@@ -21,8 +22,9 @@ export async function verifyToken(
     if (!verifiedUser)
       return res.status(401).json({ message: "Invalid token" });
 
-    (req as any).user = verifiedUser;
+    // (req as any).user = verifiedUser;
     //console.log(verifiedUser);
+    (req as RequestWithUserId).user = verifiedUser as VerifiedUser;
 
     next();
   } catch (error) {

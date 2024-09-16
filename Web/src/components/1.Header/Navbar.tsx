@@ -14,7 +14,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "/home" },
     { name: "Event", href: "/event" },
-    { name: "Feedback", href: "/feedback" },
+    // { name: "Feedback", href: "/feedback" },
     { name: "Help", href: "/help" },
   ];
 
@@ -54,6 +54,7 @@ export default function Navbar() {
       method: "GET",
       credentials: "include",
     });
+    // console.log(res);
     if (res.ok) {
       setIsLoggedIn(true);
     } else {
@@ -182,8 +183,8 @@ export default function Navbar() {
                 ))}
               </ul>
             </div>
-
-            <div className="flex items-center max-md:hidden  ">
+            {/* duplicate login button? */}
+            <div className="flex items-center max-md:hidden">
               {isLoggedIn ? (
                 <div className="dropdown dropdown-end">
                   <div
@@ -218,7 +219,7 @@ export default function Navbar() {
                   </ul>
                 </div>
               ) : (
-                <Link href="/Login">
+                <Link href="/login">
                   <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
                     Log In
                   </button>
@@ -261,7 +262,7 @@ export default function Navbar() {
                 </div>
               ) : (
                 <div className="hidden md:block">
-                  <Link href="/signup">
+                  <Link href="/login">
                     <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
                       Login
                     </button>
@@ -316,7 +317,7 @@ export default function Navbar() {
                             </div>
                           </div>
                         ) : (
-                          <Link href="/SignUp">
+                          <Link href="/signup">
                             <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
                               Sign Up
                             </button>

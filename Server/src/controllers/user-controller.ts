@@ -1,9 +1,14 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
+import { RequestWithUserId } from "../types";
 
 const prisma = new PrismaClient();
 
-export async function getAllUser(req: Request, res: Response, next: NextFunction) {
+export async function getAllUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const users = await prisma.users.findMany();
     return res.status(200).json({ data: users });
@@ -12,14 +17,18 @@ export async function getAllUser(req: Request, res: Response, next: NextFunction
   }
 }
 
-export async function getSingleUser(req: Request, res: Response, next: NextFunction) {
+export async function getSingleUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
-    const { id } = req.params;
+    const id = (req as RequestWithUserId).user?.userId;
     const user = await prisma.users.findUnique({
       where: {
         id: Number(id), //semua input yg d masukin user akan berbentuk string
-        //id: Number(id)
       },
+      include: { wallet: true, referalCode: true },
     });
 
     return res.status(200).json({ data: user });
@@ -29,7 +38,11 @@ export async function getSingleUser(req: Request, res: Response, next: NextFunct
 }
 
 //edit user - Note edit profile
-export async function updateUser(req: Request, res: Response, next: NextFunction) {
+export async function updateUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   //Note blm bisa ubah password
   try {
     const { id } = req.params;
@@ -51,7 +64,11 @@ export async function updateUser(req: Request, res: Response, next: NextFunction
   }
 }
 
-export async function deleteUser(req: Request, res: Response, next: NextFunction) {
+export async function deleteUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { id } = req.params;
 

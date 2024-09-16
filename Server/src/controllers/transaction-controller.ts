@@ -4,11 +4,7 @@ import { Request, Response, NextFunction } from "express";
 const prisma = new PrismaClient();
 
 // Create a new transaction
-export async function createTransaction(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function createTransaction(req: Request, res: Response, next: NextFunction) {
   try {
     const { walletId, eventId, quantity, usePoint, voucherId } = req.body;
 
@@ -67,8 +63,11 @@ export async function createTransaction(
     const ticket = await prisma.tickets.create({
       data: {
         tixName: `${event.eventName} Ticket`,
-        price: Number(event.price),
+        // price: Number(event.price),
         qty: Number(quantity),
+        user: {
+          connect: { id: wallet.userId },
+        },
       },
     });
 
@@ -94,11 +93,7 @@ export async function createTransaction(
 }
 
 // Get all transactions for a wallet
-export async function getTransactions(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function getTransactions(req: Request, res: Response, next: NextFunction) {
   try {
     // const { walletId } = req.params;
     const transactions = await prisma.transaction.findMany();
@@ -114,11 +109,7 @@ export async function getTransactions(
 }
 
 // Get a single transaction by ID
-export async function getTransactionById(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function getTransactionById(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
 
@@ -141,11 +132,7 @@ export async function getTransactionById(
 }
 
 // Delete a transaction
-export async function deleteTransaction(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function deleteTransaction(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
 

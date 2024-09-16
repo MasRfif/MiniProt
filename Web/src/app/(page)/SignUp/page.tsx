@@ -1,5 +1,6 @@
 "use client";
 import Background from "@/components/2.Body/Background";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -9,22 +10,23 @@ export default function SignUp() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [roleId, setRoleId] = useState("");
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const data = { firstName, lastName, username, email, password };
+    const data = { firstName, lastName, username, email, password, roleId };
 
     try {
       await fetch("http://localhost:8069/api/v1/auth/register", {
-
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
         credentials: "include",
       });
 
+      console.log(roleId);
       router.push("/login"); //push ke confirm email
       router.refresh();
     } catch (error) {
@@ -159,6 +161,34 @@ export default function SignUp() {
                   </div>
                 </div>
               </div>
+
+              {/* User Type */}
+              <div>
+                <label className="text-sm">Register as</label>
+                <div className="flex items-center space-x-4">
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      name="userRole"
+                      value={roleId}
+                      onChange={(e) => setRoleId("2")}
+                      className="radio"
+                    />
+                    <span className="ml-2">Consumer</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      name="userRole"
+                      value={roleId}
+                      onChange={(e) => setRoleId("1")}
+                      className="radio"
+                    />
+                    <span className="ml-2">Event Organizer</span>
+                  </label>
+                </div>
+              </div>
+
               <div className="flex items-center justify-between">
                 <button
                   type="submit"
@@ -166,12 +196,12 @@ export default function SignUp() {
                 >
                   Sign Up
                 </button>
-                <a
-                  href="/Login"
+                <Link
+                  href="/login"
                   className="inline-block align-baseline font-bold text-sm text-[#725d36] hover:text-[#b5a85a]"
                 >
                   Log In
-                </a>
+                </Link>
               </div>
 
               <div></div>

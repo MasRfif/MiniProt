@@ -27,6 +27,7 @@ model Users {
   token          Token?
   isNewUser      Boolean        @default(true)
   //new
+  ticket         Tickets[]
   wallet         Wallet[]
   voucher        Voucher[]
   referalCode    ReferralCode[]
@@ -75,21 +76,23 @@ model Events {
 model Tickets {
   id          Int           @id @default(autoincrement())
   tixName     String?
-  price       Int
+  // price       Int?
   qty         Int
   used        Boolean       @default(false)
   expireDate  DateTime?
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
-  Transaction Transaction[]
-  Statistic   Statistic[]
+  userId      Int
+  user        Users         @relation(fields: [userId], references: [id])
+  transaction Transaction[]
+  statistic   Statistic[]
 
   @@map("tickets")
 }
 
 model Wallet {
   id          Int           @id @default(autoincrement())
-  saldo       Int           @default(10000)
+  saldo       Int           @default(0)
   points      Int           @default(0)
   userId      Int
   user        Users         @relation(fields: [userId], references: [id])
@@ -115,15 +118,15 @@ model Transaction {
 }
 
 model Voucher {
-  id          Int      @id @default(autoincrement())
-  description String
-  discount    Int
-  expireDate  DateTime
-  isUsed      Boolean  @default(false)
-  userId      Int
-  User        Users    @relation(fields: [userId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  title      String
+  discount   Int
+  expireDate DateTime
+  isUsed     Boolean  @default(false)
+  userId     Int
+  user       Users    @relation(fields: [userId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@map("vouchers")
 }

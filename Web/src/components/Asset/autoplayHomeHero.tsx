@@ -7,10 +7,10 @@ const HeroCar = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const imagesFood = useMemo(
     () => [
-      "/TestHero1.jpg",
-      "/TestHero2.jpeg",
-      "/TestHero1.jpg",
-      "/TestHero2.jpeg",
+      "/port_street.jpg",
+      "/port_jp.jpg",
+      "/port_street.jpg",
+      "/port_jp.jpg",
     ],
     []
   );
