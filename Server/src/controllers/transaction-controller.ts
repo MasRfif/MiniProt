@@ -42,6 +42,7 @@ export async function createTransaction(
     //     (event.price * quantity * voucher.discount) / 100
     //   : event.price * quantity;
 
+    /*
     const totalCost = event.price * quantity;
 
     // Check if the user has enough saldo
@@ -75,6 +76,46 @@ export async function createTransaction(
       data: {
         saldo: y,
         points: x < 0 ? 0 : x,
+      },
+    });
+    */
+
+    const totalCost = event.price * quantity;
+
+    // Check if the user has enough saldo
+    if (
+      usePoint
+        ? wallet.saldo + wallet.points < totalCost
+        : wallet.saldo < totalCost
+    ) {
+      return res.status(400).json({ message: "Insufficient saldo" });
+    }
+
+    let pointsAfterDeduction = wallet.points;
+    let saldoAfterDeduction = wallet.saldo;
+
+    if (usePoint) {
+      if (wallet.points >= totalCost) {
+        // Points are enough to cover the total cost
+        pointsAfterDeduction = wallet.points - totalCost;
+        saldoAfterDeduction = wallet.saldo; // No change in saldo
+      } else {
+        // Points are not enough, subtract remaining cost from saldo
+        const remainingCost = totalCost - wallet.points;
+        pointsAfterDeduction = 0; // All points used up
+        saldoAfterDeduction = wallet.saldo - remainingCost;
+      }
+    } else {
+      // Not using points, subtract the total cost from saldo directly
+      saldoAfterDeduction = wallet.saldo - totalCost;
+    }
+
+    // Deduct saldo and points from the wallet
+    await prisma.wallet.update({
+      where: { id: walletId },
+      data: {
+        saldo: saldoAfterDeduction,
+        points: pointsAfterDeduction,
       },
     });
 
