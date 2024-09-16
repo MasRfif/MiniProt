@@ -78,7 +78,7 @@ async function inputData() {
   //voucher
   const aliceVoucher = await prisma.voucher.create({
     data: {
-      description: "Voucher 50% Off",
+      title: "Voucher 50% Off",
       discount: 50,
       expireDate: new Date(Date.now() + 3 * 30 * 24 * 60 * 60 * 1000),
       user: {
@@ -89,7 +89,7 @@ async function inputData() {
 
   const aliceVoucherExp = await prisma.voucher.create({
     data: {
-      description: "Voucher 90% Off (Exp)",
+      title: "Voucher 90% Off (Exp)",
       discount: 90,
       expireDate: new Date(Date.now()),
       user: {
