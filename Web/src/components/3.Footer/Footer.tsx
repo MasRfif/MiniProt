@@ -3,18 +3,18 @@ export default function Footer() {
     <>
       <footer className="footer bg-[#292929] text-base-content p-10">
         <nav>
-          <h6 className="footer-title text-red-600">Services</h6>
-          <a className="link link-hover text-white">Branding</a>
-          <a className="link link-hover text-white">Design</a>
+          <h6 className="footer-title text-red-600">Occassion Event Co. Ltd</h6>
+          <a className="link link-hover text-white">© 2024</a>
+          {/* <a className="link link-hover text-white">Design</a>
           <a className="link link-hover text-white">Marketing</a>
-          <a className="link link-hover text-white">Advertisement</a>
+          <a className="link link-hover text-white">Advertisement</a> */}
         </nav>
         <nav>
-          <h6 className="footer-title text-red-600">Company</h6>
-          <a className="link link-hover text-white">About us</a>
-          <a className="link link-hover text-white">Contact</a>
-          <a className="link link-hover text-white">Jobs</a>
-          <a className="link link-hover text-white">Press kit</a>
+          <h6 className="footer-title text-red-600">Contact</h6>
+          <a className="link link-hover text-white">+62 123456789</a>
+          <a className="link link-hover text-white">Pasar Manggis, Jakarta</a>
+          {/* <a className="link link-hover text-white">About Us</a>
+          <a className="link link-hover text-white">Charles Nikah</a> */}
         </nav>
         <nav>
           <h6 className="footer-title text-red-600">Social</h6>

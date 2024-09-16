@@ -20,7 +20,7 @@ export default function UserPage() {
 
       const resData = await res.json();
       setUserData(resData);
-      console.log(resData.data);
+      //console.log(resData.data);
     } catch (error) {
       console.error(error);
     }
@@ -46,7 +46,7 @@ export default function UserPage() {
             <h1 className="mt-2">
               Referral Code:{" "}
               <span className="font-light">
-                {userData?.data?.referralCode?.value}
+                {userData?.data?.referalCode?.[0]?.value}
               </span>
             </h1>
 
@@ -54,11 +54,11 @@ export default function UserPage() {
               <h2 className="font-semibold">Wallet Info</h2>
               <div className="flex items-center space-x-2">
                 <p>Balance:</p>
-                <p>a</p>
+                <p>{userData?.data?.wallet?.[0]?.saldo}</p>
               </div>
               <div className="flex items-center space-x-2 mt-2">
                 <p>Redeemed Points:</p>
-                <p>a</p>
+                <p>{userData?.data?.wallet?.[0]?.points}</p>
               </div>
             </div>
 
