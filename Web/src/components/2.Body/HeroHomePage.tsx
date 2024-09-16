@@ -29,10 +29,10 @@ export default function HeroHome() {
                   community of enthusiasts who share your passion. From
                   exclusive screenings and cosplay contests to immersive
                   workshops and meet-and-greets with your favorite creators,
-                  there’s always something thrilling happening at NihonFest.
-                  Welcome aboard, and get ready for an unforgettable experience!
-                  For any questions or support, our team is here to help. Let
-                  the adventure begin! 🚀🌸
+                  there is always something thrilling happening at Occasion
+                  Event. Welcome aboard, and get ready for an unforgettable
+                  experience! For any questions or support, our team is here to
+                  help. Let the adventure begin! 🚀🌸
                 </p>
                 <button className="px-6 py-3 bg-white text-black rounded-md hover:bg-gray-200">
                   <Link href={"/event"}>Explore</Link>

@@ -7,7 +7,7 @@ export default function Event() {
       <Navbar />
       <HeroEventPage />
       <div className=" bg-base-200 min-h-screen ">
-        <div className="hero-content ">
+        <div className="hero-content">
           <div className=" text-white w-full h-full">
             <div className="p-10">
               <h1 className="text-5xl font-bold">Discover our events</h1>

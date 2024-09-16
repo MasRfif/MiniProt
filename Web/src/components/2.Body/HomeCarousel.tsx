@@ -4,7 +4,7 @@ import EventCard from "../Asset/EventCard";
 export default function HomeCrls() {
   return (
     <div className=" bg-base-200 min-h-screen ">
-      <div className="hero-content ">
+      <div className="hero-content">
         <div className=" text-white w-full h-full">
           <div className="p-10">
             <h1 className="text-5xl font-bold">Discover our events</h1>
@@ -14,11 +14,9 @@ export default function HomeCrls() {
           </div>
 
           {/* <div className="carousel  max-[768px]:w-[45rem] max-[768px]:gap-10  gap-20 max-w-[113rem]   max-s:max-w-[24rem] max-s:mx-auto carousel-end rounded-box"> */}
-          <div className="grid grid-rows-1 lg:grid-cols-3 lg:grid-rows-3 gap-4 items-center justify-center">
-            {/* break */}
-            <EventCard />
-            {/* break */}
-          </div>
+          {/* break */}
+          <EventCard />
+          {/* break */}
         </div>
       </div>
     </div>
