@@ -14,7 +14,6 @@ export default function EventCard() {
       });
 
       const resData = await res.json();
-      console.log(resData);
       setEventData(resData);
     } catch (error) {
       console.error(error);

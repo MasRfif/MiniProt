@@ -41,7 +41,7 @@ export default function HeroHome() {
                     to help. Let the adventure begin! 🚀🌸
                   </p>
                   <button className="px-6 py-3 bg-white text-black rounded-md hover:bg-gray-200">
-                    Sign Up Now!
+                    <Link href={"/events"}>Explore</Link>
                   </button>
                 </div>
                 <HeroStatic />

@@ -1,29 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
-
 import EventCard from "../Asset/EventCard";
 
 export default function HomeCrls() {
-  const [eventData, setEventData] = useState({ data: [] });
-  const eventGetter = async () => {
-    try {
-      const res = await fetch("http://localhost:8069/api/v1/events", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-      });
-
-      const resData = await res.json();
-      console.log(resData);
-      setEventData(resData);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    eventGetter();
-  }, []);
-
   return (
     <div className=" bg-base-200 min-h-screen ">
       <div className="hero-content ">

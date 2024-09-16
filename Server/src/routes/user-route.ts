@@ -11,6 +11,7 @@ const router = express.Router();
 
 //router.use(adminGuard);
 router.route("/").get(getAllUser);
+router.route("/profile").get(getSingleUser);
 router.route("/:id").get(getSingleUser).put(updateUser).delete(deleteUser);
 
 export default router;

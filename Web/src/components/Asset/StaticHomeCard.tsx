@@ -32,9 +32,9 @@ const HeroStatic = () => {
                 information.
               </p>
               <div className="card-actions justify-end">
-                <Link href="/event">
+                <Link href="/help">
                   <button className="btn badge bg-slate-700 outline outline-2 outline-red-700 text-white">
-                    Explore
+                    Help
                   </button>
                 </Link>
               </div>
