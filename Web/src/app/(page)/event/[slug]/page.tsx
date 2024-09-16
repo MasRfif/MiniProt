@@ -141,7 +141,7 @@ export default function EventDetails() {
               <div className="mt-4 text-lg text-gray-600">
                 Rp.{eventData?.message?.price},00
               </div>
-              <Link href="/home" className="p-5">
+              <Link href={`/transaction/${eventid}`} className="p-5">
                 <button className="mt-8 px-4 py-2 text-white bg-slate-700 outline outline-2 outline-red-700 rounded-btn">
                   Buy Ticket
                 </button>
