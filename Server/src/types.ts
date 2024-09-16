@@ -6,6 +6,7 @@ export interface VerifiedUser {
   email?: string;
   userId?: string;
   role?: string;
+  isNewUser?: boolean;
 }
 
 export interface RequestWithUserId extends Request {
