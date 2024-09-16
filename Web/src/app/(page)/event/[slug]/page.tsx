@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import Navbar from "@/components/1.Header/Navbar";
 import { useParams } from "next/navigation";
+import Testimonial from "@/components/2.Body/Testimonies";
 
 export default function EventDetails() {
   const params = useParams<any>();
@@ -141,7 +142,7 @@ export default function EventDetails() {
               <div className="mt-4 text-lg text-gray-600">
                 Rp.{eventData?.message?.price},00
               </div>
-              <Link href="/home" className="p-5">
+              <Link href={`/transaction/${eventid}`} className="p-5">
                 <button className="mt-8 px-4 py-2 text-white bg-slate-700 outline outline-2 outline-red-700 rounded-btn">
                   Buy Ticket
                 </button>
@@ -150,6 +151,7 @@ export default function EventDetails() {
           </div>
         </section>
       </section>
+      <Testimonial />
     </>
   );
 }

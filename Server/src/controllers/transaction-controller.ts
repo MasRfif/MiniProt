@@ -4,7 +4,11 @@ import { Request, Response, NextFunction } from "express";
 const prisma = new PrismaClient();
 
 // Create a new transaction
-export async function createTransaction(req: Request, res: Response, next: NextFunction) {
+export async function createTransaction(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { walletId, eventId, quantity, usePoint, voucherId } = req.body;
 
@@ -33,10 +37,12 @@ export async function createTransaction(req: Request, res: Response, next: NextF
       });
     }
 
-    const totalCost = voucher
-      ? event.price * quantity -
-        (event.price * quantity * voucher.discount) / 100
-      : event.price * quantity;
+    // const totalCost = voucher
+    //   ? event.price * quantity -
+    //     (event.price * quantity * voucher.discount) / 100
+    //   : event.price * quantity;
+
+    const totalCost = event.price * quantity;
 
     // Check if the user has enough saldo
     if (
@@ -47,15 +53,28 @@ export async function createTransaction(req: Request, res: Response, next: NextF
       return res.status(400).json({ message: "Insufficient saldo" });
     }
 
-    const x = wallet.points - totalCost;
-    const y = wallet.saldo - x;
+    let x = 0;
+    let y = 0;
+
+    if (usePoint) {
+      if (wallet.points - totalCost > 0) {
+        x = wallet.points - totalCost;
+        y = wallet.saldo - x;
+      } else {
+        x = wallet.points - totalCost;
+        y = wallet.saldo + x;
+      }
+    } else {
+      x = wallet.points - totalCost;
+      y = wallet.saldo - x;
+    }
 
     // Deduct saldo from the wallet
     await prisma.wallet.update({
       where: { id: walletId },
       data: {
         saldo: y,
-        points: x,
+        points: x < 0 ? 0 : x,
       },
     });
 
@@ -93,7 +112,11 @@ export async function createTransaction(req: Request, res: Response, next: NextF
 }
 
 // Get all transactions for a wallet
-export async function getTransactions(req: Request, res: Response, next: NextFunction) {
+export async function getTransactions(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     // const { walletId } = req.params;
     const transactions = await prisma.transaction.findMany();
@@ -109,7 +132,11 @@ export async function getTransactions(req: Request, res: Response, next: NextFun
 }
 
 // Get a single transaction by ID
-export async function getTransactionById(req: Request, res: Response, next: NextFunction) {
+export async function getTransactionById(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { id } = req.params;
 
@@ -132,7 +159,11 @@ export async function getTransactionById(req: Request, res: Response, next: Next
 }
 
 // Delete a transaction
-export async function deleteTransaction(req: Request, res: Response, next: NextFunction) {
+export async function deleteTransaction(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { id } = req.params;
 

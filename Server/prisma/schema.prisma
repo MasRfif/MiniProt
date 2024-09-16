@@ -92,7 +92,7 @@ model Tickets {
 
 model Wallet {
   id          Int           @id @default(autoincrement())
-  saldo       Int           @default(0)
+  saldo       Int           @default(100000)
   points      Int           @default(0)
   userId      Int
   user        Users         @relation(fields: [userId], references: [id])

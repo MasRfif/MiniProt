@@ -7,23 +7,23 @@ const Testimonial = () => {
   const testimonials = [
     {
       name: "John Doe",
-      role: "Software Engineer",
+      role: "USA",
       quote:
-        "This Next.js component file is a game-changer! The auto-sliding feature is incredibly smooth, and the styling with Tailwind CSS is spot-on.",
+        "Attending the anime event was an absolute blast! From the moment I walked in, I was immersed in a world of incredible cosplay, engaging panels, and enthusiastic fans. The guest speakers were amazing, and the energy was electric. I especially loved the cosplay contest—seeing so many creative interpretations of my favorite characters was a highlight. I can’t wait for next year’s event!",
       rating: 10,
     },
     {
       name: "Jane Smith",
-      role: "Product Designer",
+      role: "UK",
       quote:
-        "I was able to integrate this component into my project seamlessly. The documentation is clear and concise, and the performance is outstanding.",
+        "This anime event exceeded all my expectations! The variety of activities and the quality of the panels were fantastic. I had the chance to meet some of my favorite voice actors and even participated in a few workshops. The venue was well-organized, and the staff were friendly and helpful. It was great to be surrounded by fellow anime lovers and share our passion. Highly recommended for anyone who loves anime!",
       rating: 4,
     },
     {
       name: "David Lee",
-      role: "Marketing Manager",
+      role: "France",
       quote:
-        "This component has made our website much more interactive and engaging. The auto-sliding functionality is a real highlight.",
+        "What an incredible experience! The anime event was a perfect blend of fun and fandom. The exhibit halls were filled with unique merchandise and artwork, and the themed photo booths were a great touch. I was impressed by the range of programming, from Q&A sessions with industry professionals to interactive fan activities. It was a wonderful chance to connect with others who share my love for anime. Can’t wait for next year!",
       rating: 5,
     },
   ];

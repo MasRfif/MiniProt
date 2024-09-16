@@ -54,6 +54,7 @@ export async function register(
     // Generate confirmation token
     const token = crypto.randomBytes(20).toString("hex");
     const confirmationLink = `http://localhost:${process.env.PORT}/api/v1/auth/confirm-email?token=${token}`;
+    // const confirmationLink = `http://localhost:3000/emailconfirmed/token=${token}`;
 
     await prisma.token.create({
       data: {
@@ -118,8 +119,9 @@ export async function confirmEmail(
       data: { emailConfirmed: true },
     });
 
-    await prisma.referralCode.update({
-      where: { id: tokenRecord.id },
+    //refcode
+    await prisma.referralCode.updateMany({
+      where: { userId: tokenRecord.userId },
       data: {
         isActivated: true,
         expireDate: new Date(Date.now() + 3 * 30 * 24 * 60 * 60 * 1000), //3 months
@@ -161,7 +163,12 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     if (!isValidPassword) res.status(401).json({ message: "Invalid password" });
 
-    const jwtPayload = { userId: user?.id, email, roleId: user?.roleId };
+    const jwtPayload = {
+      userId: user?.id,
+      email,
+      roleId: user?.roleId,
+      isNewUser: user?.isNewUser,
+    };
     const token = jwt.sign(jwtPayload, process.env.JWT_SECRET_KEY as string, {
       expiresIn: rememberMe ? "3y" : "1h",
     });

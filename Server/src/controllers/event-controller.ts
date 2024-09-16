@@ -68,6 +68,10 @@ export async function getSingleEvent(
       where: {
         id: +id,
       },
+      include: {
+        feedback: true,
+        rating: true,
+      },
     });
 
     if (!post) res.status(404).json({ message: "Event not found" });

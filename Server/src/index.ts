@@ -15,6 +15,7 @@ import feedbackRouter from "./routes/feedback-routes";
 import { error } from "./middlewares/error-middleware";
 import { notFound } from "./middlewares/not-found-middleware";
 import { verifyToken } from "./middlewares/auth-middleware";
+import { RequestWithUserId } from "./types";
 
 const PORT = process.env.PORT || 8069;
 const app = express();
@@ -37,7 +38,11 @@ app.use("/api/v1/events", eventRouter);
 app.use(verifyToken);
 
 app.get("/api/v1/check", (req, res) => {
-  return res.status(200).json({ message: "You are logged in" });
+  const id = (req as RequestWithUserId).user?.userId;
+  const isNewUser = (req as RequestWithUserId).user?.isNewUser;
+  return res
+    .status(200)
+    .json({ message: "You are logged in", data: { id, isNewUser } });
 });
 
 app.use("/api/v1/users", userRouter);

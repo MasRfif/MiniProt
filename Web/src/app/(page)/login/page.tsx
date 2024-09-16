@@ -25,7 +25,14 @@ export default function Login() {
       });
 
       if (res.ok) {
-        router.push("/home");
+        const res: any = await fetch("http://localhost:8069/api/v1/check", {
+          method: "GET",
+          credentials: "include",
+        });
+        const resJson = await res.json();
+        //console.log(resJson);
+        router.push(resJson.data?.isNewUser ? "/refcode" : "/login");
+        // router.push("/home");
         router.refresh();
       } else {
         alert("Invalid username or password.");
@@ -37,7 +44,10 @@ export default function Login() {
 
   return (
     <>
-      <section id="hero" className="w-full h-screen self-center overflow-hidden bg-black">
+      <section
+        id="hero"
+        className="w-full h-screen self-center overflow-hidden bg-black"
+      >
         {" "}
         <section className="w-full h-full flex justify-center items-center font-bold rounded-r-3xl bg-gradient-to-l from-black/0 to-red-700/90">
           <Background />
@@ -91,10 +101,20 @@ export default function Login() {
               </div>
               <div className="flex items-center justify-between">
                 <label className="inline-flex items-center">
-                  <input type="checkbox" checked={rememberMe} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRememberMe(e.target.checked)} className="form-checkbox h-4 w-4 rounded-2xl text-yellow-700 hover:text-yellow-950" />
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setRememberMe(e.target.checked)
+                    }
+                    className="form-checkbox h-4 w-4 rounded-2xl text-yellow-700 hover:text-yellow-950"
+                  />
                   <span className="ml-2 text-black">Remember me</span>
                 </label>
-                <a className="inline-block align-baseline font-bold text-sm text-red-600 hover:text-yellow-950" href="/signup">
+                <a
+                  className="inline-block align-baseline font-bold text-sm text-red-600 hover:text-yellow-950"
+                  href="/signup"
+                >
                   Sign Up
                 </a>
               </div>
