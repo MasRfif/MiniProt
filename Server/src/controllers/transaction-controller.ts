@@ -67,8 +67,11 @@ export async function createTransaction(
     const ticket = await prisma.tickets.create({
       data: {
         tixName: `${event.eventName} Ticket`,
-        price: Number(event.price),
+        // price: Number(event.price),
         qty: Number(quantity),
+        user: {
+          connect: { id: wallet.userId },
+        },
       },
     });
 
