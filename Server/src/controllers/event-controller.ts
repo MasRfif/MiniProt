@@ -6,13 +6,13 @@ import fs from "fs/promises";
 const prisma = new PrismaClient();
 
 //get all events
-export async function getAllEvent(
+export async function getAllEventPagination(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   try {
-    const { page = 1, limit = 10 } = req.query;
+    const { page = 1, limit = 3 } = req.query;
     const offset = (Number(page) - 1) * Number(limit);
 
     const events = await prisma.events.findMany({
@@ -38,6 +38,24 @@ export async function getAllEvent(
   }
 }
 
+export async function getAllEvent(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { id } = req.params;
+    const events = await prisma.events.findMany();
+
+    if (!events) res.status(404).json({ message: "Event not found" });
+
+    res.status(201).json({ data: events });
+  } catch (error) {
+    next(error);
+    // res.status(500).json({ message: "Cannot get the event" });
+  }
+}
+
 // get single event
 export async function getSingleEvent(
   req: Request,
@@ -52,7 +70,7 @@ export async function getSingleEvent(
       },
     });
 
-    if (!post) res.status(404).json({ message: "Post not found" });
+    if (!post) res.status(404).json({ message: "Event not found" });
 
     res.status(201).json({ message: post });
   } catch (error) {

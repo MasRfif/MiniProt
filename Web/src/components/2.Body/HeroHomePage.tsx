@@ -16,7 +16,7 @@ export default function HeroHome() {
             <section className="flex sm:p-8  w-full h-full justify-between">
               <div className=" flex flex-col  items-start justify-center text-white w-full h-full  top-96  p-10 ">
                 <h1 className="text-4xl font-bold mb-4 font-fira-sans">
-                  Welcome to Ocassion Events—your ultimate destination for all
+                  Welcome to Occasion Events—your ultimate destination for all
                   things Japan and anime! 🎌✨
                 </h1>
                 <p className="text-lg xs:text-base  mb-8 sm:w-[38rem] ">
@@ -35,7 +35,7 @@ export default function HeroHome() {
                   the adventure begin! 🚀🌸
                 </p>
                 <button className="px-6 py-3 bg-white text-black rounded-md hover:bg-gray-200">
-                  <Link href={"/events"}>Explore</Link>
+                  <Link href={"/event"}>Explore</Link>
                 </button>
               </div>
               <HeroStatic />
