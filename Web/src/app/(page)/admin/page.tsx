@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, TextareaHTMLAttributes, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AdminPage() {
@@ -18,9 +18,7 @@ export default function AdminPage() {
   const [isFreeEvent, setIsFreeEvent] = useState(true);
   const router = useRouter();
 
-  const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
 
     if ((event.target as HTMLInputElement).files) {
@@ -31,12 +29,10 @@ export default function AdminPage() {
     }
   };
 
-  const handleEventTypeChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleEventTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isPaid = event.target.value;
     setFormData({ ...formData, isPaid });
-    setIsFreeEvent(isPaid === "free"); // Update isFreeEvent based on the selected value
+    setIsFreeEvent(isPaid === "free");
     if (isPaid === "free") {
       setFormData({ ...formData, price: 0, isPaid });
     }
@@ -54,7 +50,6 @@ export default function AdminPage() {
     formDataToSend.append("isPaid", formData.isPaid);
     formDataToSend.append("price", formData.price);
 
-    // Append the file if it's available
     if (formData.eventPhoto) {
       formDataToSend.append("image", formData.eventPhoto);
     }
@@ -67,159 +62,81 @@ export default function AdminPage() {
       });
 
       console.log(res);
-
-      // router.push("/");
-      // router.refresh();
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <>
       <section className="flex w-full h-screen justify-center items-center bg-gradient-to-t from-black to-red-700/90">
-        <div className="justify-center w-[80rem] h-fit rounded-xl bg-white">
-          <div className="p-10 w-full ">
-            <h1 className="text-3xl font-semibold">Create Event</h1>
-            <form onSubmit={handleSubmit}>
-              {/* Break */}
+        <div className="card bg-white shadow-xl max-w-[calc(100%-40px)]">
+          <div className="card-body p-6">
+            <h2 className="card-title text-lg font-semibold mb-4">Create Event</h2>
 
-              <div className="flex flex-col gap-4">
-                {/* Break */}
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              {/* Event Name */}
+              <div>
+                <legend className="text-sm">Event Name</legend>
+                <input type="text" name="eventName" value={formData.eventName} onChange={handleInputChange} className="input input-bordered w-full text-white" />
+              </div>
 
-                <div className="mt-3 ">
-                  <legend>Event Name</legend>
-                  <input
-                    type="text"
-                    name="eventName"
-                    value={formData.eventName}
-                    onChange={handleInputChange}
-                    className="border border-gray-300 p-2 rounded-md w-96 flex"
-                  />
+              {/* Description */}
+              <div>
+                <legend className="text-sm">Description Event</legend>
+                <textarea name="description" value={formData.description} onChange={handleInputChange} className="textarea textarea-bordered w-full text-white"></textarea>
+              </div>
+
+              {/* Location */}
+              <div>
+                <legend className="text-sm">Place & Location</legend>
+                <input type="text" name="location" value={formData.location} onChange={handleInputChange} className="input input-bordered w-full text-white" />
+              </div>
+
+              {/* Date & Time */}
+              <div>
+                <legend className="text-sm">Date & Time Event</legend>
+                <input type="datetime-local" name="datetime" value={formData.datetime} onChange={handleInputChange} className="input input-bordered w-full text-white" />
+              </div>
+
+              {/* Available Seats */}
+              <div>
+                <legend className="text-sm">Available Seat</legend>
+                <input type="number" name="availableSeat" value={formData.availableSeat} onChange={handleInputChange} className="input input-bordered w-full text-white" />
+              </div>
+
+              {/* Event Type */}
+              <div>
+                <legend className="text-sm">Type Event</legend>
+                <div className="flex items-center space-x-4">
+                  <label className="flex items-center">
+                    <input type="radio" name="isPaid" value="free" onChange={handleEventTypeChange} className="radio" />
+                    <span className="ml-2">Free</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input type="radio" name="isPaid" value="paid" onChange={handleEventTypeChange} className="radio " />
+                    <span className="ml-2">Paid</span>
+                  </label>
                 </div>
+              </div>
 
-                {/* Break */}
-
+              {/* Price Field (Conditionally Rendered) */}
+              {!isFreeEvent && (
                 <div>
-                  <legend> Description Event</legend>
-                  <textarea
-                    name="description"
-                    value={formData.description}
-                    onChange={handleInputChange}
-                    className="border border-gray-300 p-2 rounded-md w-96 flex "
-                  ></textarea>
-                  {/* <input type="text" name="description" value={formData.description} onChange={handleInputChange} className="border border-gray-300 p-2 rounded-md flex w-96 " /> */}
+                  <legend className="text-sm">Event Price</legend>
+                  <input type="number" name="price" value={formData.price} onChange={handleInputChange} className="input input-bordered w-full text-white" />
                 </div>
+              )}
 
-                {/* Break */}
+              {/* Event Photo */}
+              <div className="mt-4">
+                <legend className="text-sm">Add Your Event Photo</legend>
+                <input type="file" name="eventPhoto" onChange={handleInputChange} className="file-input file-input-bordered w-full text-white" />
+              </div>
 
-                <div>
-                  <legend>
-                    <h1>Place & Location</h1>
-                  </legend>
-                  <input
-                    type="text"
-                    name="location"
-                    value={formData.location}
-                    onChange={handleInputChange}
-                    className="border border-gray-300 p-2 
-                  rounded-md w-96 flex"
-                  />
-                </div>
-
-                {/* Break */}
-
-                <div>
-                  <legend>Date & Time Event</legend>
-                  <input
-                    type="datetime-local"
-                    name="datetime"
-                    value={formData.datetime}
-                    onChange={handleInputChange}
-                    className="border border-gray-300 p-2 rounded-md w-96 flex"
-                  />
-                </div>
-
-                {/* Break */}
-
-                <div>
-                  <legend>Available Seat</legend>
-                  <input
-                    type="number"
-                    name="availableSeat"
-                    value={formData.availableSeat}
-                    onChange={handleInputChange}
-                    className="border 
-                  border-gray-300 p-2 rounded-md w-96 flex"
-                  />
-                </div>
-
-                {/* Break */}
-
-                <div>
-                  <legend>Type event</legend>
-                  <span className="flex">
-                    <input
-                      type="radio"
-                      name="isPaid"
-                      value="free"
-                      onChange={handleEventTypeChange}
-                      className="border 
-                  border-gray-300 p-2 rounded-md "
-                    />{" "}
-                    <h4 className="mx-3">Free</h4>
-                  </span>
-
-                  {/* Break */}
-
-                  <span className="flex">
-                    <input
-                      type="radio"
-                      name="isPaid"
-                      value="paid"
-                      onChange={handleEventTypeChange}
-                      className="border 
-                  border-gray-300 p-2 rounded-md"
-                    />{" "}
-                    <h4 className="mx-3">Not Free</h4>
-                  </span>
-                </div>
-
-                {/* Break */}
-
-                {/* Conditionally render the price field */}
-                {!isFreeEvent && (
-                  <div>
-                    <legend>Event Price</legend>
-                    <input
-                      type="number"
-                      name="price"
-                      placeholder="Price"
-                      value={formData.price}
-                      onChange={handleInputChange}
-                      className="border border-gray-300 p-2 rounded-md w-96 flex"
-                    />
-                  </div>
-                )}
-
-                {/* Break */}
-
-                <div className="label font-bold pb-4">
-                  <span className="label-text text-2xl ">
-                    Add Your Event-Photo
-                  </span>
-                </div>
-
-                <input
-                  type="file"
-                  name="eventPhoto"
-                  className="file-input file-input-ghost w-full max-w-xs"
-                  onChange={handleInputChange}
-                />
-
-                <button
-                  type="submit"
-                  className="bg-slate-700 outline outline-2 outline-red-700 text-white px-4 py-2 rounded-md"
-                >
+              {/* Submit Button */}
+              <div className="card-actions justify-end mt-4">
+                <button type="submit" className="btn btn-primary w-full">
                   Submit
                 </button>
               </div>

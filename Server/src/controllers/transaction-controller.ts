@@ -10,7 +10,7 @@ export async function createTransaction(
   next: NextFunction
 ) {
   try {
-    const { walletId, ticketId, quantity } = req.body;
+    const { walletId, eventId, quantity, usePoint, voucherId } = req.body;
 
     // Fetch the wallet to check the saldo
     const wallet = await prisma.wallet.findUnique({
@@ -21,36 +21,71 @@ export async function createTransaction(
       return res.status(404).json({ message: "Wallet not found" });
     }
 
-    // Fetch the ticket to get the price
-    const ticket = await prisma.tickets.findUnique({
-      where: { id: ticketId },
+    // Fetch the event to get the price
+    const event = await prisma.events.findUnique({
+      where: { id: eventId },
     });
 
-    if (!ticket) {
-      return res.status(404).json({ message: "Ticket not found" });
+    if (!event) {
+      return res.status(404).json({ message: "event not found" });
     }
 
-    const totalCost = ticket.price * quantity;
+    let voucher = null;
+    if (voucherId) {
+      voucher = await prisma.voucher.findUnique({
+        where: { id: +voucherId },
+      });
+    }
+
+    const totalCost = voucher
+      ? event.price * quantity -
+        (event.price * quantity * voucher.discount) / 100
+      : event.price * quantity;
 
     // Check if the user has enough saldo
-    if (wallet.saldo < totalCost) {
+    if (
+      usePoint
+        ? wallet.saldo + wallet.points < totalCost
+        : wallet.saldo < totalCost
+    ) {
       return res.status(400).json({ message: "Insufficient saldo" });
     }
+
+    const x = wallet.points - totalCost;
+    const y = wallet.saldo - x;
 
     // Deduct saldo from the wallet
     await prisma.wallet.update({
       where: { id: walletId },
-      data: { saldo: wallet.saldo - totalCost },
+      data: {
+        saldo: y,
+        points: x,
+      },
+    });
+
+    // create ticket
+    const ticket = await prisma.tickets.create({
+      data: {
+        tixName: `${event.eventName} Ticket`,
+        price: Number(event.price),
+        qty: Number(quantity),
+      },
     });
 
     // Create the transaction
     const transaction = await prisma.transaction.create({
       data: {
         walletId,
-        ticketId,
+        ticketId: ticket.id,
         quantity,
       },
     });
+
+    if (voucher) {
+      await prisma.voucher.delete({
+        where: { id: +voucherId },
+      });
+    }
 
     res.status(201).json({ message: "Transaction created", transaction });
   } catch (error) {

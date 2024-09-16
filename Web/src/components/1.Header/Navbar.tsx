@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { encode } from "punycode";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 
@@ -82,6 +83,17 @@ export default function Navbar() {
     }
   };
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const route = useRouter();
+
+  const onSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const encodeSearchQuery = encodeURI(searchQuery);
+    router.push(`/search?q=${encodeSearchQuery}`);
+
+    console.log("SearchQuary!", encodeSearchQuery);
+  };
+
   return (
     <>
       <section>
@@ -100,22 +112,24 @@ export default function Navbar() {
               height={70}
             />
             <div className="relative w-96 hidden md:block">
-              <section className="flex items-center max-w-sm mx-auto">
+              {/* <section className="flex items-center max-w-sm mx-auto">
                 <label htmlFor="simple-search" className="sr-only">
                   Search
                 </label>
-                <div className=" w-full">
+                <div className="w-full" onSubmit={onSearch}>
                   <input
                     type="text"
                     id="simple-search"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full ps-5 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-ring-red-500"
                     placeholder="Search Event Name"
-                    required
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                   />
                 </div>
                 <button
                   type="submit"
                   className="p-2.5 ms-2 text-sm font-medium text-white bg-red-700 rounded-lg border  border-red-800 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-700 dark:bg-gray-700 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                  onSubmit={onSearch}
                 >
                   <svg
                     className="w-4 h-4"
@@ -134,7 +148,17 @@ export default function Navbar() {
                   </svg>
                   <span className="sr-only">Search</span>
                 </button>
-              </section>
+              </section> */}
+              <form onSubmit={onSearch}>
+                <input
+                  type="text"
+                  id="simple-search"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full ps-5 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-ring-red-500"
+                  placeholder="Search Event Name"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </form>
             </div>
             <Link href="/">
               <Image
@@ -194,7 +218,7 @@ export default function Navbar() {
                   </ul>
                 </div>
               ) : (
-                <Link href="/login">
+                <Link href="/Login">
                   <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
                     Log In
                   </button>
@@ -239,7 +263,7 @@ export default function Navbar() {
                 <div className="hidden md:block">
                   <Link href="/signup">
                     <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
-                      Sign Up
+                      Login
                     </button>
                   </Link>
                 </div>

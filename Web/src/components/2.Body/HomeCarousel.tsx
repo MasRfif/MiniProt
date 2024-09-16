@@ -4,6 +4,8 @@ import Link from "next/link";
 import Tag from "../Asset/Tags";
 import { useEffect, useState } from "react";
 
+import EventCard from "../Asset/EventCard";
+
 export default function HomeCrls() {
   const [eventData, setEventData] = useState({ data: [] });
   const eventGetter = async () => {
@@ -161,7 +163,7 @@ export default function HomeCrls() {
           </div>
 
           <div className="carousel  max-[768px]:w-[45rem] max-[768px]:gap-10  gap-20 max-w-[113rem]   max-s:max-w-[24rem] max-s:mx-auto carousel-end rounded-box">
-            <div className="carousel-item  ">
+            {/* <div className="carousel-item  ">
               <div className="p-2">
                 <Link href="/event">
                   <div className="block ">
@@ -199,35 +201,9 @@ export default function HomeCrls() {
                   </div>
                 </Link>
               </div>
-            </div>
+            </div> */}
             {/* break */}
-            {(eventData as any)?.data?.map((e: any) => (
-              <div className="carousel-item " key={e.id}>
-                <div className="card bg-base-100 w-96 h-96 shadow-xl">
-                  <figure className="h-48">
-                    <Image
-                      src={e.imageUrl || ""}
-                      alt="Shoes"
-                      width={600}
-                      height={600}
-                    />
-                  </figure>
-                  <div className="card-body">
-                    <h2 className="card-title">
-                      {e.eventName}
-                      <div className="badge badge-secondary">
-                        {e.isPaid ? "BUY" : "FREE"}
-                      </div>
-                    </h2>
-                    <p className="text-sm">{e.description}</p>
-                    <div className="card-actions justify-end">
-                      <div className="badge badge-outline">event Tag</div>
-                      <div className="badge badge-outline">event Tag</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+            <EventCard />
             {/* break */}
           </div>
           <div className="p-10">
