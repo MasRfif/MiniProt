@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import Navbar from "@/components/1.Header/Navbar";
 import { useParams } from "next/navigation";
+import Testimonial from "@/components/2.Body/Testimonies";
 
 export default function EventDetails() {
   const params = useParams<any>();
@@ -150,6 +151,7 @@ export default function EventDetails() {
           </div>
         </section>
       </section>
+      <Testimonial />
     </>
   );
 }

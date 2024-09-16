@@ -37,10 +37,12 @@ export async function createTransaction(
       });
     }
 
-    const totalCost = voucher
-      ? event.price * quantity -
-        (event.price * quantity * voucher.discount) / 100
-      : event.price * quantity;
+    // const totalCost = voucher
+    //   ? event.price * quantity -
+    //     (event.price * quantity * voucher.discount) / 100
+    //   : event.price * quantity;
+
+    const totalCost = event.price * quantity;
 
     // Check if the user has enough saldo
     if (
@@ -51,8 +53,21 @@ export async function createTransaction(
       return res.status(400).json({ message: "Insufficient saldo" });
     }
 
-    const x = wallet.points - totalCost;
-    const y = wallet.saldo - x;
+    let x = 0;
+    let y = 0;
+
+    if (usePoint) {
+      if (wallet.points - totalCost > 0) {
+        x = wallet.points - totalCost;
+        y = wallet.saldo - x;
+      } else {
+        x = wallet.points - totalCost;
+        y = wallet.saldo + x;
+      }
+    } else {
+      x = wallet.points - totalCost;
+      y = wallet.saldo - x;
+    }
 
     // Deduct saldo from the wallet
     await prisma.wallet.update({

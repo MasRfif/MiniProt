@@ -196,7 +196,7 @@ export default function Navbar() {
                       <div className="ring-red-800 ring-offset-base-100 w-14 rounded-full ring ring-offset-2">
                         <Image
                           alt="IconImg"
-                          src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                          src="/avatar.jpg"
                           width={40}
                           height={40}
                         />
@@ -238,7 +238,7 @@ export default function Navbar() {
                       <div className="ring-red-800 ring-offset-base-100 w-14 rounded-full ring ring-offset-2">
                         <Image
                           alt="IconImg"
-                          src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                          src="/avatar.jpg"
                           width={40}
                           height={40}
                         />
@@ -310,7 +310,7 @@ export default function Navbar() {
                             <div className="ring-red-800 ring-offset-base-100 w-14 rounded-full ring ring-offset-2">
                               <Image
                                 alt="IconImg"
-                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                src="/avatar.jpg"
                                 width={40}
                                 height={40}
                               />
